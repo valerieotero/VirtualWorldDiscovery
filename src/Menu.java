@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -199,10 +200,15 @@ public class Menu {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				
 				//Gets the name entered by the user
 				configFile = textFieldNewMapName.getText();
-				writingHeader(configFile);
-			}
+				
+				//Validates that the name is not an empty string
+				if(!(configFile.isEmpty())) {
+					writingHeader(configFile);
+				}							
+				JOptionPane.showMessageDialog(null, "Must enter a name to save", "Warning", JOptionPane.INFORMATION_MESSAGE);				}
 		});
 		btnSave.setBounds(550, 161, 89, 23);
 		newMapPanel.add(btnSave);
@@ -221,4 +227,5 @@ public class Menu {
 	private void writingCoordinates() {
 		
 	}
+	
 }
