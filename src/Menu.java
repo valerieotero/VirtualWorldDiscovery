@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
@@ -18,7 +20,20 @@ public class Menu {
 	private JPanel designPanel;
 	private JPanel gameModePanel;
 	private JPanel newMapPanel;
-
+	private JTextField textFieldNewMapName;
+	
+	//Writer/Reader variables
+	private String configFile;
+	private String buildingName;
+	private Writer writer;
+	private Reader reader;
+	
+	//Coordinate variables
+	private JTextField inputX;
+	private JTextField inputY;
+	private JTextField inputZ;
+	private JTextField inputW;
+	
 
 	/**
 	 * Launch the application.
@@ -167,7 +182,7 @@ public class Menu {
 		newMapPanel.add(lblEnterMapName);
 		
 		//INPUT - NEW MAP NAME
-		JTextField textFieldNewMapName = new JTextField();
+		textFieldNewMapName = new JTextField();
 		textFieldNewMapName.setBounds(111, 105,120, 23);
 		newMapPanel.add(textFieldNewMapName);
 		textFieldNewMapName.setColumns(10);
@@ -176,14 +191,27 @@ public class Menu {
 		JButton btnSave = new JButton("Save");
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {	
-
+			public void mouseClicked(MouseEvent arg0) {
+				//Gets the name entered by the user
+				configFile = textFieldNewMapName.getText();
+				writingHeader(configFile);
 			}
 		});
 		btnSave.setBounds(265, 105, 89, 23);
 		newMapPanel.add(btnSave);
-
 	}
-
+	
+	//Helper method to write the name of the map and header of the file
+	//header -> Map name
+	private void writingHeader(String s) {
+		writer.open(s);
+		writer.write("Map name = ");
+		writer.write(s);
+		writer.newLine();
+		writer.close();
+	}
+	
+	private void writingCoordinates() {
+		
+	}
 }
-

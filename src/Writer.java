@@ -3,18 +3,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Writer {
-	static BufferedWriter configFile;
+	private static BufferedWriter configFile;
 	
 	//main tester
 	//delete after use
-	public static void main(String[] args) {
-		String f = "configuration";
-		String w = "I can open the file";
-		open(f);
-		write(w);
-		write("im yamil");
-		close();
-	}
+//	public static void main(String[] args) {
+//		String f = "configuration";
+//		String w = "I can open the file";
+//		open(f);
+//		write(w);
+//		write("im yamil");
+//		close();
+//	}
 
 	//Will try to open the file wanted
 	public static void open(String fileName) {
@@ -40,6 +40,14 @@ public class Writer {
 	public static void write(String sentence) {
 		try {
 			configFile.write(sentence);
+		}catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void newLine() {
+		try {
 			configFile.newLine();
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
