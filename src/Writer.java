@@ -19,7 +19,7 @@ public class Writer {
 	//Will try to open the file wanted
 	public static void open(String fileName) {
 		try {
-			configFile = new BufferedWriter(new FileWriter(fileName));
+			configFile = new BufferedWriter(new FileWriter(fileName, true));
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();

@@ -1,8 +1,9 @@
 Map name = RUM
 
 Building 1 = Chardon
-Wall 1 = (10,10,60,10) (10,40,60,10) wall.png
-Wall 2 = (10,40,60,10) (40,40,60,10) wall.png
-Wall 3 = (40,40,60,10) (40,10,60,10) wall.png
-Wall 4 = (40,10,60,10) (10,10,60,10) wall.png
+
+Wall 1 = (10,10)(10,40)(10,60)wall.png
+Wall 2 = (10,40)(40,40)(10,60)wall.png
+Wall 3 = (40,40)(40,10)(10,60)wall.png
+Wall 4 = (40,10)(10,10)(10,60)wall.png
 
