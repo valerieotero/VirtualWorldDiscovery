@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -14,15 +15,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Graphics;
 
 public class Menu {
 
@@ -40,6 +46,7 @@ public class Menu {
 	//New Created Map Variables
 	JButton btnUploadBackgroundImage;
 	JLabel lblBackGroundLabel;	
+	JButton btnDrawLines;
 
 	//Writer/Reader variables
 	private String configFile;
@@ -56,6 +63,18 @@ public class Menu {
 	private JTextField textField;
 
 	private JTextField textField_2;
+	
+	//John - for testing purposes
+	private static ArrayList<Line> linesList = new ArrayList<Line>();
+	
+	private Line line;
+	private Line finishedLine;
+	
+	private int xbegin = 0; 
+	private int ybegin = 0; 
+	private int xend = 0; 
+	private int yend = 0; 
+	//John - for testing purposes
 
 
 	/**
@@ -277,6 +296,8 @@ public class Menu {
 		newCreatedMapPanel.add(lblBackGroundLabel);
 		
 		initializeCoordinatesLabelAndInputs();
+		initializeDrawLines();
+		initializeSaveBuilding();
 
 		btnUploadBackgroundImage = new JButton("Upload background image");
 		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
@@ -373,7 +394,102 @@ public class Menu {
 		JTextField textFieldToY = new JTextField();
 		textFieldToY.setColumns(10);
 		textFieldToY.setBounds(720, 650, 51, 20);
-		newCreatedMapPanel.add(textFieldToY);
+		newCreatedMapPanel.add(textFieldToY);	
+	
 
 	}
+	
+	public void initializeDrawLines() {
+		
+		//DRAW LINES BUTTON
+		JButton btnDrawLines = new JButton("Draw Line for Building Wall");
+		btnDrawLines.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				drawLines();
+			}
+		});
+		btnDrawLines.setIcon(null);
+		btnDrawLines.setBounds(780, 650, 200, 20);
+		newCreatedMapPanel.add(btnDrawLines);
+	}
+	
+	public void initializeSaveBuilding() {
+		
+		//DRAW LINES BUTTON
+		JButton btnDrawLines = new JButton("Draw Building Wall Manually");
+		btnDrawLines.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				drawLines();
+			}
+		});
+		btnDrawLines.setIcon(null);
+		btnDrawLines.setBounds(780, 650, 200, 20);
+		newCreatedMapPanel.add(btnDrawLines);
+	}
+
+	
+	public void drawLines() {		
+		newCreatedMapPanel.addMouseListener(mouseHandler);
+		newCreatedMapPanel.addMouseMotionListener(mouseMotionHandler);
+		line = new Line();
+		line.setForeground(Color.BLACK);
+		line.setBounds(0, 0, 1008, 681);
+		line.setOpaque(false);
+		newCreatedMapPanel.add(line);
+	}
+	
+	public MouseListener mouseHandler = new MouseAdapter() {
+		@Override
+		public void mousePressed(MouseEvent e) {
+			xbegin = xend = e.getX();
+			ybegin = yend = e.getY();
+			line.coordinateList.set(0, xbegin);
+			line.coordinateList.set(1, ybegin);
+			line.coordinateList.set(2, xend);
+			line.coordinateList.set(3, yend);
+			line.repaint();
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			xend = e.getX();
+			yend = e.getY();
+			finishedLine = new Line();
+			line.coordinateList.set(0, xbegin);
+			line.coordinateList.set(1, ybegin);
+			line.coordinateList.set(2, xend);
+			line.coordinateList.set(3, yend);
+			
+			linesList.add(finishedLine);
+			line.repaint();
+		}
+	};
+	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			xend = e.getX();
+			yend = e.getY();
+			line.coordinateList.set(2, xend);
+			line.coordinateList.set(3, yend);
+			line.repaint();
+		}
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
