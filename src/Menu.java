@@ -1,7 +1,10 @@
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -10,19 +13,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
 public class Menu {
 
+	//Panel variabled
 	private JFrame frame;
 	private JPanel designPanel;
 	private JPanel gameModePanel;
 	private JPanel newMapPanel;
-	private JTextField textFieldNewMapName;
+	private JPanel newCreatedMapPanel;	
+	
+	//New Created Map Variables
+	JButton btnUploadBackgroundImage;
+	JLabel lblBackGroundLabel;	
 	
 	//Writer/Reader variables
 	private String configFile;
@@ -113,9 +125,9 @@ public class Menu {
 		});
 		btnPlay.setBounds(426, 195, 89, 23);
 		gameModePanel.add(btnPlay);	
-
 	}
-
+	
+	
 	public void initializeDesignPanel() {
 		gameModePanel.setVisible(false);
 
@@ -190,7 +202,7 @@ public class Menu {
 		newMapPanel.add(lblEnterMapName);
 		
 		//INPUT - NEW MAP NAME
-		textFieldNewMapName = new JTextField();
+		JTextField textFieldNewMapName;textFieldNewMapName = new JTextField();
 		textFieldNewMapName.setBounds(426, 161, 89, 23);
 		newMapPanel.add(textFieldNewMapName);
 		textFieldNewMapName.setColumns(10);
@@ -200,16 +212,21 @@ public class Menu {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+
 				//Gets the name entered by the user
 				configFile = textFieldNewMapName.getText();
-				
+
 				//Validates that the name is not an empty string
 				if(!(configFile.isEmpty())) {
+					
 					writingHeader(configFile);
-				}							
-				JOptionPane.showMessageDialog(null, "Must enter a name to save", "Warning", JOptionPane.INFORMATION_MESSAGE);				}
-		});
+					
+					initializeCreateMapPanel();					
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Must enter a name to save", "Warning", JOptionPane.INFORMATION_MESSAGE);	
+				}
+			}});
 		btnSave.setBounds(550, 161, 89, 23);
 		newMapPanel.add(btnSave);
 	}
@@ -228,4 +245,58 @@ public class Menu {
 		
 	}
 	
+	
+	public void initializeCreateMapPanel(){
+		newMapPanel.setVisible(false);
+		
+		//NEW CREATED MAP PANEL
+		newCreatedMapPanel = new JPanel();
+		newCreatedMapPanel.setBounds(0, 0, 1008, 681);
+		frame.getContentPane().add(newCreatedMapPanel);
+		newCreatedMapPanel.setLayout(null);	
+		
+		//LABEL-WHERE BACKGROUND IMAGE IS SET
+	    lblBackGroundLabel= new JLabel("");
+		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
+		newCreatedMapPanel.add(lblBackGroundLabel);
+		
+	    btnUploadBackgroundImage = new JButton("Upload background image");
+		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				btnUploadBackgroundImagectionPerformed(e);			
+
+			}
+
+		});
+		btnUploadBackgroundImage.setHorizontalAlignment(SwingConstants.LEFT);		
+		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);	
+		newCreatedMapPanel.add(btnUploadBackgroundImage);
+	}
+
+	public void btnUploadBackgroundImagectionPerformed(MouseEvent e) {
+
+	 	JFileChooser chooser = new JFileChooser();
+	    BufferedImage img;	   				   
+	    File file ; 				  
+	
+	 if (e.getSource()==btnUploadBackgroundImage) {
+            chooser.showOpenDialog(null);
+            file = chooser.getSelectedFile();
+
+            try {
+                img=ImageIO.read(file);
+                ImageIcon icon=new ImageIcon(img);
+                lblBackGroundLabel.setIcon(icon);                                      
+
+                lblBackGroundLabel.revalidate(); 
+                lblBackGroundLabel.repaint(); 
+            }
+            catch(IOException e1) {
+            	System.out.println("Must select an image");
+            	
+            }
+        }
+	}
 }
