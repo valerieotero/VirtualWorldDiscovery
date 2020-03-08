@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
@@ -31,13 +32,16 @@ public class Menu {
 	private JPanel gameModePanel;
 	private JPanel newMapPanel;
 	private JTextField textFieldNewMapName;
-
-	private JPanel newCreatedMapPanel;	
+	private JPanel newCreatedMapPanel;
 	
+	//Design Panel Variables
+	String filesPath;
+	JComboBox<String> comboBoxLoadMap;		
+
 	//New Created Map Variables
 	JButton btnUploadBackgroundImage;
 	JLabel lblBackGroundLabel;	
-	
+
 	//Writer/Reader variables
 	private String configFile;
 	private String path;
@@ -129,8 +133,8 @@ public class Menu {
 		btnPlay.setBounds(426, 195, 89, 23);
 		gameModePanel.add(btnPlay);	
 	}
-	
-	
+
+
 	public void initializeDesignPanel() {
 		gameModePanel.setVisible(false);
 
@@ -159,20 +163,27 @@ public class Menu {
 		btnNewMap.setBounds(426, 161, 89, 23);
 		designPanel.add(btnNewMap);
 
-		//LOAD MAP BUTTON
-		JButton btnLoadMap = new JButton("Load Map");
-		btnLoadMap.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {							
+		//LABEL - LOAD MAP
+		JLabel lblLoadMap = new JLabel("Load Map:");
+		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblLoadMap.setBounds(426, 210, 89, 23);
+		designPanel.add(lblLoadMap);
 
-			}
-		});
-		btnLoadMap.setBounds(426, 195, 89, 23);
-		designPanel.add(btnLoadMap);
+		//LOAD MAP DROPDOWN
+		comboBoxLoadMap = new JComboBox<String>();	
 
+		filesPath = System.getProperty("user.dir");		
 
+		File directory = new File(filesPath+"\\Maps");
+
+		String[] fileList = directory.list();
+
+		for(String name:fileList){
+			comboBoxLoadMap.addItem(name);		
+		} 		
+		comboBoxLoadMap.setBounds(419, 230, 107, 20);
+		designPanel.add(comboBoxLoadMap);
 	}
-
 
 	public void initializeNewMapPanel() {
 
@@ -222,9 +233,9 @@ public class Menu {
 				writingHeader(path);
 				//Validates that the name is not an empty string
 				if(!(configFile.isEmpty())) {
-					
+
 					writingHeader(configFile);
-					
+
 					initializeCreateMapPanel();					
 				}
 				else {
@@ -247,28 +258,28 @@ public class Menu {
 
 	private void writingCoordinates() {
 	}
-	
-	
+
+
 	public void initializeCreateMapPanel(){
 		newMapPanel.setVisible(false);
-		
+
 		//NEW CREATED MAP PANEL
 		newCreatedMapPanel = new JPanel();
 		newCreatedMapPanel.setBounds(0, 0, 1008, 681);
 		frame.getContentPane().add(newCreatedMapPanel);
 		newCreatedMapPanel.setLayout(null);	
-		
+
 		//LABEL-WHERE BACKGROUND IMAGE IS SET
-	    lblBackGroundLabel= new JLabel("");
+		lblBackGroundLabel= new JLabel("");
 		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
 		newCreatedMapPanel.add(lblBackGroundLabel);
-		
-	    btnUploadBackgroundImage = new JButton("Upload background image");
+
+		btnUploadBackgroundImage = new JButton("Upload background image");
 		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				btnUploadBackgroundImagectionPerformed(e);			
+				btnUploadBackgroundImageMouseEvent(e);			
 
 			}
 
@@ -278,28 +289,28 @@ public class Menu {
 		newCreatedMapPanel.add(btnUploadBackgroundImage);
 	}
 
-	public void btnUploadBackgroundImagectionPerformed(MouseEvent e) {
+	public void btnUploadBackgroundImageMouseEvent(MouseEvent e) {
 
-	 	JFileChooser chooser = new JFileChooser();
-	    BufferedImage img;	   				   
-	    File file ; 				  
-	
-	 if (e.getSource()==btnUploadBackgroundImage) {
-            chooser.showOpenDialog(null);
-            file = chooser.getSelectedFile();
+		JFileChooser chooser = new JFileChooser();
+		BufferedImage img;	   				   
+		File file ; 				  
 
-            try {
-                img=ImageIO.read(file);
-                ImageIcon icon=new ImageIcon(img);
-                lblBackGroundLabel.setIcon(icon);                                      
+		if (e.getSource()==btnUploadBackgroundImage) {
+			chooser.showOpenDialog(null);
+			file = chooser.getSelectedFile();
 
-                lblBackGroundLabel.revalidate(); 
-                lblBackGroundLabel.repaint(); 
-            }
-            catch(IOException e1) {
-            	System.out.println("Must select an image");
-            	
-            }
-        }
+			try {
+				img=ImageIO.read(file);
+				ImageIcon icon=new ImageIcon(img);
+				lblBackGroundLabel.setIcon(icon);                                      
+
+				lblBackGroundLabel.revalidate(); 
+				lblBackGroundLabel.repaint(); 
+			}
+			catch(IOException e1) {
+				System.out.println("Must select an image");
+
+			}
+		}
 	}
 }
