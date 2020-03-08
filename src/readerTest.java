@@ -19,11 +19,11 @@ public class readerTest {
 	    }
 
 	    String data = str.toString();
-	    System.out.println(data);
+	    //System.out.println(data);
 	    String[] arr = data.split(",");
-//	    for(int i = 0; i < arr.length; i++) {
-//	    	System.out.println(arr[i]);;
-//	    }
+	    for(int i = 0; i < arr.length; i++) {
+	    	System.out.println(arr[i]);;
+	    }
 	    int i = 0;
 	    while(i != arr.length) {
 	    	//System.out.println("hey");

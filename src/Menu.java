@@ -1,29 +1,43 @@
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class Menu {
 
+	//Panel variabled
 	private JFrame frame;
 	private JPanel designPanel;
 	private JPanel gameModePanel;
 	private JPanel newMapPanel;
 	private JTextField textFieldNewMapName;
 
+	private JPanel newCreatedMapPanel;	
+	
+	//New Created Map Variables
+	JButton btnUploadBackgroundImage;
+	JLabel lblBackGroundLabel;	
+	
 	//Writer/Reader variables
 	private String configFile;
 	private String path;
@@ -71,7 +85,7 @@ public class Menu {
 	public void initializeFrame() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 400, 300);
+		frame.setBounds(100, 100, 1024, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -83,13 +97,14 @@ public class Menu {
 
 		//NEW GAME MODE PANEL
 		gameModePanel = new JPanel();
-		gameModePanel.setBounds(10, 11, 364, 239);
+		gameModePanel.setBounds(0, 0, 1008, 681);
 		frame.getContentPane().add(gameModePanel);
 		gameModePanel.setLayout(null);
 
 		//LABEL-CHOOSE GAME MODE
 		JLabel lblChooseGameMode = new JLabel("Choose game mode:");
-		lblChooseGameMode.setBounds(111, 64, 136, 14);
+		lblChooseGameMode.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblChooseGameMode.setBounds(408, 127, 139, 23);
 		gameModePanel.add(lblChooseGameMode);
 
 		//DESIGN BUTTON
@@ -102,28 +117,33 @@ public class Menu {
 
 			}
 		});
-		btnDesign.setBounds(125, 105, 89, 23);
+		btnDesign.setBounds(426, 161, 89, 23);
 		gameModePanel.add(btnDesign);
 
 		//PLAY BUTTON
 		JButton btnPlay = new JButton("Play");
-		btnPlay.setBounds(125, 139, 89, 23);
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnPlay.setBounds(426, 195, 89, 23);
 		gameModePanel.add(btnPlay);	
-
 	}
-
+	
+	
 	public void initializeDesignPanel() {
 		gameModePanel.setVisible(false);
 
 		//NEW DESIGN PANEL
 		designPanel = new JPanel();
-		designPanel.setBounds(10, 11, 364, 239);
+		designPanel.setBounds(0, 0, 1008, 681);
 		frame.getContentPane().add(designPanel);
 		designPanel.setLayout(null);				
 
 		//LABEL CHOOSE MAP
 		JLabel lblChooseMap = new JLabel("Choose Map:");
-		lblChooseMap.setBounds(111, 64, 136, 14);
+		lblChooseMap.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblChooseMap.setBounds(426, 127, 139, 23);
 		designPanel.add(lblChooseMap);
 
 		//NEW MAP BUTTON
@@ -136,7 +156,7 @@ public class Menu {
 
 			}
 		});
-		btnNewMap.setBounds(125, 105, 89, 23);
+		btnNewMap.setBounds(426, 161, 89, 23);
 		designPanel.add(btnNewMap);
 
 		//LOAD MAP BUTTON
@@ -147,7 +167,7 @@ public class Menu {
 
 			}
 		});
-		btnLoadMap.setBounds(125, 139, 89, 23);
+		btnLoadMap.setBounds(426, 195, 89, 23);
 		designPanel.add(btnLoadMap);
 
 
@@ -160,7 +180,7 @@ public class Menu {
 
 		//NEW MAP PANEL
 		newMapPanel = new JPanel();
-		newMapPanel.setBounds(10, 11, 364, 239);
+		newMapPanel.setBounds(0, 0, 1008, 681);
 		frame.getContentPane().add(newMapPanel);
 		newMapPanel.setLayout(null);	
 
@@ -181,27 +201,37 @@ public class Menu {
 
 		//LABEL ENTER MAP NAME
 		JLabel lblEnterMapName = new JLabel("Enter new map name:");
-		lblEnterMapName.setBounds(111, 80, 136, 14);
+		lblEnterMapName.setBounds(408, 127, 139, 23);
 		newMapPanel.add(lblEnterMapName);
 
 		//INPUT - NEW MAP NAME
-		textFieldNewMapName = new JTextField();
-		textFieldNewMapName.setBounds(111, 105,120, 23);
+		JTextField textFieldNewMapName;textFieldNewMapName = new JTextField();
+		textFieldNewMapName.setBounds(426, 161, 89, 23);
 		newMapPanel.add(textFieldNewMapName);
 		textFieldNewMapName.setColumns(10);
 
-		//SAVE BUTTON
 		JButton btnSave = new JButton("Save");
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+
+				//Gets the name entered by the user
 				//Gets the name entered by the user
 				configFile = textFieldNewMapName.getText();
 				path = System.getProperty("user.dir")+File.separator+"maps"+File.separator+configFile;
 				writingHeader(path);
-			}
-		});
-		btnSave.setBounds(265, 105, 89, 23);
+				//Validates that the name is not an empty string
+				if(!(configFile.isEmpty())) {
+					
+					writingHeader(configFile);
+					
+					initializeCreateMapPanel();					
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Must enter a name to save", "Warning", JOptionPane.INFORMATION_MESSAGE);	
+				}
+			}});
+		btnSave.setBounds(550, 161, 89, 23);
 		newMapPanel.add(btnSave);
 	}
 
@@ -216,5 +246,60 @@ public class Menu {
 	}
 
 	private void writingCoordinates() {
+	}
+	
+	
+	public void initializeCreateMapPanel(){
+		newMapPanel.setVisible(false);
+		
+		//NEW CREATED MAP PANEL
+		newCreatedMapPanel = new JPanel();
+		newCreatedMapPanel.setBounds(0, 0, 1008, 681);
+		frame.getContentPane().add(newCreatedMapPanel);
+		newCreatedMapPanel.setLayout(null);	
+		
+		//LABEL-WHERE BACKGROUND IMAGE IS SET
+	    lblBackGroundLabel= new JLabel("");
+		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
+		newCreatedMapPanel.add(lblBackGroundLabel);
+		
+	    btnUploadBackgroundImage = new JButton("Upload background image");
+		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				btnUploadBackgroundImagectionPerformed(e);			
+
+			}
+
+		});
+		btnUploadBackgroundImage.setHorizontalAlignment(SwingConstants.LEFT);		
+		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);	
+		newCreatedMapPanel.add(btnUploadBackgroundImage);
+	}
+
+	public void btnUploadBackgroundImagectionPerformed(MouseEvent e) {
+
+	 	JFileChooser chooser = new JFileChooser();
+	    BufferedImage img;	   				   
+	    File file ; 				  
+	
+	 if (e.getSource()==btnUploadBackgroundImage) {
+            chooser.showOpenDialog(null);
+            file = chooser.getSelectedFile();
+
+            try {
+                img=ImageIO.read(file);
+                ImageIcon icon=new ImageIcon(img);
+                lblBackGroundLabel.setIcon(icon);                                      
+
+                lblBackGroundLabel.revalidate(); 
+                lblBackGroundLabel.repaint(); 
+            }
+            catch(IOException e1) {
+            	System.out.println("Must select an image");
+            	
+            }
+        }
 	}
 }
