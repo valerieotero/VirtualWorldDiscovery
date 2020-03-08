@@ -31,9 +31,8 @@ public class Menu {
 	private JPanel designPanel;
 	private JPanel gameModePanel;
 	private JPanel newMapPanel;
-	private JTextField textFieldNewMapName;
 	private JPanel newCreatedMapPanel;
-	
+
 	//Design Panel Variables
 	String filesPath;
 	JComboBox<String> comboBoxLoadMap;		
@@ -53,7 +52,10 @@ public class Menu {
 	private JTextField inputX;
 	private JTextField inputY;
 	private JTextField inputZ;
-	private JTextField inputW;
+	private JTextField inputW;	
+	private JTextField textField;
+
+	private JTextField textField_2;
 
 
 	/**
@@ -131,7 +133,7 @@ public class Menu {
 			}
 		});
 		btnPlay.setBounds(426, 195, 89, 23);
-		gameModePanel.add(btnPlay);	
+		gameModePanel.add(btnPlay);					
 	}
 
 
@@ -230,7 +232,7 @@ public class Menu {
 				//Gets the name entered by the user
 				configFile = textFieldNewMapName.getText();
 				path = System.getProperty("user.dir")+File.separator+"maps"+File.separator+configFile;
-				writingHeader(path);
+				
 				//Validates that the name is not an empty string
 				if(!(configFile.isEmpty())) {
 
@@ -273,6 +275,8 @@ public class Menu {
 		lblBackGroundLabel= new JLabel("");
 		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
 		newCreatedMapPanel.add(lblBackGroundLabel);
+		
+		initializeCoordinatesLabelAndInputs();
 
 		btnUploadBackgroundImage = new JButton("Upload background image");
 		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
@@ -312,5 +316,64 @@ public class Menu {
 
 			}
 		}
+	}
+
+	public void initializeCoordinatesLabelAndInputs() {
+		
+		//LABEL - FROM:
+		JLabel lblFrom = new JLabel("From:");
+		lblFrom.setBounds(515, 637, 37, 14);
+		newCreatedMapPanel.add(lblFrom);
+
+		//LABEL - FROM X
+		JLabel lblFromX = new JLabel("x=");
+		lblFromX.setBounds(450, 653, 23, 14);
+		newCreatedMapPanel.add(lblFromX);
+
+		//FROM X INPUT
+		JTextField textFieldFromX = new JTextField();
+		textFieldFromX.setBounds(470, 653, 46, 20);
+		newCreatedMapPanel.add(textFieldFromX);
+		textFieldFromX.setColumns(10);
+
+		//LABEL - FROM Y
+		JLabel lblFromY = new JLabel("y=");
+		lblFromY.setBounds(530, 653, 28, 14);
+		newCreatedMapPanel.add(lblFromY);
+
+		//FROM Y INPUT
+		JTextField textFieldFromY = new JTextField();
+		textFieldFromY.setBounds(550, 653, 51, 20);
+		newCreatedMapPanel.add(textFieldFromY);
+		textFieldFromY.setColumns(10);
+
+
+		//LABEL - TO
+		JLabel lblTo = new JLabel("To:");
+		lblTo.setBounds(690, 637, 37, 14);
+		newCreatedMapPanel.add(lblTo);	
+
+		//LABEL - TO X
+		JLabel labelToX = new JLabel("x=");
+		labelToX.setBounds(620, 653, 23, 14);
+		newCreatedMapPanel.add(labelToX);
+
+		//TO X INPUT
+		JTextField textFieldToX = new JTextField();
+		textFieldToX.setColumns(10);
+		textFieldToX.setBounds(640, 650, 46, 20);
+		newCreatedMapPanel.add(textFieldToX);
+
+		//LABEL-TO Y
+		JLabel labelToY = new JLabel("y=");
+		labelToY.setBounds(700, 653, 28, 14);
+		newCreatedMapPanel.add(labelToY);
+
+		//TO Y INPUT
+		JTextField textFieldToY = new JTextField();
+		textFieldToY.setColumns(10);
+		textFieldToY.setBounds(720, 650, 51, 20);
+		newCreatedMapPanel.add(textFieldToY);
+
 	}
 }
