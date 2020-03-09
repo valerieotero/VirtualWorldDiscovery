@@ -47,6 +47,10 @@ public class Menu {
 	JButton btnUploadBackgroundImage;
 	JLabel lblBackGroundLabel;	
 	JButton btnDrawLines;
+	JTextField textFieldFromX;
+	JTextField textFieldFromY;
+	JTextField textFieldToX;
+	JTextField textFieldToY;
 
 	//Writer/Reader variables
 	private String configFile;
@@ -60,9 +64,7 @@ public class Menu {
 	private JTextField inputY;
 	private JTextField inputZ;
 	private JTextField inputW;	
-	private JTextField textField;
 
-	private JTextField textField_2;
 	
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
@@ -354,7 +356,7 @@ public class Menu {
 		newCreatedMapPanel.add(lblFromX);
 
 		//(FROM) X INPUT
-		JTextField textFieldFromX = new JTextField();
+	    textFieldFromX = new JTextField();
 		textFieldFromX.setBounds(470, 653, 46, 20);
 		newCreatedMapPanel.add(textFieldFromX);
 		textFieldFromX.setColumns(10);
@@ -365,7 +367,7 @@ public class Menu {
 		newCreatedMapPanel.add(lblFromY);
 
 		//(FROM) Y INPUT
-		JTextField textFieldFromY = new JTextField();
+		textFieldFromY = new JTextField();
 		textFieldFromY.setBounds(550, 653, 51, 20);
 		newCreatedMapPanel.add(textFieldFromY);
 		textFieldFromY.setColumns(10);
@@ -381,7 +383,7 @@ public class Menu {
 		newCreatedMapPanel.add(labelToX);
 
 		//(TO) X INPUT
-		JTextField textFieldToX = new JTextField();
+		textFieldToX = new JTextField();
 		textFieldToX.setColumns(10);
 		textFieldToX.setBounds(635, 653, 46, 20);
 		newCreatedMapPanel.add(textFieldToX);
@@ -392,7 +394,7 @@ public class Menu {
 		newCreatedMapPanel.add(labelToY);
 
 		//(TO) Y INPUT
-		JTextField textFieldToY = new JTextField();
+		textFieldToY = new JTextField();
 		textFieldToY.setColumns(10);
 		textFieldToY.setBounds(710, 653, 51, 20);
 		newCreatedMapPanel.add(textFieldToY);	
