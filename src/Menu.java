@@ -298,7 +298,7 @@ public class Menu {
 		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
 		newCreatedMapPanel.add(lblBackGroundLabel);
 		
-		initializeCoordinatesLabelAndInputs();
+		initializeManualCoordinatesLabelsAndTextFields();
 		initializeDrawLines();
 		initializeSaveBuilding();
 
@@ -307,10 +307,8 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				btnUploadBackgroundImageMouseEvent(e);			
-
+				btnUploadBackgroundImageMouseEvent(e);		
 			}
-
 		});
 		btnUploadBackgroundImage.setHorizontalAlignment(SwingConstants.LEFT);		
 		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);	
@@ -330,8 +328,7 @@ public class Menu {
 			try {
 				img=ImageIO.read(file);
 				ImageIcon icon=new ImageIcon(img);
-				lblBackGroundLabel.setIcon(icon);   
-				
+				lblBackGroundLabel.setIcon(icon);   				
 
 				lblBackGroundLabel.revalidate(); 
 				lblBackGroundLabel.repaint();
@@ -340,69 +337,65 @@ public class Menu {
 			}
 			catch(IOException e1) {
 				System.out.println("Must select an image");
-
 			}
 		}
 	}
 
-	public void initializeCoordinatesLabelAndInputs() {
+	public void initializeManualCoordinatesLabelsAndTextFields() {
 		
 		//LABEL - FROM:
 		JLabel lblFrom = new JLabel("From:");
 		lblFrom.setBounds(515, 637, 37, 14);
 		newCreatedMapPanel.add(lblFrom);
 
-		//LABEL - FROM X
+		//LABEL - (FROM) X
 		JLabel lblFromX = new JLabel("x=");
 		lblFromX.setBounds(450, 653, 23, 14);
 		newCreatedMapPanel.add(lblFromX);
 
-		//FROM X INPUT
+		//(FROM) X INPUT
 		JTextField textFieldFromX = new JTextField();
 		textFieldFromX.setBounds(470, 653, 46, 20);
 		newCreatedMapPanel.add(textFieldFromX);
 		textFieldFromX.setColumns(10);
 
-		//LABEL - FROM Y
+		//LABEL - (FROM) Y
 		JLabel lblFromY = new JLabel("y=");
 		lblFromY.setBounds(530, 653, 28, 14);
 		newCreatedMapPanel.add(lblFromY);
 
-		//FROM Y INPUT
+		//(FROM) Y INPUT
 		JTextField textFieldFromY = new JTextField();
 		textFieldFromY.setBounds(550, 653, 51, 20);
 		newCreatedMapPanel.add(textFieldFromY);
 		textFieldFromY.setColumns(10);
-
 
 		//LABEL - TO
 		JLabel lblTo = new JLabel("To:");
 		lblTo.setBounds(680, 637, 37, 14);
 		newCreatedMapPanel.add(lblTo);	
 
-		//LABEL - TO X
+		//LABEL - (TO) X
 		JLabel labelToX = new JLabel("x=");
 		labelToX.setBounds(615, 653, 23, 14);
 		newCreatedMapPanel.add(labelToX);
 
-		//TO X INPUT
+		//(TO) X INPUT
 		JTextField textFieldToX = new JTextField();
 		textFieldToX.setColumns(10);
 		textFieldToX.setBounds(635, 653, 46, 20);
 		newCreatedMapPanel.add(textFieldToX);
 
-		//LABEL-TO Y
+		//LABEL-(TO) Y
 		JLabel labelToY = new JLabel("y=");
 		labelToY.setBounds(690, 653, 28, 14);
 		newCreatedMapPanel.add(labelToY);
 
-		//TO Y INPUT
+		//(TO) Y INPUT
 		JTextField textFieldToY = new JTextField();
 		textFieldToY.setColumns(10);
 		textFieldToY.setBounds(710, 653, 51, 20);
 		newCreatedMapPanel.add(textFieldToY);	
-	
-
 	}
 	
 	public void initializeDrawLines() {
