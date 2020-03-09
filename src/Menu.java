@@ -230,11 +230,10 @@ public class Menu {
 				//Gets the name entered by the user
 				configFile = textFieldNewMapName.getText();
 				path = System.getProperty("user.dir")+File.separator+"maps"+File.separator+configFile;
-				writingHeader(path);
 				//Validates that the name is not an empty string
 				if(!(configFile.isEmpty())) {
 
-					writingHeader(configFile);
+					writingHeader(path);
 
 					initializeCreateMapPanel();					
 				}
@@ -257,6 +256,7 @@ public class Menu {
 	}
 
 	private void writingCoordinates() {
+		
 	}
 
 
