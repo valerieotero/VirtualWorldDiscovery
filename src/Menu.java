@@ -396,6 +396,15 @@ public class Menu {
 		newCreatedMapPanel.add(textFieldToY);	
 	}
 	
+	/*
+	 * 
+	 * Method initializeDrawLines Created by: John A. Parks
+	 * Still going
+	 * End: March 7/2020
+	 * 
+	 * Implement button to start drawing lines on background.
+	 *
+	 */
 	public void initializeDrawLines() {
 		
 		//DRAW LINES BUTTON
@@ -410,6 +419,15 @@ public class Menu {
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 	
+	/*
+	 * 
+	 * Method initializeSaveBuilding Created by: John A. Parks
+	 * Still going
+	 * TO-DO
+	 * 
+	 * Implement button to save the lines drawn as the building
+	 *
+	 */
 	public void initializeSaveBuilding() {
 		
 		//DRAW LINES BUTTON
@@ -425,7 +443,14 @@ public class Menu {
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 
-	
+	/*
+	 * 
+	 * Method drawLines Created by: John A. Parks
+	 * End:March 8/2020
+	 * 
+	 * Uses mouse listeners to get coordinates and draw a line.
+	 *
+	 */
 	public void drawLines() {		
 		newCreatedMapPanel.addMouseListener(mouseHandler);
 		newCreatedMapPanel.addMouseMotionListener(mouseMotionHandler);
@@ -439,6 +464,14 @@ public class Menu {
 		newCreatedMapPanel.add(lblBackGroundLabel);
 	}
 	
+	/*
+	 * 
+	 * mouseHandler Created by: John A. Parks
+	 * End:March 8/2020
+	 * 
+	 * Obtains coordinates with respect to mouse movements to draw the line.
+	 *
+	 */
 	public MouseListener mouseHandler = new MouseAdapter() {
 		@Override
 		public void mousePressed(MouseEvent e) {

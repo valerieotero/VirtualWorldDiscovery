@@ -1,5 +1,11 @@
 import java.util.ArrayList;
-
+/*
+ * Created by: Valerie Otero
+ * End:March 7/2020
+ * 
+ * SaveCoordinates class obtains coordinates from user input.
+ * 
+ */
 public class SaveCoordinates extends ArrayList<Integer> {
 
 	ArrayList<Integer> coordinateList = new ArrayList<>();	

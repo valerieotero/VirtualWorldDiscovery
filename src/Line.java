@@ -2,13 +2,20 @@ import java.awt.Graphics;
 import java.util.List;
 import javax.swing.JPanel;
 
-
+/*
+ * 
+ * Created by: Valerie Otero
+ * End: March 7/2020
+ * 
+ * Line class basically paints the lines created in the Menu class.
+ * 
+ */
 public class Line extends JPanel{
 
 	private SaveCoordinates coordinates = new SaveCoordinates();
-	List<Integer> coordinateList = coordinates.getCoordinates();
+	List<Integer> coordinateList = coordinates.getCoordinates(); // Add coordinates to the list
 
-	//Paints the components
+	// Paints the components
 	@Override 
 	public void paintComponent(Graphics g)
 	{  	    	
