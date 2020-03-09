@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -14,15 +15,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Graphics;
 
 public class Menu {
 
@@ -31,9 +37,8 @@ public class Menu {
 	private JPanel designPanel;
 	private JPanel gameModePanel;
 	private JPanel newMapPanel;
-	private JTextField textFieldNewMapName;
 	private JPanel newCreatedMapPanel;
-	
+
 	//Design Panel Variables
 	String filesPath;
 	JComboBox<String> comboBoxLoadMap;		
@@ -41,6 +46,7 @@ public class Menu {
 	//New Created Map Variables
 	JButton btnUploadBackgroundImage;
 	JLabel lblBackGroundLabel;	
+	JButton btnDrawLines;
 
 	//Writer/Reader variables
 	private String configFile;
@@ -53,7 +59,22 @@ public class Menu {
 	private JTextField inputX;
 	private JTextField inputY;
 	private JTextField inputZ;
-	private JTextField inputW;
+	private JTextField inputW;	
+	private JTextField textField;
+
+	private JTextField textField_2;
+	
+	//John - for testing purposes
+	private static ArrayList<Line> linesList = new ArrayList<Line>();
+	
+	private Line line;
+	private Line finishedLine;
+	
+	private int xbegin = 0; 
+	private int ybegin = 0; 
+	private int xend = 0; 
+	private int yend = 0; 
+	//John - for testing purposes
 
 
 	/**
@@ -131,7 +152,7 @@ public class Menu {
 			}
 		});
 		btnPlay.setBounds(426, 195, 89, 23);
-		gameModePanel.add(btnPlay);	
+		gameModePanel.add(btnPlay);					
 	}
 
 
@@ -230,6 +251,7 @@ public class Menu {
 				//Gets the name entered by the user
 				configFile = textFieldNewMapName.getText();
 				path = System.getProperty("user.dir")+File.separator+"maps"+File.separator+configFile;
+
 				//Validates that the name is not an empty string
 				if(!(configFile.isEmpty())) {
 
@@ -273,6 +295,10 @@ public class Menu {
 		lblBackGroundLabel= new JLabel("");
 		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
 		newCreatedMapPanel.add(lblBackGroundLabel);
+		
+		initializeCoordinatesLabelAndInputs();
+		initializeDrawLines();
+		initializeSaveBuilding();
 
 		btnUploadBackgroundImage = new JButton("Upload background image");
 		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
@@ -313,4 +339,158 @@ public class Menu {
 			}
 		}
 	}
+
+	public void initializeCoordinatesLabelAndInputs() {
+		
+		//LABEL - FROM:
+		JLabel lblFrom = new JLabel("From:");
+		lblFrom.setBounds(515, 637, 37, 14);
+		newCreatedMapPanel.add(lblFrom);
+
+		//LABEL - FROM X
+		JLabel lblFromX = new JLabel("x=");
+		lblFromX.setBounds(450, 653, 23, 14);
+		newCreatedMapPanel.add(lblFromX);
+
+		//FROM X INPUT
+		JTextField textFieldFromX = new JTextField();
+		textFieldFromX.setBounds(470, 653, 46, 20);
+		newCreatedMapPanel.add(textFieldFromX);
+		textFieldFromX.setColumns(10);
+
+		//LABEL - FROM Y
+		JLabel lblFromY = new JLabel("y=");
+		lblFromY.setBounds(530, 653, 28, 14);
+		newCreatedMapPanel.add(lblFromY);
+
+		//FROM Y INPUT
+		JTextField textFieldFromY = new JTextField();
+		textFieldFromY.setBounds(550, 653, 51, 20);
+		newCreatedMapPanel.add(textFieldFromY);
+		textFieldFromY.setColumns(10);
+
+
+		//LABEL - TO
+		JLabel lblTo = new JLabel("To:");
+		lblTo.setBounds(690, 637, 37, 14);
+		newCreatedMapPanel.add(lblTo);	
+
+		//LABEL - TO X
+		JLabel labelToX = new JLabel("x=");
+		labelToX.setBounds(620, 653, 23, 14);
+		newCreatedMapPanel.add(labelToX);
+
+		//TO X INPUT
+		JTextField textFieldToX = new JTextField();
+		textFieldToX.setColumns(10);
+		textFieldToX.setBounds(640, 650, 46, 20);
+		newCreatedMapPanel.add(textFieldToX);
+
+		//LABEL-TO Y
+		JLabel labelToY = new JLabel("y=");
+		labelToY.setBounds(700, 653, 28, 14);
+		newCreatedMapPanel.add(labelToY);
+
+		//TO Y INPUT
+		JTextField textFieldToY = new JTextField();
+		textFieldToY.setColumns(10);
+		textFieldToY.setBounds(720, 650, 51, 20);
+		newCreatedMapPanel.add(textFieldToY);	
+	
+
+	}
+	
+	public void initializeDrawLines() {
+		
+		//DRAW LINES BUTTON
+		JButton btnDrawLines = new JButton("Draw Line for Building Wall");
+		btnDrawLines.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				drawLines();
+			}
+		});
+		btnDrawLines.setIcon(null);
+		btnDrawLines.setBounds(780, 650, 200, 20);
+		newCreatedMapPanel.add(btnDrawLines);
+	}
+	
+	public void initializeSaveBuilding() {
+		
+		//DRAW LINES BUTTON
+		JButton btnDrawLines = new JButton("Draw Building Wall Manually");
+		btnDrawLines.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				drawLines();
+			}
+		});
+		btnDrawLines.setIcon(null);
+		btnDrawLines.setBounds(780, 650, 200, 20);
+		newCreatedMapPanel.add(btnDrawLines);
+	}
+
+	
+	public void drawLines() {		
+		newCreatedMapPanel.addMouseListener(mouseHandler);
+		newCreatedMapPanel.addMouseMotionListener(mouseMotionHandler);
+		line = new Line();
+		line.setForeground(Color.BLACK);
+		line.setBounds(0, 0, 1008, 681);
+		line.setOpaque(false);
+		newCreatedMapPanel.add(line);
+	}
+	
+	public MouseListener mouseHandler = new MouseAdapter() {
+		@Override
+		public void mousePressed(MouseEvent e) {
+			xbegin = xend = e.getX();
+			ybegin = yend = e.getY();
+			line.coordinateList.set(0, xbegin);
+			line.coordinateList.set(1, ybegin);
+			line.coordinateList.set(2, xend);
+			line.coordinateList.set(3, yend);
+			line.repaint();
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			xend = e.getX();
+			yend = e.getY();
+			finishedLine = new Line();
+			line.coordinateList.set(0, xbegin);
+			line.coordinateList.set(1, ybegin);
+			line.coordinateList.set(2, xend);
+			line.coordinateList.set(3, yend);
+			
+			linesList.add(finishedLine);
+			line.repaint();
+		}
+	};
+	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			xend = e.getX();
+			yend = e.getY();
+			line.coordinateList.set(2, xend);
+			line.coordinateList.set(3, yend);
+			line.repaint();
+		}
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

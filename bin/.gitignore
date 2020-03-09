@@ -10,6 +10,7 @@
 /Reader.class
 /Writer.class
 /readerTest.class
+<<<<<<< HEAD
 /readerTest$Building.class
 /Buildings.class
 /LinesComponent$Line.class
@@ -17,3 +18,14 @@
 /Buildings$points.class
 /Buildings$Points.class
 /Buildings$Walls.class
+=======
+/LineDrawer.class
+/Line.class
+/Line$1.class
+/Line$2.class
+/Menu$8.class
+/SaveCoordinates.class
+/Menu$10.class
+/Menu$9.class
+/Menu$11.class
+>>>>>>> branch 'master' of https://github.com/yamilgonzalez/VirtualWorldDiscovery.git
