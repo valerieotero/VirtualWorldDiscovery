@@ -51,7 +51,7 @@ public class Menu {
 	JTextField textFieldFromY;
 	JTextField textFieldToX;
 	JTextField textFieldToY;
-
+	
 	//Writer/Reader variables
 	private String configFile;
 	private String path;
@@ -117,9 +117,8 @@ public class Menu {
 		frame.getContentPane().setLayout(null);
 
 		GameModePanel();
-
-
 	}
+	
 	public void GameModePanel() {
 
 		//NEW GAME MODE PANEL
@@ -154,9 +153,7 @@ public class Menu {
 			}
 		});
 		btnPlay.setBounds(426, 195, 89, 23);
-		gameModePanel.add(btnPlay);			
-		
-		
+		gameModePanel.add(btnPlay);
 	}
 
 
@@ -296,7 +293,7 @@ public class Menu {
 		newCreatedMapPanel.setLayout(null);	
 
 		//LABEL-WHERE BACKGROUND IMAGE IS SET
-		lblBackGroundLabel= new JLabel("");
+		lblBackGroundLabel= new JLabel("");	
 		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
 		newCreatedMapPanel.add(lblBackGroundLabel);
 		
@@ -308,12 +305,13 @@ public class Menu {
 		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				btnUploadBackgroundImageMouseEvent(e);		
+				
+				btnUploadBackgroundImageMouseEvent(e);	
+				
 			}
 		});
 		btnUploadBackgroundImage.setHorizontalAlignment(SwingConstants.LEFT);		
-		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);	
+		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);			
 		newCreatedMapPanel.add(btnUploadBackgroundImage);
 	}
 
@@ -330,12 +328,10 @@ public class Menu {
 			try {
 				img=ImageIO.read(file);
 				ImageIcon icon=new ImageIcon(img);
-				lblBackGroundLabel.setIcon(icon);   				
+			    lblBackGroundLabel.setIcon(icon); 			
 
 				lblBackGroundLabel.revalidate(); 
-				lblBackGroundLabel.repaint();
-				lblBackGroundLabel.setOpaque(false);
-				
+				lblBackGroundLabel.repaint();			
 			}
 			catch(IOException e1) {
 				System.out.println("Must select an image");
@@ -409,8 +405,7 @@ public class Menu {
 			public void actionPerformed(ActionEvent arg0) {
 				drawLines();
 			}
-		});
-		btnDrawLines.setIcon(null);
+		});		
 		btnDrawLines.setBounds(780, 650, 200, 20);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
@@ -438,7 +433,10 @@ public class Menu {
 		line.setForeground(Color.BLACK);
 		line.setBounds(0, 0, 1008, 681);
 		line.setOpaque(false);
-		newCreatedMapPanel.add(line);
+		newCreatedMapPanel.add(line);		
+		frame.getContentPane().repaint();
+		newCreatedMapPanel.repaint();
+		newCreatedMapPanel.add(lblBackGroundLabel);
 	}
 	
 	public MouseListener mouseHandler = new MouseAdapter() {
@@ -464,7 +462,7 @@ public class Menu {
 			line.coordinateList.set(3, yend);
 			
 			linesList.add(finishedLine);
-			line.repaint();
+			//line.repaint();
 		}
 	};
 	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
