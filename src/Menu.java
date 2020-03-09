@@ -152,7 +152,9 @@ public class Menu {
 			}
 		});
 		btnPlay.setBounds(426, 195, 89, 23);
-		gameModePanel.add(btnPlay);					
+		gameModePanel.add(btnPlay);			
+		
+		
 	}
 
 
@@ -328,10 +330,13 @@ public class Menu {
 			try {
 				img=ImageIO.read(file);
 				ImageIcon icon=new ImageIcon(img);
-				lblBackGroundLabel.setIcon(icon);                                      
+				lblBackGroundLabel.setIcon(icon);   
+				
 
 				lblBackGroundLabel.revalidate(); 
-				lblBackGroundLabel.repaint(); 
+				lblBackGroundLabel.repaint();
+				lblBackGroundLabel.setOpaque(false);
+				
 			}
 			catch(IOException e1) {
 				System.out.println("Must select an image");
@@ -372,29 +377,29 @@ public class Menu {
 
 		//LABEL - TO
 		JLabel lblTo = new JLabel("To:");
-		lblTo.setBounds(690, 637, 37, 14);
+		lblTo.setBounds(680, 637, 37, 14);
 		newCreatedMapPanel.add(lblTo);	
 
 		//LABEL - TO X
 		JLabel labelToX = new JLabel("x=");
-		labelToX.setBounds(620, 653, 23, 14);
+		labelToX.setBounds(615, 653, 23, 14);
 		newCreatedMapPanel.add(labelToX);
 
 		//TO X INPUT
 		JTextField textFieldToX = new JTextField();
 		textFieldToX.setColumns(10);
-		textFieldToX.setBounds(640, 650, 46, 20);
+		textFieldToX.setBounds(635, 653, 46, 20);
 		newCreatedMapPanel.add(textFieldToX);
 
 		//LABEL-TO Y
 		JLabel labelToY = new JLabel("y=");
-		labelToY.setBounds(700, 653, 28, 14);
+		labelToY.setBounds(690, 653, 28, 14);
 		newCreatedMapPanel.add(labelToY);
 
 		//TO Y INPUT
 		JTextField textFieldToY = new JTextField();
 		textFieldToY.setColumns(10);
-		textFieldToY.setBounds(720, 650, 51, 20);
+		textFieldToY.setBounds(710, 653, 51, 20);
 		newCreatedMapPanel.add(textFieldToY);	
 	
 
@@ -426,7 +431,7 @@ public class Menu {
 			}
 		});
 		btnDrawLines.setIcon(null);
-		btnDrawLines.setBounds(780, 650, 200, 20);
+		btnDrawLines.setBounds(240, 650, 200, 20);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 
@@ -477,20 +482,4 @@ public class Menu {
 			line.repaint();
 		}
 	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
