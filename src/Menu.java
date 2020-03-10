@@ -119,6 +119,11 @@ public class Menu {
 		GameModePanel();
 	}
 	
+	/* Author: Valerie Otero | Date: March 8 2020	
+	 * Method initializes the main panel where the user can choose if it wants
+	 * to Design or Play. If the user clicks Design button, this methods calls another method
+	 * that initializes the Design Panel. (Play button is not enabled for now)
+	 */
 	public void GameModePanel() {
 
 		//NEW GAME MODE PANEL
@@ -157,6 +162,11 @@ public class Menu {
 	}
 
 
+	/*Author: Valerie Otero | Date: March 8 2020
+	 * Method initializes the design panel when the user clicks such option.
+	 * If the user clicks on the Create New Map option, this method calls another 
+	 * method that initializes that panel.
+	*/
 	public void initializeDesignPanel() {
 		gameModePanel.setVisible(false);
 
@@ -206,7 +216,12 @@ public class Menu {
 		comboBoxLoadMap.setBounds(419, 230, 107, 20);
 		designPanel.add(comboBoxLoadMap);
 	}
-
+	
+	/*Author: Valerie Otero | Date: March 8 2020
+	  Method initializes the Create New Map panel when the user clicks such option.
+	 * If the user clicks on the Save option, this method calls another 
+	 * method that initializes the panel where the map designer will begin creatin the map.
+	 */	
 	public void initializeNewMapPanel() {
 
 		designPanel.setVisible(false);
@@ -282,7 +297,11 @@ public class Menu {
 		
 	}
 
-
+	/*Author: Valerie Otero | Date: March 9 2020
+	 * Method initializes the New Created Map panel when the user clicks the Save button.
+	 * Here the map designer can beging its design by uploading and image from computer,
+	 * as a background and/or draw lines for the building walls.
+	*/
 	public void initializeCreateMapPanel(){
 		newMapPanel.setVisible(false);
 
@@ -314,7 +333,11 @@ public class Menu {
 		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);			
 		newCreatedMapPanel.add(btnUploadBackgroundImage);
 	}
-
+	
+	/*Author: Valerie Otero | Date: March 9 2020
+	 * Method initializes a chooser box when the map designer selects to "Upload background image" 
+	 * that lets the map designer select an image from their computer
+	 */	
 	public void btnUploadBackgroundImageMouseEvent(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
@@ -339,6 +362,10 @@ public class Menu {
 		}
 	}
 
+	/* Author: Valerie Otero | Date: March 9 2020
+	 * Method initializes several labels and text fields associated with the panel
+	 * where the map designer starts designing
+	 */
 	public void initializeManualCoordinatesLabelsAndTextFields() {
 		
 		//LABEL - FROM:
