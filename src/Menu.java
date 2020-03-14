@@ -32,7 +32,7 @@ import java.awt.Graphics;
 
 public class Menu {
 
-	//Panel variabled
+	//Panel variables
 	private JFrame frame;
 	private JPanel designPanel;
 	private JPanel gameModePanel;
@@ -135,7 +135,7 @@ public class Menu {
 		//LABEL-CHOOSE GAME MODE
 		JLabel lblChooseGameMode = new JLabel("Choose game mode:");
 		lblChooseGameMode.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblChooseGameMode.setBounds(408, 127, 139, 23);
+		lblChooseGameMode.setBounds(447, 127, 139, 23);
 		gameModePanel.add(lblChooseGameMode);
 
 		//DESIGN BUTTON
@@ -148,7 +148,7 @@ public class Menu {
 
 			}
 		});
-		btnDesign.setBounds(426, 161, 89, 23);
+		btnDesign.setBounds(457, 161, 89, 23);
 		gameModePanel.add(btnDesign);
 
 		//PLAY BUTTON
@@ -157,8 +157,9 @@ public class Menu {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnPlay.setBounds(426, 195, 89, 23);
-		gameModePanel.add(btnPlay);
+		btnPlay.setBounds(457, 195, 89, 23);
+		gameModePanel.add(btnPlay);	
+		
 	}
 
 
@@ -232,21 +233,6 @@ public class Menu {
 		frame.getContentPane().add(newMapPanel);
 		newMapPanel.setLayout(null);	
 
-		//GO BACK BUTTON
-		JButton btngoBack = new JButton("Back");			
-		btngoBack.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {							
-
-				designPanel.setVisible(true);
-				btngoBack.setVisible(false);
-			}
-		});				
-		btngoBack.setBounds(10, 11, 65, 23);
-		btngoBack.setVisible(true);
-		newMapPanel.add(btngoBack);
-
-
 		//LABEL ENTER MAP NAME
 		JLabel lblEnterMapName = new JLabel("Enter new map name:");
 		lblEnterMapName.setBounds(408, 127, 139, 23);
@@ -299,7 +285,7 @@ public class Menu {
 
 	/*Author: Valerie Otero | Date: March 9 2020
 	 * Method initializes the New Created Map panel when the user clicks the Save button.
-	 * Here the map designer can beging its design by uploading and image from computer,
+	 * Here the map designer can begin its design by uploading and image from computer,
 	 * as a background and/or draw lines for the building walls.
 	*/
 	public void initializeCreateMapPanel(){
@@ -485,9 +471,7 @@ public class Menu {
 		line.setForeground(Color.BLACK);
 		line.setBounds(0, 0, 1008, 681);
 		line.setOpaque(false);
-		newCreatedMapPanel.add(line);		
-		frame.getContentPane().repaint();
-		newCreatedMapPanel.repaint();
+		newCreatedMapPanel.add(line);	
 		newCreatedMapPanel.add(lblBackGroundLabel);
 	}
 	
@@ -522,7 +506,7 @@ public class Menu {
 			line.coordinateList.set(3, yend);
 			
 			linesList.add(finishedLine);
-			//line.repaint();
+			line.repaint();
 		}
 	};
 	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
