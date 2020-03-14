@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -10,7 +11,9 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
@@ -22,9 +25,11 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -51,6 +56,8 @@ public class Menu {
 	JTextField textFieldFromY;
 	JTextField textFieldToX;
 	JTextField textFieldToY;
+	ImageIcon[] images;
+	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
 	
 	//Writer/Reader variables
 	private String configFile;
@@ -299,7 +306,7 @@ public class Menu {
 
 		//LABEL-WHERE BACKGROUND IMAGE IS SET
 		lblBackGroundLabel= new JLabel("");	
-		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
+		lblBackGroundLabel.setBounds(0, 42, 1008, 681);
 		newCreatedMapPanel.add(lblBackGroundLabel);
 		
 		initializeManualCoordinatesLabelsAndTextFields();
@@ -316,8 +323,10 @@ public class Menu {
 			}
 		});
 		btnUploadBackgroundImage.setHorizontalAlignment(SwingConstants.LEFT);		
-		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);			
+		btnUploadBackgroundImage.setBounds(10, 11, 187, 23);			
 		newCreatedMapPanel.add(btnUploadBackgroundImage);
+		initializeTreeDropDown();
+		
 	}
 	
 	/*Author: Valerie Otero | Date: March 9 2020
@@ -356,59 +365,59 @@ public class Menu {
 		
 		//LABEL - FROM:
 		JLabel lblFrom = new JLabel("From:");
-		lblFrom.setBounds(515, 637, 37, 14);
+		lblFrom.setBounds(800, 1, 37, 14);
 		newCreatedMapPanel.add(lblFrom);
 
-		//LABEL - (FROM) X
+		//LABEL (FROM) - x=
 		JLabel lblFromX = new JLabel("x=");
-		lblFromX.setBounds(450, 653, 23, 14);
+		lblFromX.setBounds(751, 18, 14, 14);
 		newCreatedMapPanel.add(lblFromX);
 
 		//(FROM) X INPUT
-	    textFieldFromX = new JTextField();
-		textFieldFromX.setBounds(470, 653, 46, 20);
+		textFieldFromX = new JTextField();
+		textFieldFromX.setBounds(768, 17, 37, 20);
 		newCreatedMapPanel.add(textFieldFromX);
 		textFieldFromX.setColumns(10);
 
-		//LABEL - (FROM) Y
+		//LABEL (FROM) - y=
 		JLabel lblFromY = new JLabel("y=");
-		lblFromY.setBounds(530, 653, 28, 14);
+		lblFromY.setBounds(818, 18, 14, 14);
 		newCreatedMapPanel.add(lblFromY);
 
 		//(FROM) Y INPUT
 		textFieldFromY = new JTextField();
-		textFieldFromY.setBounds(550, 653, 51, 20);
+		textFieldFromY.setBounds(834, 16, 37, 20);
 		newCreatedMapPanel.add(textFieldFromY);
 		textFieldFromY.setColumns(10);
 
-		//LABEL - TO
+		//LABEL - TO:
 		JLabel lblTo = new JLabel("To:");
-		lblTo.setBounds(680, 637, 37, 14);
+		lblTo.setBounds(935, 1, 22, 14);
 		newCreatedMapPanel.add(lblTo);	
 
-		//LABEL - (TO) X
+		//LABEL (TO) - x=
 		JLabel labelToX = new JLabel("x=");
-		labelToX.setBounds(615, 653, 23, 14);
+		labelToX.setBounds(879, 18, 14, 14);
 		newCreatedMapPanel.add(labelToX);
 
 		//(TO) X INPUT
 		textFieldToX = new JTextField();
 		textFieldToX.setColumns(10);
-		textFieldToX.setBounds(635, 653, 46, 20);
+		textFieldToX.setBounds(897, 17, 37, 20);
 		newCreatedMapPanel.add(textFieldToX);
 
-		//LABEL-(TO) Y
+		//LABEL (TO) - y=
 		JLabel labelToY = new JLabel("y=");
-		labelToY.setBounds(690, 653, 28, 14);
+		labelToY.setBounds(944, 18, 14, 14);
 		newCreatedMapPanel.add(labelToY);
 
 		//(TO) Y INPUT
 		textFieldToY = new JTextField();
 		textFieldToY.setColumns(10);
-		textFieldToY.setBounds(710, 653, 51, 20);
-		newCreatedMapPanel.add(textFieldToY);	
+		textFieldToY.setBounds(962, 17, 37, 20);
+		newCreatedMapPanel.add(textFieldToY);
 	}
-	
+
 	/*
 	 * 
 	 * Method initializeDrawLines Created by: John A. Parks
@@ -421,14 +430,14 @@ public class Menu {
 	public void initializeDrawLines() {
 		
 		//DRAW LINES BUTTON
-		JButton btnDrawLines = new JButton("Draw Line for Building Wall");
+		JButton btnDrawLines = new JButton("Draw Building Wall");
 		btnDrawLines.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				drawLines();
 			}
 		});		
-		btnDrawLines.setBounds(780, 650, 200, 20);
+		btnDrawLines.setBounds(386, 15, 145, 20);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 	
@@ -452,7 +461,7 @@ public class Menu {
 			}
 		});
 		btnDrawLines.setIcon(null);
-		btnDrawLines.setBounds(240, 650, 200, 20);
+		btnDrawLines.setBounds(541, 15, 200, 20);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 
@@ -519,4 +528,80 @@ public class Menu {
 			line.repaint();
 		}
 	};
+	
+	public void initializeTreeDropDown() {
+		TreeDropDownRenderer renderer= new TreeDropDownRenderer();
+
+		images = new ImageIcon[treeStrings.length];
+
+		Integer[] intArray = new Integer[treeStrings.length];
+
+		for (int i = 0; i < treeStrings.length; i++) {
+			intArray[i] = new Integer(i);
+			images[i] = createImageIcon("Resources/" + treeStrings[i] + ".png");
+			if (images[i] != null) {
+				images[i].setDescription(treeStrings[i]);
+			}
+		}                    
+
+		//TREE DROP DOWN
+		JComboBox<?> treeComboBox = new JComboBox(intArray);
+		treeComboBox.setBounds(207, 11, 163, 23);
+		newCreatedMapPanel.add(treeComboBox);
+		treeComboBox.setRenderer(renderer);  
+
+		
+	}
+	
+	protected static ImageIcon createImageIcon(String path) {
+
+		URL imgURL = Menu.class.getResource(path);
+
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
+	
+	class TreeDropDownRenderer extends JLabel implements ListCellRenderer {
+
+		private Font uhOhFont;
+
+		public TreeDropDownRenderer() {
+			setOpaque(true);        
+		}
+
+		/*
+		 * This method finds the image and text corresponding
+		 * to the selected value and returns the label, set up
+		 * to display the text and image.
+		 */
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			//Get the selected index. (The index param isn't
+			//always valid, so just use the value.)
+			int selectedIndex = ((Integer)value).intValue();
+
+			if (isSelected) {
+				setBackground(list.getSelectionBackground());
+				setForeground(list.getSelectionForeground());
+			} else {
+				setBackground(list.getBackground());
+				setForeground(list.getForeground());
+			}
+
+			//Set the icon and text.  
+			ImageIcon icon = images[selectedIndex];
+			String tree = treeStrings[selectedIndex];
+			setIcon(icon);
+			if (icon != null) {
+				setText(tree);
+				setFont(list.getFont());
+			} 
+			return this;
+		}
+	}
+	
+	
 }
