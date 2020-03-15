@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,7 +11,9 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
@@ -20,9 +24,11 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -30,7 +36,7 @@ import java.awt.Graphics;
 
 public class Menu {
 
-	//Panel variabled
+	//Panel variables
 	private JFrame frame;
 	private JPanel designPanel;
 	private JPanel gameModePanel;
@@ -45,7 +51,13 @@ public class Menu {
 	JButton btnUploadBackgroundImage;
 	JLabel lblBackGroundLabel;	
 	JButton btnDrawLines;
-
+	JTextField textFieldFromX;
+	JTextField textFieldFromY;
+	JTextField textFieldToX;
+	JTextField textFieldToY;
+	ImageIcon[] images;
+	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
+	
 	//Writer/Reader variables
 	private String configFile;
 	private String path;
@@ -58,9 +70,7 @@ public class Menu {
 	private JTextField inputY;
 	private JTextField inputZ;
 	private JTextField inputW;	
-	private JTextField textField;
 
-	private JTextField textField_2;
 	
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
@@ -113,9 +123,13 @@ public class Menu {
 		frame.getContentPane().setLayout(null);
 
 		GameModePanel();
-
-
 	}
+	
+	/* Author: Valerie Otero | Date: March 8 2020	
+	 * Method initializes the main panel where the user can choose if it wants
+	 * to Design or Play. If the user clicks Design button, this methods calls another method
+	 * that initializes the Design Panel. (Play button is not enabled for now)
+	 */
 	public void GameModePanel() {
 
 		//NEW GAME MODE PANEL
@@ -127,7 +141,7 @@ public class Menu {
 		//LABEL-CHOOSE GAME MODE
 		JLabel lblChooseGameMode = new JLabel("Choose game mode:");
 		lblChooseGameMode.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblChooseGameMode.setBounds(408, 127, 139, 23);
+		lblChooseGameMode.setBounds(447, 127, 139, 23);
 		gameModePanel.add(lblChooseGameMode);
 
 		//DESIGN BUTTON
@@ -140,7 +154,7 @@ public class Menu {
 
 			}
 		});
-		btnDesign.setBounds(426, 161, 89, 23);
+		btnDesign.setBounds(457, 161, 89, 23);
 		gameModePanel.add(btnDesign);
 
 		//PLAY BUTTON
@@ -149,11 +163,17 @@ public class Menu {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnPlay.setBounds(426, 195, 89, 23);
-		gameModePanel.add(btnPlay);					
+		btnPlay.setBounds(457, 195, 89, 23);
+		gameModePanel.add(btnPlay);	
+		
 	}
 
 
+	/*Author: Valerie Otero | Date: March 8 2020
+	 * Method initializes the design panel when the user clicks such option.
+	 * If the user clicks on the Create New Map option, this method calls another 
+	 * method that initializes that panel.
+	*/
 	public void initializeDesignPanel() {
 		gameModePanel.setVisible(false);
 
@@ -203,7 +223,12 @@ public class Menu {
 		comboBoxLoadMap.setBounds(419, 230, 107, 20);
 		designPanel.add(comboBoxLoadMap);
 	}
-
+	
+	/*Author: Valerie Otero | Date: March 8 2020
+	  Method initializes the Create New Map panel when the user clicks such option.
+	 * If the user clicks on the Save option, this method calls another 
+	 * method that initializes the panel where the map designer will begin creatin the map.
+	 */	
 	public void initializeNewMapPanel() {
 
 		designPanel.setVisible(false);
@@ -213,21 +238,6 @@ public class Menu {
 		newMapPanel.setBounds(0, 0, 1008, 681);
 		frame.getContentPane().add(newMapPanel);
 		newMapPanel.setLayout(null);	
-
-		//GO BACK BUTTON
-		JButton btngoBack = new JButton("Back");			
-		btngoBack.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {							
-
-				designPanel.setVisible(true);
-				btngoBack.setVisible(false);
-			}
-		});				
-		btngoBack.setBounds(10, 11, 65, 23);
-		btngoBack.setVisible(true);
-		newMapPanel.add(btngoBack);
-
 
 		//LABEL ENTER MAP NAME
 		JLabel lblEnterMapName = new JLabel("Enter new map name:");
@@ -279,6 +289,11 @@ public class Menu {
 		
 	}
 
+	/*Author: Valerie Otero | Date: March 9 2020
+	 * Method initializes the New Created Map panel when the user clicks the Save button.
+	 * Here the map designer can begin its design by uploading and image from computer,
+	 * as a background and/or draw lines for the building walls.
+	*/
 	public void initializeCreateMapPanel(){
 		newMapPanel.setVisible(false);
 
@@ -289,11 +304,11 @@ public class Menu {
 		newCreatedMapPanel.setLayout(null);	
 
 		//LABEL-WHERE BACKGROUND IMAGE IS SET
-		lblBackGroundLabel= new JLabel("");
-		lblBackGroundLabel.setBounds(0, 0, 1008, 636);
+		lblBackGroundLabel= new JLabel("");	
+		lblBackGroundLabel.setBounds(0, 42, 1008, 681);
 		newCreatedMapPanel.add(lblBackGroundLabel);
 		
-		initializeCoordinatesLabelAndInputs();
+		initializeManualCoordinatesLabelsAndTextFields();
 		initializeDrawLines();
 		initializeSaveBuilding();
 
@@ -301,17 +316,22 @@ public class Menu {
 		btnUploadBackgroundImage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				btnUploadBackgroundImageMouseEvent(e);			
-
+				
+				btnUploadBackgroundImageMouseEvent(e);	
+				
 			}
-
 		});
 		btnUploadBackgroundImage.setHorizontalAlignment(SwingConstants.LEFT);		
-		btnUploadBackgroundImage.setBounds(10, 647, 187, 23);	
+		btnUploadBackgroundImage.setBounds(10, 11, 187, 23);			
 		newCreatedMapPanel.add(btnUploadBackgroundImage);
+		initializeTreeDropDown();
+		
 	}
-
+	
+	/*Author: Valerie Otero | Date: March 9 2020
+	 * Method initializes a chooser box when the map designer selects to "Upload background image" 
+	 * that lets the map designer select an image from their computer
+	 */	
 	public void btnUploadBackgroundImageMouseEvent(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
@@ -325,93 +345,110 @@ public class Menu {
 			try {
 				img=ImageIO.read(file);
 				ImageIcon icon=new ImageIcon(img);
-				lblBackGroundLabel.setIcon(icon);                                      
+			    lblBackGroundLabel.setIcon(icon); 			
 
 				lblBackGroundLabel.revalidate(); 
-				lblBackGroundLabel.repaint(); 
+				lblBackGroundLabel.repaint();			
 			}
 			catch(IOException e1) {
 				System.out.println("Must select an image");
-
 			}
 		}
 	}
 
-	public void initializeCoordinatesLabelAndInputs() {
+	/* Author: Valerie Otero | Date: March 9 2020
+	 * Method initializes several labels and text fields associated with the panel
+	 * where the map designer starts designing
+	 */
+	public void initializeManualCoordinatesLabelsAndTextFields() {
 		
 		//LABEL - FROM:
 		JLabel lblFrom = new JLabel("From:");
-		lblFrom.setBounds(515, 637, 37, 14);
+		lblFrom.setBounds(800, 1, 37, 14);
 		newCreatedMapPanel.add(lblFrom);
 
-		//LABEL - FROM X
+		//LABEL (FROM) - x=
 		JLabel lblFromX = new JLabel("x=");
-		lblFromX.setBounds(450, 653, 23, 14);
+		lblFromX.setBounds(751, 18, 14, 14);
 		newCreatedMapPanel.add(lblFromX);
 
-		//FROM X INPUT
-		JTextField textFieldFromX = new JTextField();
-		textFieldFromX.setBounds(470, 653, 46, 20);
+		//(FROM) X INPUT
+		textFieldFromX = new JTextField();
+		textFieldFromX.setBounds(768, 17, 37, 20);
 		newCreatedMapPanel.add(textFieldFromX);
 		textFieldFromX.setColumns(10);
 
-		//LABEL - FROM Y
+		//LABEL (FROM) - y=
 		JLabel lblFromY = new JLabel("y=");
-		lblFromY.setBounds(530, 653, 28, 14);
+		lblFromY.setBounds(818, 18, 14, 14);
 		newCreatedMapPanel.add(lblFromY);
 
-		//FROM Y INPUT
-		JTextField textFieldFromY = new JTextField();
-		textFieldFromY.setBounds(550, 653, 51, 20);
+		//(FROM) Y INPUT
+		textFieldFromY = new JTextField();
+		textFieldFromY.setBounds(834, 16, 37, 20);
 		newCreatedMapPanel.add(textFieldFromY);
 		textFieldFromY.setColumns(10);
 
-
-		//LABEL - TO
+		//LABEL - TO:
 		JLabel lblTo = new JLabel("To:");
-		lblTo.setBounds(690, 637, 37, 14);
+		lblTo.setBounds(935, 1, 22, 14);
 		newCreatedMapPanel.add(lblTo);	
 
-		//LABEL - TO X
+		//LABEL (TO) - x=
 		JLabel labelToX = new JLabel("x=");
-		labelToX.setBounds(620, 653, 23, 14);
+		labelToX.setBounds(879, 18, 14, 14);
 		newCreatedMapPanel.add(labelToX);
 
-		//TO X INPUT
-		JTextField textFieldToX = new JTextField();
+		//(TO) X INPUT
+		textFieldToX = new JTextField();
 		textFieldToX.setColumns(10);
-		textFieldToX.setBounds(640, 650, 46, 20);
+		textFieldToX.setBounds(897, 17, 37, 20);
 		newCreatedMapPanel.add(textFieldToX);
 
-		//LABEL-TO Y
+		//LABEL (TO) - y=
 		JLabel labelToY = new JLabel("y=");
-		labelToY.setBounds(700, 653, 28, 14);
+		labelToY.setBounds(944, 18, 14, 14);
 		newCreatedMapPanel.add(labelToY);
 
-		//TO Y INPUT
-		JTextField textFieldToY = new JTextField();
+		//(TO) Y INPUT
+		textFieldToY = new JTextField();
 		textFieldToY.setColumns(10);
-		textFieldToY.setBounds(720, 650, 51, 20);
-		newCreatedMapPanel.add(textFieldToY);	
-	
-
+		textFieldToY.setBounds(962, 17, 37, 20);
+		newCreatedMapPanel.add(textFieldToY);
 	}
-	
+
+	/*
+	 * 
+	 * Method initializeDrawLines Created by: John A. Parks
+	 * Still going
+	 * End: March 7/2020
+	 * 
+	 * Implement button to start drawing lines on background.
+	 *
+	 */
 	public void initializeDrawLines() {
 		
 		//DRAW LINES BUTTON
-		JButton btnDrawLines = new JButton("Draw Line for Building Wall");
+		JButton btnDrawLines = new JButton("Draw Building Wall");
 		btnDrawLines.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				drawLines();
 			}
-		});
-		btnDrawLines.setIcon(null);
-		btnDrawLines.setBounds(780, 650, 200, 20);
+		});		
+		btnDrawLines.setBounds(386, 15, 145, 20);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 	
+	/*
+	 * 
+	 * Method initializeSaveBuilding Created by: John A. Parks
+	 * Still going
+	 * TO-DO
+	 * 
+	 * Implement button to save the lines drawn as the building
+	 *
+	 */
 	public void initializeSaveBuilding() {
 		
 		//DRAW LINES BUTTON
@@ -423,11 +460,18 @@ public class Menu {
 			}
 		});
 		btnDrawLines.setIcon(null);
-		btnDrawLines.setBounds(780, 650, 200, 20);
+		btnDrawLines.setBounds(541, 15, 200, 20);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 
-	
+	/*
+	 * 
+	 * Method drawLines Created by: John A. Parks
+	 * End:March 8/2020
+	 * 
+	 * Uses mouse listeners to get coordinates and draw a line.
+	 *
+	 */
 	public void drawLines() {		
 		newCreatedMapPanel.addMouseListener(mouseHandler);
 		newCreatedMapPanel.addMouseMotionListener(mouseMotionHandler);
@@ -435,9 +479,18 @@ public class Menu {
 		line.setForeground(Color.BLACK);
 		line.setBounds(0, 0, 1008, 681);
 		line.setOpaque(false);
-		newCreatedMapPanel.add(line);
+		newCreatedMapPanel.add(line);	
+		newCreatedMapPanel.add(lblBackGroundLabel);
 	}
 	
+	/*
+	 * 
+	 * mouseHandler Created by: John A. Parks
+	 * End:March 8/2020
+	 * 
+	 * Obtains coordinates with respect to mouse movements to draw the line.
+	 *
+	 */
 	public MouseListener mouseHandler = new MouseAdapter() {
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -474,4 +527,78 @@ public class Menu {
 			line.repaint();
 		}
 	};
+	
+	public void initializeTreeDropDown() {
+		TreeDropDownRenderer renderer= new TreeDropDownRenderer();
+
+		images = new ImageIcon[treeStrings.length];
+
+		Integer[] intArray = new Integer[treeStrings.length];
+
+		for (int i = 0; i < treeStrings.length; i++) {
+			intArray[i] = new Integer(i);
+			images[i] = createImageIcon("Resources/" + treeStrings[i] + ".png");
+			if (images[i] != null) {
+				images[i].setDescription(treeStrings[i]);
+			}
+		}                    
+
+		//TREE DROP DOWN
+		JComboBox<?> treeComboBox = new JComboBox(intArray);
+		treeComboBox.setBounds(207, 11, 163, 23);
+		newCreatedMapPanel.add(treeComboBox);
+		treeComboBox.setRenderer(renderer);  
+
+		
+	}
+	
+	protected static ImageIcon createImageIcon(String path) {
+
+		URL imgURL = Menu.class.getResource(path);
+
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
+	
+	class TreeDropDownRenderer extends JLabel implements ListCellRenderer {
+
+		private Font uhOhFont;
+
+		public TreeDropDownRenderer() {
+			setOpaque(true);        
+		}
+
+		/*
+		 * This method finds the image and text corresponding
+		 * to the selected value and returns the label, set up
+		 * to display the text and image.
+		 */
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			//Get the selected index. (The index param isn't
+			//always valid, so just use the value.)
+			int selectedIndex = ((Integer)value).intValue();
+
+			if (isSelected) {
+				setBackground(list.getSelectionBackground());
+				setForeground(list.getSelectionForeground());
+			} else {
+				setBackground(list.getBackground());
+				setForeground(list.getForeground());
+			}
+
+			//Set the icon and text.  
+			ImageIcon icon = images[selectedIndex];
+			String tree = treeStrings[selectedIndex];
+			setIcon(icon);
+			if (icon != null) {
+				setText(tree);
+				setFont(list.getFont());
+			} 
+			return this;
+		}
+	}
 }
