@@ -2,20 +2,21 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/*
+ * Created by: Yamil J. Gonzalez
+ * End:March 5/2020
+ * 
+ * Writer class has 4 methods:
+ * open: tries to open the file that is sent to the method
+ * close: will close the opened file
+ * write: Will try to write the String that is being pass
+ * newLine: it moves the cursor to a new line.
+ * 
+ */
+
 public class Writer {
 	private static BufferedWriter configFile;
 	
-	//main tester
-	//delete after use
-//	public static void main(String[] args) {
-//		String f = "configuration";
-//		String w = "I can open the file";
-//		open(f);
-//		write(w);
-//		write("im yamil");
-//		close();
-//	}
-
 	//Will try to open the file wanted
 	public static void open(String fileName) {
 		try {
@@ -45,7 +46,7 @@ public class Writer {
 			e.printStackTrace();
 		}
 	}
-	
+	//Will try to move the cursor to the next line of the file
 	public static void newLine() {
 		try {
 			configFile.newLine();
