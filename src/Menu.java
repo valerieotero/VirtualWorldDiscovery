@@ -91,23 +91,7 @@ public class Menu {
 	private int yend = 0; 
 	//John - for testing purposes
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Menu window = new Menu();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the application.
 	 */
@@ -128,6 +112,7 @@ public class Menu {
 		frame.setBounds(100, 100, 1024, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 
 		GameModePanel();
 	}
