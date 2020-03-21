@@ -58,12 +58,9 @@ public class Menu {
 	ImageIcon[] images;
 	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
 	JComboBox<?> treeComboBox;
-	private int xTree1 = 0; 
-	private int yTree1 = 0; 
-	private int xTree2 = 0; 
-	private int yTree2 = 0; 
-	private int xTree3 = 0; 
-	private int yTree3 = 0; 
+	private Tree tree;
+	private int xTree = 0; 
+	private int yTree = 0; 	
 	
 	//Writer/Reader variables
 	private String configFile;
@@ -178,7 +175,7 @@ public class Menu {
 		//LABEL CHOOSE MAP
 		JLabel lblChooseMap = new JLabel("Choose Map:");
 		lblChooseMap.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblChooseMap.setBounds(426, 127, 139, 23);
+		lblChooseMap.setBounds(447, 127, 139, 23);
 		designPanel.add(lblChooseMap);
 
 		//NEW MAP BUTTON
@@ -191,13 +188,13 @@ public class Menu {
 
 			}
 		});
-		btnNewMap.setBounds(426, 161, 89, 23);
+		btnNewMap.setBounds(447, 152, 89, 23);
 		designPanel.add(btnNewMap);
 
 		//LABEL - LOAD MAP
 		JLabel lblLoadMap = new JLabel("Load Map:");
 		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLoadMap.setBounds(426, 210, 89, 23);
+		lblLoadMap.setBounds(447, 210, 89, 23);
 		designPanel.add(lblLoadMap);
 
 		//LOAD MAP DROPDOWN
@@ -212,7 +209,7 @@ public class Menu {
 		for(String name:fileList){
 			comboBoxLoadMap.addItem(name);		
 		} 		
-		comboBoxLoadMap.setBounds(419, 230, 107, 20);
+		comboBoxLoadMap.setBounds(447, 235, 107, 20);
 		designPanel.add(comboBoxLoadMap);
 	}
 	
@@ -565,84 +562,76 @@ public class Menu {
 	public void insertTrees() {		
 
 		int value= (int) treeComboBox.getSelectedItem();
-		
+
 		switch(value) {
 
 		case 0:
 			System.out.println(value); //debug purposes
-						
-			JLabel tree1 = new JLabel();			
-			tree1.setIcon(new ImageIcon(Menu.class.getResource("/Resources/Tree"+(value+1)+".png")));
-			
+
 			newCreatedMapPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-												
-				     xTree1 = e.getX();
-				     yTree1 = e.getY();				   	
+
+					xTree = e.getX();
+					yTree = e.getY();				   	
 				}
 			});
-	
-			tree1.setBounds(xTree1, yTree1, 60, 72);
-			
-			newCreatedMapPanel.add(tree1);
-			tree1.revalidate(); 
-			tree1.repaint();
-			
+
+			tree = new Tree((value+1), xTree, yTree ,60, 72);
+
+			newCreatedMapPanel.add(tree);
+			tree.revalidate();
+			tree.repaint();
+
 			newCreatedMapPanel.add(lblBackGroundLabel);	
-			
+
 			break;
 
 		case 1:
-			System.out.println(value);//debug purposes
-			
-			JLabel tree2 = new JLabel();			
-			tree2.setIcon(new ImageIcon(Menu.class.getResource("/Resources/Tree"+(value+1)+".png")));
-						
+			System.out.println(value); //debug purposes
+
 			newCreatedMapPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-												
-				     xTree2 = e.getX();
-				     yTree2 = e.getY();				   	
+
+					xTree = e.getX();
+					yTree = e.getY();				   	
 				}
 			});
-	
-			tree2.setBounds(xTree2, yTree2, 60, 92);
-			
-			newCreatedMapPanel.add(tree2);			
-			tree2.revalidate(); 
-			tree2.repaint();
-			
+
+			tree = new Tree((value+1), xTree, yTree ,60, 92);
+
+			newCreatedMapPanel.add(tree);
+			tree.revalidate();
+			tree.repaint();
+
 			newCreatedMapPanel.add(lblBackGroundLabel);	
 
 			break;
 
 		case 2:
 			System.out.println(value); //debug purposes
-			
-			JLabel tree3 = new JLabel();						
-			tree3.setIcon(new ImageIcon(Menu.class.getResource("/Resources/Tree"+(value+1)+".png")));
-			
+
 			newCreatedMapPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-												
-				     xTree3 = e.getX();
-				     yTree3 = e.getY();				   	
+
+					xTree = e.getX();
+					yTree = e.getY();				   	
 				}
 			});
-			
-			tree3.setBounds(xTree3, yTree3, 60, 72);
-			
-			newCreatedMapPanel.add(tree3);
-			tree3.revalidate(); 
-			tree3.repaint();
-			
+
+			tree = new Tree((value+1), xTree, yTree ,60, 72);
+
+			newCreatedMapPanel.add(tree);
+			tree.revalidate();
+			tree.repaint();
+
 			newCreatedMapPanel.add(lblBackGroundLabel);	
 
 			break;
 		}	
+	
 	}
 	
 	//Standard class for rendering a JComboBox 
