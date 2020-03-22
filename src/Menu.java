@@ -561,14 +561,9 @@ public class Menu {
 	
 	public void insertTrees() {		
 
-		int value= (int) treeComboBox.getSelectedItem();
-
-		switch(value) {
-
-		case 0:
-			System.out.println(value); //debug purposes
-
-			newCreatedMapPanel.addMouseListener(new MouseAdapter() {
+		int selectedTree = (int)treeComboBox.getSelectedItem();
+		
+		newCreatedMapPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 
@@ -576,62 +571,34 @@ public class Menu {
 					yTree = e.getY();				   	
 				}
 			});
+				
 
-			tree = new Tree((value+1), xTree, yTree ,60, 72);
+		switch(selectedTree) {
 
-			newCreatedMapPanel.add(tree);
-			tree.revalidate();
-			tree.repaint();
+		case 0:
+			System.out.println(selectedTree); //debug purposes			
 
-			newCreatedMapPanel.add(lblBackGroundLabel);	
-
+			tree = new Tree((selectedTree+1), xTree, yTree ,60, 72);
 			break;
 
 		case 1:
-			System.out.println(value); //debug purposes
+			System.out.println(selectedTree); //debug purposes
 
-			newCreatedMapPanel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-
-					xTree = e.getX();
-					yTree = e.getY();				   	
-				}
-			});
-
-			tree = new Tree((value+1), xTree, yTree ,60, 92);
-
-			newCreatedMapPanel.add(tree);
-			tree.revalidate();
-			tree.repaint();
-
-			newCreatedMapPanel.add(lblBackGroundLabel);	
-
+			tree = new Tree((selectedTree+1), xTree, yTree ,60, 92);
 			break;
 
 		case 2:
-			System.out.println(value); //debug purposes
-
-			newCreatedMapPanel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-
-					xTree = e.getX();
-					yTree = e.getY();				   	
-				}
-			});
-
-			tree = new Tree((value+1), xTree, yTree ,60, 72);
-
-			newCreatedMapPanel.add(tree);
-			tree.revalidate();
-			tree.repaint();
-
-			newCreatedMapPanel.add(lblBackGroundLabel);	
-
+			System.out.println(selectedTree); //debug purposes
+			
+			tree = new Tree((selectedTree+1), xTree, yTree ,60, 72);	
 			break;
 		}	
-	
+		
+		newCreatedMapPanel.add(tree);
+		tree.revalidate();
+		tree.repaint();
+
+		newCreatedMapPanel.add(lblBackGroundLabel);	
 	}
 	
 	//Standard class for rendering a JComboBox 
