@@ -59,8 +59,7 @@ public class Menu {
 	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
 	JComboBox<?> treeComboBox;
 	private Tree tree;
-	private int xTree = 0; 
-	private int yTree = 0; 	
+	private int selectedTree;
 	
 	//Writer/Reader variables
 	private String configFile;
@@ -561,44 +560,26 @@ public class Menu {
 	
 	public void insertTrees() {		
 
-		int selectedTree = (int)treeComboBox.getSelectedItem();
-		
+		treeComboBox.addActionListener(new ActionListener() {			
+
+			public void actionPerformed(ActionEvent arg0) {	
+				selectedTree = (int)treeComboBox.getSelectedItem();				
+
+			}
+		});
+
 		newCreatedMapPanel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
+			@Override
+			public void mouseClicked(MouseEvent e) {					
 
-					xTree = e.getX();
-					yTree = e.getY();				   	
-				}
-			});
-				
+				tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
 
-		switch(selectedTree) {
-
-		case 0:
-			System.out.println(selectedTree); //debug purposes			
-
-			tree = new Tree((selectedTree+1), xTree, yTree ,60, 72);
-			break;
-
-		case 1:
-			System.out.println(selectedTree); //debug purposes
-
-			tree = new Tree((selectedTree+1), xTree, yTree ,60, 92);
-			break;
-
-		case 2:
-			System.out.println(selectedTree); //debug purposes
-			
-			tree = new Tree((selectedTree+1), xTree, yTree ,60, 72);	
-			break;
-		}	
-		
-		newCreatedMapPanel.add(tree);
-		tree.revalidate();
-		tree.repaint();
-
-		newCreatedMapPanel.add(lblBackGroundLabel);	
+				newCreatedMapPanel.add(tree);
+				tree.revalidate();
+				tree.repaint();
+				newCreatedMapPanel.add(lblBackGroundLabel);	
+			}
+		});
 	}
 	
 	//Standard class for rendering a JComboBox 
