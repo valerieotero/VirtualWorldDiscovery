@@ -1,4 +1,7 @@
+import java.awt.BasicStroke;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -19,7 +22,8 @@ public class Line extends JPanel{
 	@Override 
 	public void paintComponent(Graphics g)
 	{  	    	
-		super.paintComponent(g);
-		g.drawLine(coordinateList.get(0), coordinateList.get(1), coordinateList.get(2), coordinateList.get(3)); // x1, y1, x2, y2 
+		Graphics2D g2 = (Graphics2D) g;		
+		g2.setStroke(new BasicStroke(3)); //Line width
+        g2.draw(new Line2D.Float(coordinateList.get(0), coordinateList.get(1), coordinateList.get(2), coordinateList.get(3))); // x1, y1, x2, y2
 	}
 }

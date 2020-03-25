@@ -57,6 +57,9 @@ public class Menu {
 	JTextField textFieldToY;
 	ImageIcon[] images;
 	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
+	JComboBox<?> treeComboBox;
+	private Tree tree;
+	private int selectedTree;
 	
 	//Writer/Reader variables
 	private String configFile;
@@ -88,23 +91,7 @@ public class Menu {
 	private int wallsNeeded = 4;
 	//John - for testing purposes
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Menu window = new Menu();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the application.
 	 */
@@ -125,6 +112,7 @@ public class Menu {
 		frame.setBounds(100, 100, 1024, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 
 		GameModePanel();
 	}
@@ -190,7 +178,7 @@ public class Menu {
 		//LABEL CHOOSE MAP
 		JLabel lblChooseMap = new JLabel("Choose Map:");
 		lblChooseMap.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblChooseMap.setBounds(426, 127, 139, 23);
+		lblChooseMap.setBounds(447, 127, 139, 23);
 		designPanel.add(lblChooseMap);
 
 		//NEW MAP BUTTON
@@ -203,13 +191,13 @@ public class Menu {
 
 			}
 		});
-		btnNewMap.setBounds(426, 161, 89, 23);
+		btnNewMap.setBounds(447, 152, 89, 23);
 		designPanel.add(btnNewMap);
 
 		//LABEL - LOAD MAP
 		JLabel lblLoadMap = new JLabel("Load Map:");
 		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLoadMap.setBounds(426, 210, 89, 23);
+		lblLoadMap.setBounds(447, 210, 89, 23);
 		designPanel.add(lblLoadMap);
 
 		//LOAD MAP DROPDOWN
@@ -224,7 +212,7 @@ public class Menu {
 		for(String name:fileList){
 			comboBoxLoadMap.addItem(name);		
 		} 		
-		comboBoxLoadMap.setBounds(419, 230, 107, 20);
+		comboBoxLoadMap.setBounds(447, 235, 107, 20);
 		designPanel.add(comboBoxLoadMap);
 	}
 	
@@ -325,6 +313,7 @@ public class Menu {
 		btnUploadBackgroundImage.setHorizontalAlignment(SwingConstants.LEFT);		
 		btnUploadBackgroundImage.setBounds(10, 11, 187, 23);			
 		newCreatedMapPanel.add(btnUploadBackgroundImage);
+		
 		initializeTreeDropDown();
 		
 	}
@@ -359,8 +348,7 @@ public class Menu {
 
 	/* Author: Valerie Otero | Date: March 9 2020
 	 * Method initializes several labels and text fields associated with the panel
-	 * where the map designer starts designing
-	 */
+	 * where the map designer starts designing */	 
 	public void initializeManualCoordinatesLabelsAndTextFields() {
 		
 		//LABEL - FROM:
@@ -552,6 +540,7 @@ public class Menu {
 	};
 	
 	public void initializeTreeDropDown() {
+		
 		TreeDropDownRenderer renderer= new TreeDropDownRenderer();
 
 		images = new ImageIcon[treeStrings.length];
@@ -560,18 +549,22 @@ public class Menu {
 
 		for (int i = 0; i < treeStrings.length; i++) {
 			intArray[i] = new Integer(i);
-			images[i] = createImageIcon("Resources/" + treeStrings[i] + ".png");
-			if (images[i] != null) {
-				images[i].setDescription(treeStrings[i]);
-			}
+			images[i] = createImageIcon("Resources/" + treeStrings[i] + ".png");			
 		}                    
 
-		//TREE DROP DOWN
-		JComboBox<?> treeComboBox = new JComboBox(intArray);
+		//TREE DROPDOWN
+		treeComboBox = new JComboBox(intArray);
 		treeComboBox.setBounds(207, 11, 163, 23);
 		newCreatedMapPanel.add(treeComboBox);
-		treeComboBox.setRenderer(renderer);  
+		treeComboBox.setRenderer(renderer);
+		
+		treeComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				
+				insertTrees();
 
+			}
+		});
 		
 	}
 	
@@ -587,39 +580,56 @@ public class Menu {
 		}
 	}
 	
+	
+	public void insertTrees() {		
+
+		treeComboBox.addActionListener(new ActionListener() {			
+
+			public void actionPerformed(ActionEvent arg0) {	
+				selectedTree = (int)treeComboBox.getSelectedItem();				
+
+			}
+		});
+
+		newCreatedMapPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {					
+
+				tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
+
+				newCreatedMapPanel.add(tree);
+				tree.revalidate();
+				tree.repaint();
+				newCreatedMapPanel.add(lblBackGroundLabel);	
+			}
+		});
+	}
+	
+	//Standard class for rendering a JComboBox 
 	class TreeDropDownRenderer extends JLabel implements ListCellRenderer {
-
-		private Font uhOhFont;
-
+		
 		public TreeDropDownRenderer() {
 			setOpaque(true);        
 		}
 
-		/*
-		 * This method finds the image and text corresponding
-		 * to the selected value and returns the label, set up
-		 * to display the text and image.
-		 */
+		/* This method finds the image and text corresponding to the selected value 
+		 * and returns the label, set up to display the text and image. */		 
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			//Get the selected index. (The index param isn't
-			//always valid, so just use the value.)
+			
+			//Get the selected index. 
 			int selectedIndex = ((Integer)value).intValue();
 
 			if (isSelected) {
-				setBackground(list.getSelectionBackground());
-				setForeground(list.getSelectionForeground());
+				setBackground(list.getSelectionBackground());				
 			} else {
-				setBackground(list.getBackground());
-				setForeground(list.getForeground());
+				setBackground(list.getBackground());				
 			}
 
 			//Set the icon and text.  
-			ImageIcon icon = images[selectedIndex];
-			String tree = treeStrings[selectedIndex];
+			ImageIcon icon = images[selectedIndex];		
 			setIcon(icon);
 			if (icon != null) {
-				setText(tree);
-				setFont(list.getFont());
+				setText("Tree " + (selectedIndex+1));				
 			} 
 			return this;
 		}
