@@ -46,13 +46,13 @@ public class Reader {
 	}
 	
 	public static void readerController() throws FileNotFoundException {
-		tokenizer();
+		tokenizer("Configuration_test");
 		reader();
 	}
 
 	//Create tokens using a splitting function
-	public static void tokenizer() throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\src\\Configuration_test"));
+	private static void tokenizer(String file) throws FileNotFoundException {
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\src\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -63,7 +63,7 @@ public class Reader {
 
 	//Uses the data in the tokens to subtract the necessary values
 	//Of each wall
-	public static void reader() {
+	private static void reader() {
 		String data = str.toString();		
 		String[] arr = data.split(",|\\]");
 		int i = 0, count = 0;
@@ -99,5 +99,13 @@ public class Reader {
 				i++;
 			}
 		}
+	}
+	
+	public static void trees(String file) throws FileNotFoundException {
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\src\\"+file));
+	}
+	
+	public static void wallPictures(String file) throws FileNotFoundException {
+		
 	}
 }

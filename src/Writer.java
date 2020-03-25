@@ -16,7 +16,6 @@ import java.io.IOException;
 
 public class Writer {
 	private static BufferedWriter configFile;
-	
 	//Will try to open the file wanted
 	public static void open(String fileName) {
 		try {
@@ -50,6 +49,16 @@ public class Writer {
 	public static void newLine() {
 		try {
 			configFile.newLine();
+		}catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+	
+	//Will try to save trees into a file
+	public static void trees() {
+		try {
+			configFile.close();
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();

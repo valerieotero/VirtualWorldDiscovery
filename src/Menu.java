@@ -82,6 +82,10 @@ public class Menu {
 	private int ybegin = 0; 
 	private int xend = 0; 
 	private int yend = 0; 
+	private int walls = 0;
+	private int height = 0;
+	private int wight = 10;
+	private int wallsNeeded = 4;
 	//John - for testing purposes
 
 
@@ -282,11 +286,8 @@ public class Menu {
 		writer.write("Map name = ");
 		writer.write(s);
 		writer.newLine();
+		writer.newLine();
 		writer.close();
-	}
-
-	private void writingCoordinates() {
-		
 	}
 
 	/*Author: Valerie Otero | Date: March 9 2020
@@ -512,11 +513,33 @@ public class Menu {
 			line.coordinateList.set(1, ybegin);
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
-			
+			writingCoordinates(walls, "wall.png");
+			if(walls == wallsNeeded)closing();
+			walls++;
 			linesList.add(finishedLine);
 			line.repaint();
+
 		}
 	};
+	
+	//Write the building name and number into the file
+	//Saves reference picture
+	private void writingBuildingName(String s,String p, int w) {
+		writer.write("Building "+w+" = "+s);
+		writer.newLine();
+		writer.write(p);
+		writer.newLine();
+	}
+	//Writes the wall, wall number and wall coordinates
+	private void writingCoordinates(int w,String p) {
+		writer.write("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+wight+","+height+")"+p);
+		writer.newLine();
+	}
+	
+	private void closing() {
+		writer.close();
+	}
+	
 	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
 		@Override
 		public void mouseDragged(MouseEvent e) {
