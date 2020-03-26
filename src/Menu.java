@@ -61,6 +61,8 @@ public class Menu {
 	JComboBox<?> treeComboBox;
 	private Tree tree;
 	private int selectedTree;
+	private JButton btnNewBuilding;
+	private JButton btnDone;
 	
 	//Writer/Reader variables
 	private String configFile;
@@ -404,9 +406,27 @@ public class Menu {
 
 		//LABEL-WHERE BACKGROUND IMAGE IS SET
 		lblBackGroundLabel= new JLabel("");	
-		lblBackGroundLabel.setBounds(0, 42, 1008, 681);
+		lblBackGroundLabel.setBounds(0, 43, 1008, 681);
 		newCreatedMapPanel.add(lblBackGroundLabel);
+
 		
+		//NEW BUILDING BUTTON
+		btnNewBuilding = new JButton("New Building");	
+		btnNewBuilding.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {				
+
+				btnNewBuilding.setVisible(false);
+				btnDrawLines.setVisible(true);
+				btnDone.setVisible(true);
+
+				NewBuildingFrame newBuildingFrame = new NewBuildingFrame();				
+
+			}
+		});
+		btnNewBuilding.setBounds(386, 15, 145, 20);
+		newCreatedMapPanel.add(btnNewBuilding);
+
 		initializeManualCoordinatesLabelsAndTextFields();
 		initializeTakeTest();
 		initializeDrawLines();
@@ -427,8 +447,24 @@ public class Menu {
 		
 		initializeTreeDropDown();
 		
+		
+		//DONE BUTTON
+		btnDone = new JButton("Done");
+		btnDone.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				btnDrawLines.setVisible(false);	
+				btnDone.setVisible(false);
+				btnNewBuilding.setVisible(true);					
+			}
+		});
+		btnDone.setBounds(909, 50, 89, 23);
+		btnDone.setVisible(false);
+		newCreatedMapPanel.add(btnDone);
+		newCreatedMapPanel.add(lblBackGroundLabel);	
 	}
-	
+
 	/*Author: Valerie Otero | Date: March 9 2020
 	 * Method initializes a chooser box when the map designer selects to "Upload background image" 
 	 * that lets the map designer select an image from their computer
@@ -529,7 +565,7 @@ public class Menu {
 	public void initializeDrawLines() {
 		
 		//DRAW LINES BUTTON
-		JButton btnDrawLines = new JButton("Draw Building Wall");
+		btnDrawLines = new JButton("Draw Building Wall");
 		btnDrawLines.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -552,16 +588,15 @@ public class Menu {
 	public void initializeSaveBuilding() {
 		
 		//DRAW LINES BUTTON
-		JButton btnDrawLines = new JButton("Draw Building Wall Manually");
-		btnDrawLines.addActionListener(new ActionListener() {
+		JButton btnDrawLinesManually = new JButton("Draw Building Wall Manually");
+		btnDrawLinesManually.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				drawLines();
 			}
-		});
-		btnDrawLines.setIcon(null);
-		btnDrawLines.setBounds(541, 15, 200, 20);
-		newCreatedMapPanel.add(btnDrawLines);
+		});		
+		btnDrawLinesManually.setBounds(541, 15, 200, 20);
+		newCreatedMapPanel.add(btnDrawLinesManually);
 	}
 
 	/*
@@ -706,12 +741,18 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {					
 
-				tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
+				if (e.isMetaDown()) { //So trees are only added with right click
+					return;
 
-				newCreatedMapPanel.add(tree);
-				tree.revalidate();
-				tree.repaint();
-				newCreatedMapPanel.add(lblBackGroundLabel);	
+				}
+				else {
+					tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
+
+					newCreatedMapPanel.add(tree);
+					tree.revalidate();
+					tree.repaint();
+					newCreatedMapPanel.add(lblBackGroundLabel);	
+				}
 			}
 		});
 	}
