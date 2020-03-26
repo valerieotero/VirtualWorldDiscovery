@@ -501,9 +501,11 @@ public class Menu {
 			line.coordinateList.set(1, ybegin);
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
+			//calls writing functions
 			writingCoordinates(walls, "wall.png");
-			if(walls == wallsNeeded)closing();
+			if(walls == wallsNeeded)closing(); //need to add a button to know how many walls each building has
 			walls++;
+			//ends
 			linesList.add(finishedLine);
 			line.repaint();
 
