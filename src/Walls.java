@@ -20,6 +20,7 @@ public class Walls {
 		this.picture = picture;
 	}
 	
+	//testing purposes
 	@Override
 	public String toString(){
 		String walls = "(" + x1 + "," + y1 + ")" + "(" + x2 + "," + y2 + ")" + "(" + width + "x" + height + ")" + picture;

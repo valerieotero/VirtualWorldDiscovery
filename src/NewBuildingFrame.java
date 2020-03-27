@@ -22,7 +22,7 @@ public class NewBuildingFrame {
 
 	private JFrame NewBuildingFrame;
 	private JTextField textFieldBuildingName;
-	private JLabel lblAmountOfWalls;
+	private static JLabel lblAmountOfWalls;
 	private JTextField textFieldAmountOfWalls;
 	private JButton btnUploadImage;
 	private JLabel lblSelectImage;
@@ -35,8 +35,7 @@ public class NewBuildingFrame {
 	private JTextField textFieldImage;
 	private JButton btnSaveImage;
 
-
-
+	
 	public NewBuildingFrame() {
 		newBuildingInfoFrame();
 	}
@@ -64,7 +63,8 @@ public class NewBuildingFrame {
 		lblAmountOfWalls = new JLabel("Amount of walls: ");
 		lblAmountOfWalls.setBounds(22, 57, 100, 14);
 		NewBuildingFrame.getContentPane().add(lblAmountOfWalls);
-
+		numberConvertion();
+		
 		//INPUT FIELD AMOUNT OF WALLS
 		textFieldAmountOfWalls = new JTextField();
 		textFieldAmountOfWalls.setBounds(128, 54, 86, 20);
@@ -178,5 +178,15 @@ public class NewBuildingFrame {
 			return false;
 		}
 	}
-
+	
+	//takes the input number of walls and save it.
+	public static int numberConvertion() {
+		int wallNumber = 0;
+		try {
+			wallNumber = Integer.parseInt(lblAmountOfWalls.getText());
+		}catch(NumberFormatException ex) {
+			System.out.println("Not a number, try again");
+		}
+		return wallNumber;
+	}
 }

@@ -648,8 +648,8 @@ public class Menu {
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
 			//calls writing functions
-			writingCoordinates(walls, "wall.png");
-			if(walls == wallsNeeded)closing(); //need to add a button to know how many walls each building has
+			writer.writingCoordinates(walls, xbegin, ybegin, xend, yend, height, wight, "wall.png");
+			if(walls == wallsNeeded)writer.close();
 			walls++;
 			//ends
 			linesList.add(finishedLine);
@@ -657,24 +657,6 @@ public class Menu {
 
 		}
 	};
-	
-	//Write the building name and number into the file
-	//Saves reference picture
-	private void writingBuildingName(String s,String p, int w) {
-		writer.write("Building "+w+" = "+s);
-		writer.newLine();
-		writer.write(p);
-		writer.newLine();
-	}
-	//Writes the wall, wall number and wall coordinates
-	private void writingCoordinates(int w,String p) {
-		writer.write("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+wight+","+height+")"+p);
-		writer.newLine();
-	}
-	
-	private void closing() {
-		writer.close();
-	}
 	
 	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
 		@Override

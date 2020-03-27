@@ -63,6 +63,4 @@ public class TestCreator {
 		}
 		System.out.println("You have finished creating the questions for this building.");
 	}
-	
-	
 }

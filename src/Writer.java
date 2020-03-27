@@ -64,4 +64,28 @@ public class Writer {
 			e.printStackTrace();
 		}
 	}
+	
+	//Write the building name and number into the file
+	//Saves reference picture
+	public void writingBuildingName(String s,String p, int w) {
+		try {
+			configFile.write("Building "+w+" = "+s);
+			configFile.newLine();
+			configFile.write(p);
+			configFile.newLine();
+		}catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+	//Writes the wall, wall number and wall coordinates
+	public void writingCoordinates(int n,int x, int y, int x1, int y1, int h, int w, String p) {
+		try {
+			configFile.write("Wall "+n+" = ("+x+","+y+")("+x1+","+y1+")("+h+","+w+")"+p);
+			configFile.newLine();
+		}catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
 }
