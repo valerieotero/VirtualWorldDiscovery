@@ -23,7 +23,7 @@ public class NewBuildingFrame {
 
 	private JFrame NewBuildingFrame;
 	private JTextField textFieldBuildingName;
-	private JLabel lblAmountOfWalls;
+	private static JLabel lblAmountOfWalls;
 	private JTextField textFieldAmountOfWalls;
 	private JButton btnUploadImage;
 	private JLabel lblSelectImage;
@@ -178,6 +178,17 @@ public class NewBuildingFrame {
 		else {
 			return false;
 		}
+	}
+	
+	//takes the input number of walls and save it.
+	public static int numberConvertion() {
+		int wallNumber = 0;
+		try {
+			wallNumber = Integer.parseInt(lblAmountOfWalls.getText());
+		}catch(NumberFormatException ex) {
+			System.out.println("Not a number, try again");
+		}
+		return wallNumber;
 	}
 
 }
