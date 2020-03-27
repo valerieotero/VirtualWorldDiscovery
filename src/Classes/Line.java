@@ -1,3 +1,4 @@
+package Classes;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,7 +17,7 @@ import javax.swing.JPanel;
 public class Line extends JPanel{
 
 	private SaveCoordinates coordinates = new SaveCoordinates();
-	List<Integer> coordinateList = coordinates.getCoordinates(); // Add coordinates to the list
+	public List<Integer> coordinateList = coordinates.getCoordinates(); // Add coordinates to the list
 
 	// Paints the components
 	@Override 

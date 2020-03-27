@@ -1,7 +1,8 @@
+package Classes;
 
 public class Question {
-	String prompt;
-	String answer;
+	public String prompt;
+	public String answer;
 	
 	public Question(String prompt, String answer) {
 		this.prompt = prompt;
