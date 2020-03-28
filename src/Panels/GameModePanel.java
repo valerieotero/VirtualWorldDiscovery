@@ -59,5 +59,4 @@ public class GameModePanel extends JPanel {
 		gameModePanel.add(btnPlay);	
 		
 	}
-
 }

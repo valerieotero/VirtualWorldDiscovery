@@ -25,5 +25,4 @@ public class SaveCoordinates extends ArrayList<Integer> {
 	public void setCoordinates(ArrayList<Integer> coordinates) {
 		 this.coordinateList = coordinates;
 	}	
-
 }

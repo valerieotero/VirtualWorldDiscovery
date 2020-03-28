@@ -180,15 +180,7 @@ public class NewBuildingFrame {
 		}
 	}
 	
-	//takes the input number of walls and save it.
-	public static int numberConvertion() {
-		int wallNumber = 0;
-		try {
-			wallNumber = Integer.parseInt(lblAmountOfWalls.getText());
-		}catch(NumberFormatException ex) {
-			System.out.println("Not a number, try again");
-		}
-		return wallNumber;
+	public int numberOfWalls() {
+		return amountOfWalls;
 	}
-
 }

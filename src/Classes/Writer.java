@@ -12,12 +12,17 @@ import java.io.IOException;
  * close: will close the opened file
  * write: Will try to write the String that is being pass
  * newLine: it moves the cursor to a new line.
+ * writingHeader: will try to create and add the basic info to a file.
+ * writingBuildingName: write the basic info of the building
+ * writingCoordinates: writes the coordinates and picture of each wall.
+ * trees: will try to write trees to a file
  * 
  */
 
 public class Writer {
 	private static BufferedWriter configFile;
-	//Will try to open the file wanted
+	
+	//Will try to open a file given a path
 	public static void open(String fileName) {
 		try {
 			configFile = new BufferedWriter(new FileWriter(fileName, true));
@@ -60,30 +65,6 @@ public class Writer {
 	public static void trees() {
 		try {
 			configFile.close();
-		}catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-	}
-	
-	//Write the building name and number into the file
-	//Saves reference picture
-	public void writingBuildingName(String s,String p, int w) {
-		try {
-			configFile.write("Building "+w+" = "+s);
-			configFile.newLine();
-			configFile.write(p);
-			configFile.newLine();
-		}catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-	}
-	//Writes the wall, wall number and wall coordinates
-	public void writingCoordinates(int n,int x, int y, int x1, int y1, int h, int w, String p) {
-		try {
-			configFile.write("Wall "+n+" = ("+x+","+y+")("+x1+","+y1+")("+h+","+w+")"+p);
-			configFile.newLine();
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();

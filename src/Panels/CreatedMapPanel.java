@@ -63,6 +63,9 @@ public class CreatedMapPanel extends JPanel {
 	private JTextField inputZ;
 	private JTextField inputW;	
 
+	//Class-Objects needed.
+	Writer writer;
+	NewBuildingFrame NFB;
 
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
@@ -80,7 +83,7 @@ public class CreatedMapPanel extends JPanel {
 	private int wallsNeeded = 4;
 	//John - for testing purposes
 
-	Writer writer;
+
 
 	public CreatedMapPanel(JFrame frame, Writer writer){
 
@@ -343,12 +346,17 @@ public class CreatedMapPanel extends JPanel {
 			line.coordinateList.set(3, yend);
 			//calls writing functions
 			writingCoordinates(walls, "wall.png");
-			if(walls == wallsNeeded)closing(); //need to add a button to know how many walls each building has
-			walls++;
-			//ends
-			linesList.add(finishedLine);
-			line.repaint();
-
+			if(walls == wallsNeeded) {
+				walls = 0;
+				linesList.add(finishedLine);
+				line.repaint();
+				closing(); //need to add a button to know how many walls each building has
+			}
+			else {
+				walls++;
+				linesList.add(finishedLine);
+				line.repaint();
+			}
 		}
 	};
 
@@ -597,5 +605,4 @@ public class CreatedMapPanel extends JPanel {
 			return this;
 		}
 	}
-
 }

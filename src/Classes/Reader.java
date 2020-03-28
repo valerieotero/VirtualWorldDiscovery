@@ -24,11 +24,12 @@ import java.util.Scanner;
  * String = String
  * 
  * String number = String
+ * String.png
  * String number = (#,#)(#,#)(#,#)String.png
  * String number = (#,#)(#,#)(#,#)String.png
  * String number = (#,#)(#,#)(#,#)String.png
  * String number = (#,#)(#,#)(#,#)String.png
- * 
+ * ....
  */
 
 public class Reader {
@@ -40,14 +41,15 @@ public class Reader {
 	static HashMap<String, LinkedList<Walls>> buildings = new HashMap<>();
 	static String name, temp;
 	
-
+	/*Testing main*/
 	public static void main(String[] args) throws Exception {
-		readerController();
+		readerController("Configuration_test");
 		System.out.println(Collections.singletonList(buildings));
 	}
 	
-	public static void readerController() throws FileNotFoundException {
-		tokenizer("Configuration_test");
+	//Call this method of called form other classes
+	public static void readerController(String s) throws FileNotFoundException {
+		tokenizer(s);
 		reader();
 	}
 
@@ -101,12 +103,8 @@ public class Reader {
 			}
 		}
 	}
-	
-	public static void trees(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\src\\"+file));
-	}
-	
-	public static void wallPictures(String file) throws FileNotFoundException {
 		
+	public static void wallPictures(String file) throws FileNotFoundException {
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\src\\"+file));
 	}
 }

@@ -52,9 +52,7 @@ public class NewMapPanel extends JPanel{
 
 				//Validates that the name is not an empty string
 				if(!(configFile.isEmpty())) {
-
 					writingHeader(path);
-
 					newMapPanel.setVisible(false);
 					
 					CreatedMapPanel createdMapPanel = new CreatedMapPanel(frame, writer);					
@@ -66,7 +64,7 @@ public class NewMapPanel extends JPanel{
 		btnSave.setBounds(550, 161, 89, 23);
 		newMapPanel.add(btnSave);
 	}
-
+	
 	//Helper method to write the name of the map and header of the file
 	//header -> Map name
 	private void writingHeader(String s) {
@@ -75,8 +73,6 @@ public class NewMapPanel extends JPanel{
 		writer.write(s);
 		writer.newLine();
 		writer.newLine();
-		writer.close();
+		//writer.close();
 	}
-
-
 }
