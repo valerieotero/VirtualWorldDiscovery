@@ -167,6 +167,7 @@ public class NewBuildingFrame {
 				System.out.println("Building Width: " + buildingWidth);
 			}
 		});
+		//Setting varibales for getters
 		this.setBuildingHeight(buildingHeight);
 		this.setBuildingWidth(buildingWidth);
 		this.setBuildingName(buildingName);
