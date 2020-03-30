@@ -37,12 +37,13 @@ public class NewBuildingFrame {
 	
 	private JButton btnUploadImage;
 	private JButton btnSave;	
-	private JButton btnSaveImage;	
+	private JButton btnSaveImage;
+	private JButton btnTestCreator;
 	
 	ImageIcon icon;
 	ImageIcon imageIcon;	
 	private int count = 0;
-	private String buildingName;
+	private static String buildingName;
 	private int amountOfWalls; 
 	private int buildingWidth;
 	private int buildingHeight;		
@@ -56,7 +57,7 @@ public class NewBuildingFrame {
 	
 	
 	//GETTERS AND SETTERS
-	public String getBuildingName() {
+	public static String getBuildingName() {
 		return buildingName;
 	}
 
@@ -99,7 +100,7 @@ public class NewBuildingFrame {
 	
 	private void newBuildingInfoFrame() {
 		NewBuildingFrame = new JFrame();
-		NewBuildingFrame.setBounds(100, 100, 527, 356);
+		NewBuildingFrame.setBounds(100, 100, 527, 415);
 		NewBuildingFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		NewBuildingFrame.getContentPane().setLayout(null);
 
@@ -150,6 +151,7 @@ public class NewBuildingFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				buildingName = textFieldBuildingName.getText();
+				setBuildingName(buildingName);
 				try {
 					amountOfWalls = Integer.parseInt(textFieldAmountOfWalls.getText());
 					buildingHeight = Integer.parseInt(textFieldWallHeight.getText());
@@ -167,7 +169,7 @@ public class NewBuildingFrame {
 				System.out.println("Building Width: " + buildingWidth);
 			}
 		});
-		//Setting varibales for getters
+		//Setting variables for getters
 		this.setBuildingHeight(buildingHeight);
 		this.setBuildingWidth(buildingWidth);
 		this.setBuildingName(buildingName);
@@ -228,6 +230,17 @@ public class NewBuildingFrame {
 				}
 			}
 		});
+		
+		//MAKE TEST BUTTON
+		btnTestCreator = new JButton("Add Questions with Answers");
+		btnTestCreator.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TestCreatorFrame testFrame = new TestCreatorFrame();
+			}
+		});
+		btnTestCreator.setBounds(20, 325, 230, 23);
+		NewBuildingFrame.getContentPane().add(btnTestCreator);
 		
 		NewBuildingFrame.setVisible(true);
 	}
