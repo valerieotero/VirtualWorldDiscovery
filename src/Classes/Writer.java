@@ -1,7 +1,10 @@
 package Classes;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.ImageIcon;
 
 /*
  * Created by: Yamil J. Gonzalez
@@ -12,11 +15,7 @@ import java.io.IOException;
  * close: will close the opened file
  * write: Will try to write the String that is being pass
  * newLine: it moves the cursor to a new line.
- * writingHeader: will try to create and add the basic info to a file.
- * writingBuildingName: write the basic info of the building
- * writingCoordinates: writes the coordinates and picture of each wall.
- * trees: will try to write trees to a file
- * 
+ * buildingInfo: it add the building name, number and picture path to the file.
  */
 
 public class Writer {
@@ -65,6 +64,19 @@ public class Writer {
 	public static void trees() {
 		try {
 			configFile.close();
+		}catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+	
+	//Will try to write the name, number and picture path of the building.
+	public static void buildingInfo(String name, int number, File file) {
+		try {
+			configFile.append("Building "+number+" = "+name);
+			configFile.newLine();
+			configFile.write(file.getPath());
+			configFile.newLine();
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();

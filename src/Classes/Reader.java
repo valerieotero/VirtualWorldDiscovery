@@ -18,17 +18,16 @@ import java.util.Scanner;
  * readerController: when called it will call the other two methods
  * tokenizer: takes the input file and split it into tokens, that holds the necessary data.
  * reader: takes the token data, split it into necessary values to later store them in the necessary data structures 
- * 
- * TO-DO
+ *
  * Basic inputs:
  * String = String
  * 
- * String number = String
- * String.png
- * String number = (#,#)(#,#)(#,#)String.png
- * String number = (#,#)(#,#)(#,#)String.png
- * String number = (#,#)(#,#)(#,#)String.png
- * String number = (#,#)(#,#)(#,#)String.png
+ * String integer = String
+ * Path\\String.png
+ * String integer = (#,#)(#,#)(#,#)String.png
+ * String integer = (#,#)(#,#)(#,#)String.png
+ * String integer = (#,#)(#,#)(#,#)String.png
+ * String integer = (#,#)(#,#)(#,#)String.png
  * ....
  */
 
@@ -37,13 +36,17 @@ public class Reader {
 	static ArrayList<String> str = new ArrayList<String>();
 	static ArrayList<Integer> walls = new ArrayList<Integer>();
 	static ArrayList<String> pictures = new ArrayList<String>();
+	static ArrayList<String> buildingPictures = new ArrayList<String>();
 	static LinkedList<Walls> space = new LinkedList<Walls>();
 	static HashMap<String, LinkedList<Walls>> buildings = new HashMap<>();
 	static String name, temp;
 	
 	/*Testing main*/
 	public static void main(String[] args) throws Exception {
-		readerController("Configuration_test");
+		readerController("PR");
+		for(String s : buildingPictures) {
+			System.out.println(s);
+		}
 		System.out.println(Collections.singletonList(buildings));
 	}
 	
@@ -55,7 +58,7 @@ public class Reader {
 
 	//Create tokens using a splitting function
 	private static void tokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\src\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Maps\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -69,10 +72,15 @@ public class Reader {
 	private static void reader() {
 		String data = str.toString();		
 		String[] arr = data.split(",|\\]");
+		//Testing purposes
+//		for(int i = 0; i <arr.length; i++) {
+//			System.out.println("location "+i+ " = "+arr[i]);
+//		}
 		int i = 0, count = 0;
 		while(i < arr.length) {
 			if(arr[i].equals(" Building")){
 				name = arr[i+3].trim();
+				buildingPictures.add(arr[i+4].trim());
 				LinkedList<Walls> lines = new LinkedList<Walls>();
 				if(i+5 < arr.length) i = i+5;
 				else break;

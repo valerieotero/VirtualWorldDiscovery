@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import Classes.Writer;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,13 +41,14 @@ public class NewBuildingFrame {
 	
 	ImageIcon icon;
 	ImageIcon imageIcon;	
-	
+	private int count = 0;
 	private String buildingName;
 	private int amountOfWalls; 
 	private int buildingWidth;
 	private int buildingHeight;		
-
 	
+	Writer writer;
+	File file;
 	//CONSTRUCTOR
 	public NewBuildingFrame() {
 		newBuildingInfoFrame();
@@ -94,7 +98,6 @@ public class NewBuildingFrame {
 	
 	
 	private void newBuildingInfoFrame() {
-
 		NewBuildingFrame = new JFrame();
 		NewBuildingFrame.setBounds(100, 100, 527, 356);
 		NewBuildingFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -147,17 +150,16 @@ public class NewBuildingFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				buildingName = textFieldBuildingName.getText();
-
 				try {
 					amountOfWalls = Integer.parseInt(textFieldAmountOfWalls.getText());
 					buildingHeight = Integer.parseInt(textFieldWallHeight.getText());
-					buildingWidth = Integer.parseInt(textFieldWalWidth.getText());										
+					buildingWidth = Integer.parseInt(textFieldWalWidth.getText());		
 				}
 
 				catch(NumberFormatException ex){
 					JOptionPane.showMessageDialog(null, "Must enter a number for 'Amount of Walls', 'Height of walls' and 'Width of walls'", "Warning", JOptionPane.INFORMATION_MESSAGE);
 				}
-				
+				count++;
 				//For debug
 				System.out.println("Building Name: "+ buildingName);		
 				System.out.println("Amount Of Walls: " + amountOfWalls);
@@ -165,7 +167,11 @@ public class NewBuildingFrame {
 				System.out.println("Building Width: " + buildingWidth);
 			}
 		});
-
+		this.setBuildingHeight(buildingHeight);
+		this.setBuildingWidth(buildingWidth);
+		this.setBuildingName(buildingName);
+		this.setAmountOfWalls(amountOfWalls);
+		
 		btnSave.setBounds(73, 171, 89, 23);
 		NewBuildingFrame.getContentPane().add(btnSave);
 
@@ -208,6 +214,8 @@ public class NewBuildingFrame {
 
 			}
 		});
+		this.setImageIcon(imageIcon);
+		//Writer.write(this.getImageIcon());
 		btnSaveImage.setBounds(174, 269, 114, 23);
 		NewBuildingFrame.getContentPane().add(btnSaveImage);	
 
@@ -227,8 +235,7 @@ public class NewBuildingFrame {
 	public void btnUploadBackgroundImageMouseEvent(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
-		BufferedImage img;	   				   
-		File file ; 				  
+		BufferedImage img;	   				    				  
 
 		if (e.getSource()==btnUploadImage) {
 			chooser.showOpenDialog(null);
@@ -249,15 +256,12 @@ public class NewBuildingFrame {
 
 	public boolean areTheFieldsCompleted() {
 
-		if(imageIcon!=null && amountOfWalls!=0 && buildingName!=null && buildingWidth!=0 && buildingHeight!=0) {			
+		if(imageIcon!=null && amountOfWalls!=0 && buildingName!=null && buildingWidth!=0 && buildingHeight!=0) {
+			Writer.buildingInfo(this.getBuildingName(), count, file);
 			return true;
 		}
 		else {
 			return false;
 		}
-	}
-	
-	public int numberOfWalls() {
-		return amountOfWalls;
 	}
 }

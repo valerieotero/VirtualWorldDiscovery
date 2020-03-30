@@ -65,7 +65,7 @@ public class CreatedMapPanel extends JPanel {
 
 	//Class-Objects needed.
 	Writer writer;
-	NewBuildingFrame NFB;
+	NewBuildingFrame NBF = new NewBuildingFrame();
 
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
@@ -345,14 +345,18 @@ public class CreatedMapPanel extends JPanel {
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
 			//calls writing functions
-			writingCoordinates(walls, "wall.png");
-			if(walls == wallsNeeded) {
-				walls = 0;
-				linesList.add(finishedLine);
-				line.repaint();
+			if(walls == NBF.getAmountOfWalls()) {
+//				walls = 0;
+//				linesList.add(finishedLine);
+//				line.repaint();
+				writer.newLine();
 				closing(); //need to add a button to know how many walls each building has
+				System.out.println("number of walls completed "+walls);
+				return;
 			}
 			else {
+				System.out.println("number of on-going walls "+walls);
+				writingCoordinates(walls, "wall.png");
 				walls++;
 				linesList.add(finishedLine);
 				line.repaint();
@@ -370,18 +374,15 @@ public class CreatedMapPanel extends JPanel {
 		writer.newLine();
 	}
 
-
 	//Writes the wall, wall number and wall coordinates
 	private void writingCoordinates(int w,String p) {
-		writer.write("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+wight+","+height+")"+p);
+		writer.write("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+NBF.getBuildingWidth()+","+NBF.getBuildingHeight()+")"+p);
 		writer.newLine();
 	}
-
 
 	private void closing() {
 		writer.close();
 	}
-
 
 	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
 		@Override
