@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DesignPanel extends JPanel{
 	
@@ -28,18 +30,22 @@ public class DesignPanel extends JPanel{
 
 		//DESIGN PANEL
 		designPanel = new JPanel();
-		designPanel.setBounds(0, 0, 1008, 681);
+		designPanel.setBounds(0, 0, 1220, 681);
 		frame.getContentPane().add(designPanel);
 		designPanel.setLayout(null);				
 
 		//LABEL CHOOSE MAP
-		JLabel lblChooseMap = new JLabel("Choose Map:");
+		JLabel lblChooseMap = new JLabel("Create Map:");
 		lblChooseMap.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblChooseMap.setBounds(447, 127, 139, 23);
+		lblChooseMap.setBounds(552, 124, 139, 23);
 		designPanel.add(lblChooseMap);
 
 		//NEW MAP BUTTON
 		JButton btnNewMap = new JButton("New Map");
+		btnNewMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewMap.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {	
@@ -50,13 +56,13 @@ public class DesignPanel extends JPanel{
 
 			}
 		});
-		btnNewMap.setBounds(447, 152, 89, 23);
+		btnNewMap.setBounds(552, 151, 89, 23);
 		designPanel.add(btnNewMap);
 
 		//LABEL - LOAD MAP
 		JLabel lblLoadMap = new JLabel("Load Map:");
 		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLoadMap.setBounds(447, 210, 89, 23);
+		lblLoadMap.setBounds(563, 206, 89, 23);
 		designPanel.add(lblLoadMap);
 
 		//LOAD MAP DROPDOWN
@@ -71,7 +77,7 @@ public class DesignPanel extends JPanel{
 		for(String name:fileList){
 			comboBoxLoadMap.addItem(name);		
 		} 		
-		comboBoxLoadMap.setBounds(447, 235, 107, 20);
+		comboBoxLoadMap.setBounds(558, 240, 107, 20);
 		designPanel.add(comboBoxLoadMap);
 	}
 

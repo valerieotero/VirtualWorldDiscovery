@@ -28,7 +28,7 @@ public class NewMapPanel extends JPanel{
 
 		//NEW MAP PANEL
 		newMapPanel = new JPanel();
-		newMapPanel.setBounds(0, 0, 1008, 681);
+		newMapPanel.setBounds(0, 0, 1220, 681);
 		frame.getContentPane().add(newMapPanel);
 		newMapPanel.setLayout(null);	
 

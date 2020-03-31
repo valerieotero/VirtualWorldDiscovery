@@ -62,7 +62,7 @@ public class TestCreatorFrame {
 			//FRAME CREATOR
 			testFrame = new JFrame();
 			testFrame.setBounds(100,100, 450, 570);
-			testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			testFrame.getContentPane().setLayout(null);
 			
 			//LABEL - QUESTION #1

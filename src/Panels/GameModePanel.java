@@ -24,14 +24,14 @@ public class GameModePanel extends JPanel {
 
 		//NEW GAME MODE PANEL
 		gameModePanel = new JPanel();
-		gameModePanel.setBounds(0, 0, 1008, 681);
+		gameModePanel.setBounds(0, 0, 1220, 681);
 		frame.getContentPane().add(gameModePanel);
 		gameModePanel.setLayout(null);
 
 		//LABEL-CHOOSE GAME MODE
 		JLabel lblChooseGameMode = new JLabel("Choose game mode:");
 		lblChooseGameMode.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblChooseGameMode.setBounds(447, 127, 139, 23);
+		lblChooseGameMode.setBounds(556, 127, 139, 23);
 		gameModePanel.add(lblChooseGameMode);
 
 		//DESIGN BUTTON
@@ -46,7 +46,7 @@ public class GameModePanel extends JPanel {
 
 			}
 		});
-		btnDesign.setBounds(457, 161, 89, 23);
+		btnDesign.setBounds(566, 160, 89, 23);
 		gameModePanel.add(btnDesign);
 
 		//PLAY BUTTON
@@ -55,7 +55,7 @@ public class GameModePanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnPlay.setBounds(457, 195, 89, 23);
+		btnPlay.setBounds(566, 194, 89, 23);
 		gameModePanel.add(btnPlay);	
 		
 	}

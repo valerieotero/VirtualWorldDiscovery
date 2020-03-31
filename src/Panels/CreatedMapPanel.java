@@ -98,13 +98,13 @@ public class CreatedMapPanel extends JPanel {
 		
 		//NEW CREATED MAP PANEL
 		newCreatedMapPanel = new JPanel();
-		newCreatedMapPanel.setBounds(0, 0, 1008, 681);
+		newCreatedMapPanel.setBounds(0, 0, 1220, 681);
 		frame.getContentPane().add(newCreatedMapPanel);
 		newCreatedMapPanel.setLayout(null);	
 
 		//LABEL-WHERE BACKGROUND IMAGE IS SET
 		lblBackGroundLabel= new JLabel("");	
-		lblBackGroundLabel.setBounds(0, 43, 1008, 681);
+		lblBackGroundLabel.setBounds(0, 46, 1220, 678);
 		newCreatedMapPanel.add(lblBackGroundLabel);
 
 
@@ -157,7 +157,7 @@ public class CreatedMapPanel extends JPanel {
 				btnNewBuilding.setVisible(true);					
 			}
 		});
-		btnDone.setBounds(909, 50, 89, 23);
+		btnDone.setBounds(1099, 64, 89, 23);
 		btnDone.setVisible(false);
 		newCreatedMapPanel.add(btnDone);
 		newCreatedMapPanel.add(lblBackGroundLabel);			
@@ -254,19 +254,19 @@ public class CreatedMapPanel extends JPanel {
 		
 		//LABEL Mouse Position
 		JLabel labelMousePos = new JLabel("Mouse Position=");
-		labelMousePos.setBounds(750, 45, 100, 14);
+		labelMousePos.setBounds(1019, 18, 100, 14);
 		newCreatedMapPanel.add(labelMousePos);
 		
 		//MousePosX Input
 		textFieldMousePosX = new JTextField();
 		textFieldMousePosX.setColumns(10);
-		textFieldMousePosX.setBounds(850, 45, 37, 20);
+		textFieldMousePosX.setBounds(1115, 15, 37, 20);
 		newCreatedMapPanel.add(textFieldMousePosX);
 
 		//MousePosY Input
 		textFieldMousePosY = new JTextField();
 		textFieldMousePosY.setColumns(10);
-		textFieldMousePosY.setBounds(890, 45, 37, 20);
+		textFieldMousePosY.setBounds(1162, 15, 37, 20);
 		newCreatedMapPanel.add(textFieldMousePosY);
 
 	}
