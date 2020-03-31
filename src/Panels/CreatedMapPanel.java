@@ -451,6 +451,8 @@ public class CreatedMapPanel extends JPanel {
 		    
 			textFieldToX.setText(strXEnd);
 			textFieldToY.setText(strYEnd);
+			textFieldMousePosX.setText(strXEnd);
+		    textFieldMousePosY.setText(strYEnd);
 
 			line.repaint();
 		}
