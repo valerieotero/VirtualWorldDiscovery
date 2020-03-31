@@ -82,4 +82,31 @@ public class Writer {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void buildingTest(String comboQandA, int number,  File file) {
+		try {
+			String[] separateCombo = comboQandA.split(",");
+			configFile.write("Test:");
+			for(int i = 0 ; i < separateCombo.length; i++) {
+				if(i == 0) {
+					configFile.write(separateCombo[i]);
+				}
+				else if(i % 10 == 1 || i % 10 == 6 ) {
+					configFile.newLine();
+					configFile.write(separateCombo[i]);
+				}
+				else {
+					configFile.newLine();
+					configFile.write(separateCombo[i]);
+				}
+			}
+			configFile.newLine();
+			
+		}catch(IOException e) {
+			System.out.println("An error ocurred");
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
