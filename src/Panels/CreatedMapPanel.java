@@ -25,6 +25,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
@@ -49,6 +50,8 @@ public class CreatedMapPanel extends JPanel {
 	JTextField textFieldFromY;
 	JTextField textFieldToX;
 	JTextField textFieldToY;
+	JTextField textFieldMousePosX;
+	JTextField textFieldMousePosY;
 	ImageIcon[] images;
 	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
 	JComboBox<?> treeComboBox;
@@ -68,10 +71,16 @@ public class CreatedMapPanel extends JPanel {
 	NewBuildingFrame newBuildingFrame;
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
+	private static ArrayList<Line> linesListFinal = new ArrayList<Line>();
+	private JComboBox<String> comboBoxCoordinates = new JComboBox<String>();
+	private String Coordinates = "Cartesian";
 
 	private Line line;
 	private Line finishedLine;
 
+	private int mousePosX;
+	private int mousePosY;
+	
 	private int xbegin = 0; 
 	private int ybegin = 0; 
 	private int xend = 0; 
@@ -87,7 +96,7 @@ public class CreatedMapPanel extends JPanel {
 	public CreatedMapPanel(JFrame frame, Writer writer){
 
 		this.writer = writer;	
-
+		
 		//NEW CREATED MAP PANEL
 		newCreatedMapPanel = new JPanel();
 		newCreatedMapPanel.setBounds(0, 0, 1008, 681);
@@ -243,6 +252,24 @@ public class CreatedMapPanel extends JPanel {
 		textFieldToY.setColumns(10);
 		textFieldToY.setBounds(962, 17, 37, 20);
 		newCreatedMapPanel.add(textFieldToY);
+		
+		//LABEL Mouse Position
+		JLabel labelMousePos = new JLabel("Mouse Position=");
+		labelMousePos.setBounds(750, 45, 100, 14);
+		newCreatedMapPanel.add(labelMousePos);
+		
+		//MousePosX Input
+		textFieldMousePosX = new JTextField();
+		textFieldMousePosX.setColumns(10);
+		textFieldMousePosX.setBounds(850, 45, 37, 20);
+		newCreatedMapPanel.add(textFieldMousePosX);
+
+		//MousePosY Input
+		textFieldMousePosY = new JTextField();
+		textFieldMousePosY.setColumns(10);
+		textFieldMousePosY.setBounds(890, 45, 37, 20);
+		newCreatedMapPanel.add(textFieldMousePosY);
+
 	}
 
 
@@ -282,7 +309,7 @@ public class CreatedMapPanel extends JPanel {
 	public void initializeSaveBuilding() {
 
 		//DRAW LINES BUTTON
-		JButton btnDrawLinesManually = new JButton("Draw Building Wall Manually");
+		JButton btnDrawLinesManually = new JButton("Draw Building Wall");
 		btnDrawLinesManually.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -306,11 +333,23 @@ public class CreatedMapPanel extends JPanel {
 		newCreatedMapPanel.addMouseListener(mouseHandler);
 		newCreatedMapPanel.addMouseMotionListener(mouseMotionHandler);
 		line = new Line();
+		linesList.add(line);
 		line.setForeground(Color.BLACK);
 		line.setBounds(0, 0, 1008, 681);
 		line.setOpaque(false);
 		newCreatedMapPanel.add(line);	
 		newCreatedMapPanel.add(lblBackGroundLabel);
+		
+		xbegin = Integer.parseInt(textFieldFromX.getText());   //receive input 'from x' text field
+		ybegin = Integer.parseInt(textFieldFromY.getText());   //receive input 'from y' text field
+		xend = Integer.parseInt(textFieldToX.getText());   //receive input 'to x' text field
+		yend = Integer.parseInt(textFieldToY.getText());   //receive input 'to y' text field
+		
+		line.coordinateList.set(0, xbegin);
+		line.coordinateList.set(1, ybegin);
+		line.coordinateList.set(2, xend);
+		line.coordinateList.set(3, yend);
+		line.repaint();
 	}
 
 
@@ -331,6 +370,12 @@ public class CreatedMapPanel extends JPanel {
 			line.coordinateList.set(1, ybegin);
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
+			
+			String strXBegin = Integer.toString(xbegin); 
+		    String strYBegin = Integer.toString(ybegin);
+		    
+			textFieldFromX.setText(strXBegin);
+			textFieldFromY.setText(strYBegin);
 			line.repaint();
 		}
 
@@ -343,8 +388,15 @@ public class CreatedMapPanel extends JPanel {
 			line.coordinateList.set(1, ybegin);
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
+			
+			String strXEnd = Integer.toString(xend); 
+		    String strYEnd = Integer.toString(yend);
+		    
+			textFieldToX.setText(strXEnd);
+			textFieldToY.setText(strYEnd);
 			buildingInformation();
 		}
+		
 	};
 
 	private void buildingInformation() {
@@ -393,8 +445,28 @@ public class CreatedMapPanel extends JPanel {
 			yend = e.getY();
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
+						
+			String strXEnd = Integer.toString(xend); 
+		    String strYEnd = Integer.toString(yend);
+		    
+			textFieldToX.setText(strXEnd);
+			textFieldToY.setText(strYEnd);
+
 			line.repaint();
 		}
+		
+		@Override
+		public void mouseMoved(MouseEvent e)
+		  {
+			mousePosX = e.getX();
+			mousePosY = e.getY();
+			String strX = Integer.toString(mousePosX); 
+		    String strY = Integer.toString(mousePosY);
+		    
+		    textFieldMousePosX.setText(strX);
+		    textFieldMousePosY.setText(strY);
+		    repaint();
+		  }
 	};
 
 	public void initializeTreeDropDown() {
