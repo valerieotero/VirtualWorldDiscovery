@@ -65,8 +65,7 @@ public class CreatedMapPanel extends JPanel {
 
 	//Class-Objects needed.
 	Writer writer;
-	NewBuildingFrame NBF = new NewBuildingFrame();
-
+	NewBuildingFrame newBuildingFrame;
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
 
@@ -111,7 +110,7 @@ public class CreatedMapPanel extends JPanel {
 				btnDrawLines.setVisible(true);
 				btnDone.setVisible(true);
 
-				NewBuildingFrame newBuildingFrame = new NewBuildingFrame();				
+				newBuildingFrame = new NewBuildingFrame();				
 
 			}
 		});
@@ -344,26 +343,29 @@ public class CreatedMapPanel extends JPanel {
 			line.coordinateList.set(1, ybegin);
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
-			//calls writing functions
-			if(walls == NBF.getAmountOfWalls()) {
-//				walls = 0;
-//				linesList.add(finishedLine);
-//				line.repaint();
-				writer.newLine();
-				closing(); //need to add a button to know how many walls each building has
-				System.out.println("number of walls completed "+walls);
-				return;
-			}
-			else {
-				System.out.println("number of on-going walls "+walls);
-				writingCoordinates(walls, "wall.png");
-				walls++;
-				linesList.add(finishedLine);
-				line.repaint();
-			}
+			buildingInformation();
 		}
 	};
 
+	private void buildingInformation() {
+		//calls writing functions
+		if(walls == newBuildingFrame.getAmountOfWalls()) {
+//			walls = 0;
+//			linesList.add(finishedLine);
+//			line.repaint();
+			writer.newLine();
+			closing(); //need to add a button to know how many walls each building has
+			System.out.println("number of walls completed "+walls);
+			return;
+		}
+		else {
+			System.out.println("number of on-going walls "+walls);
+			writingCoordinates(walls, "wall.png");
+			walls++;
+			linesList.add(finishedLine);
+			line.repaint();
+		}
+	}
 
 	//Write the building name and number into the file
 	//Saves reference picture
@@ -376,7 +378,7 @@ public class CreatedMapPanel extends JPanel {
 
 	//Writes the wall, wall number and wall coordinates
 	private void writingCoordinates(int w,String p) {
-		writer.write("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+NBF.getBuildingWidth()+","+NBF.getBuildingHeight()+")"+p);
+		writer.write("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+newBuildingFrame.getBuildingWidth()+","+newBuildingFrame.getBuildingHeight()+")"+p);
 		writer.newLine();
 	}
 
