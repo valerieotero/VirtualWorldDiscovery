@@ -33,7 +33,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import Classes.Line;
-import Classes.Question;
 import Classes.Tree;
 import Classes.Writer;
 
@@ -127,7 +126,7 @@ public class CreatedMapPanel extends JPanel {
 		newCreatedMapPanel.add(btnNewBuilding);
 
 		initializeManualCoordinatesLabelsAndTextFields();
-		initializeTakeTest();
+		//initializeTakeTest();
 		initializeDrawLines();
 		initializeSaveBuilding();
 
@@ -547,111 +546,81 @@ public class CreatedMapPanel extends JPanel {
 	/*Author: Juan Davila | Date: March 21 2020
 	 * Method creates an array of questions.
 	 */
-	public Question[] createQuestions() {
-
-		String q1 = "Que clases se dan en este edificio?\n" +
-				"(a) INGE/INEL/ICOM\n(b) INQU\n(c) ADMI\n";
-		String q2 = "Este edificio conecta a que otro edificio?" +
-				"(a) Chardon\n(b) Fisica\n(c) ININ\n";
-		Question[] questions = {
-				new Question(q1, "a"),
-				new Question(q2, "c")
-		};
-
-		return questions;
-	}
-
-
-	public static void takeTest(Question[] questions) {
-		int score = 0;
-		//SCANNER EN NUESTRO CASO ENTRADA DE UN TEXTBOX
-		Scanner keyboardInput = new Scanner(System.in);
-		for(int i = 0; i < questions.length; i++) {
-			System.out.println(questions[i].prompt);
-			String answer = keyboardInput.nextLine();
-			if(answer.equals(questions[i].answer)) {
-				score++;
-			}
-		}
-		System.out.println("You have unlocked the building, with a score of " + score + "!");
-	}
-
-
-	public void initializeTakeTest() {
-
-		Font obj = new Font("Arial", Font.BOLD, 18);
-		JLabel question1= new JLabel("How many seats in this building?");
-		question1.setFont(obj);
-		question1.setBounds(10, 525, 300, 20);
-		newCreatedMapPanel.add(question1);
-
-
-		JLabel answer1= new JLabel("24 no more no less");
-		answer1.setFont(obj);
-		answer1.setBounds(10, 558, 300, 20);
-		newCreatedMapPanel.add(answer1);
-
-		JLabel answer2= new JLabel("About 9");
-		answer2.setFont(obj);
-		answer2.setBounds(10, 600, 300, 20);
-		newCreatedMapPanel.add(answer2);
-
-		JLabel answer3= new JLabel("A lot");
-		answer3.setFont(obj);
-		answer3.setBounds(10, 644, 300, 20);
-		newCreatedMapPanel.add(answer3);
-
-
-		JButton option1 = new JButton("Select");
-		option1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		option1.setBounds(908, 550, 100, 44);
-		newCreatedMapPanel.add(option1);	
-
-
-		JButton option2 = new JButton("Select");
-		option2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		option2.setBounds(908, 594, 100, 44);
-		newCreatedMapPanel.add(option2);	
-
-
-		JButton option3 = new JButton("Select");
-		option3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		option3.setBounds(908, 638, 100, 44);
-		newCreatedMapPanel.add(option3);	
-
-		JPanel questionPanel = new JPanel();
-		questionPanel.setBorder(new LineBorder(Color.BLACK));
-		questionPanel.setBackground(Color.WHITE);
-		questionPanel.setBounds(0, 638, 1024, 44); //1024 x 720
-		newCreatedMapPanel.add(questionPanel);
-
-		JPanel questionPanel2 = new JPanel();
-		questionPanel2.setBorder(new LineBorder(Color.BLACK));
-		questionPanel2.setBackground(Color.WHITE);
-		questionPanel2.setBounds(0, 594, 1024, 44); //1024 x 720
-		newCreatedMapPanel.add(questionPanel2);
-
-		JPanel questionPanel3 = new JPanel();
-		questionPanel3.setBorder(new LineBorder(Color.BLACK));
-		questionPanel3.setBackground(Color.WHITE);
-		questionPanel3.setBounds(0, 550, 1024, 44); //1024 x 720
-		newCreatedMapPanel.add(questionPanel3);
-
-		JPanel answerPanel = new JPanel();
-		answerPanel.setBorder(new LineBorder(Color.BLACK));
-		answerPanel.setBackground(Color.GRAY);
-		answerPanel.setBounds(0, 520, 1024, 200); //1024 x 720
-		newCreatedMapPanel.add(answerPanel);
-	}
+//	public void initializeTakeTest() {
+//
+//		Font obj = new Font("Arial", Font.BOLD, 18);
+//		JLabel question1= new JLabel("How many seats in this building?");
+//		question1.setFont(obj);
+//		question1.setBounds(10, 525, 300, 20);
+//		newCreatedMapPanel.add(question1);
+//
+//
+//		JLabel answer1= new JLabel("24 no more no less");
+//		answer1.setFont(obj);
+//		answer1.setBounds(10, 558, 300, 20);
+//		newCreatedMapPanel.add(answer1);
+//
+//		JLabel answer2= new JLabel("About 9");
+//		answer2.setFont(obj);
+//		answer2.setBounds(10, 600, 300, 20);
+//		newCreatedMapPanel.add(answer2);
+//
+//		JLabel answer3= new JLabel("A lot");
+//		answer3.setFont(obj);
+//		answer3.setBounds(10, 644, 300, 20);
+//		newCreatedMapPanel.add(answer3);
+//
+//
+//		JButton option1 = new JButton("Select");
+//		option1.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//			}
+//		});
+//		option1.setBounds(908, 550, 100, 44);
+//		newCreatedMapPanel.add(option1);	
+//
+//
+//		JButton option2 = new JButton("Select");
+//		option2.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//			}
+//		});
+//		option2.setBounds(908, 594, 100, 44);
+//		newCreatedMapPanel.add(option2);	
+//
+//
+//		JButton option3 = new JButton("Select");
+//		option3.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//			}
+//		});
+//		option3.setBounds(908, 638, 100, 44);
+//		newCreatedMapPanel.add(option3);	
+//
+//		JPanel questionPanel = new JPanel();
+//		questionPanel.setBorder(new LineBorder(Color.BLACK));
+//		questionPanel.setBackground(Color.WHITE);
+//		questionPanel.setBounds(0, 638, 1024, 44); //1024 x 720
+//		newCreatedMapPanel.add(questionPanel);
+//
+//		JPanel questionPanel2 = new JPanel();
+//		questionPanel2.setBorder(new LineBorder(Color.BLACK));
+//		questionPanel2.setBackground(Color.WHITE);
+//		questionPanel2.setBounds(0, 594, 1024, 44); //1024 x 720
+//		newCreatedMapPanel.add(questionPanel2);
+//
+//		JPanel questionPanel3 = new JPanel();
+//		questionPanel3.setBorder(new LineBorder(Color.BLACK));
+//		questionPanel3.setBackground(Color.WHITE);
+//		questionPanel3.setBounds(0, 550, 1024, 44); //1024 x 720
+//		newCreatedMapPanel.add(questionPanel3);
+//
+//		JPanel answerPanel = new JPanel();
+//		answerPanel.setBorder(new LineBorder(Color.BLACK));
+//		answerPanel.setBackground(Color.GRAY);
+//		answerPanel.setBounds(0, 520, 1024, 200); //1024 x 720
+//		newCreatedMapPanel.add(answerPanel);
+//	}
 
 
 	class TreeDropDownRenderer extends JLabel implements ListCellRenderer {
