@@ -1,6 +1,7 @@
 package Panels;
 
 import java.awt.Font;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,15 +12,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/* Author: Valerie Otero | Date: March 8 2020	
+ * Class initializes the main panel where the user can choose if it wants
+ * to Design or Play. If the user clicks Design button, the constructor calls another method
+ * that initializes the Design Panel. (Play button is not enabled for now)	 */		
 public class GameModePanel extends JPanel {
 	
-	private JPanel gameModePanel;	
 	
+	private JPanel gameModePanel;		
 	
-	/* Author: Valerie Otero | Date: March 8 2020	
-	 * Method initializes the main panel where the user can choose if it wants
-	 * to Design or Play. If the user clicks Design button, this methods calls another method
-	 * that initializes the Design Panel. (Play button is not enabled for now)	 */		
+
 	public GameModePanel(JFrame frame) {
 
 		//NEW GAME MODE PANEL

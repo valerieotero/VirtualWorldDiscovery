@@ -13,6 +13,12 @@ import javax.swing.JTextField;
 
 import Classes.Writer;
 
+
+/*Author: Valerie Otero | Date: March 28 2020
+ * Class initializes the New Map Panel when the user clicks such option in previous panel (Design Panel).
+ * When the user clicks on the Save button, the constructor calls another 
+ * method that initializes the New Created Map Panel (where designer can start designing the map).
+ * Also has a wirting method to begin writing to a file */	
 public class NewMapPanel extends JPanel{
 
 	private JPanel newMapPanel;
@@ -90,9 +96,10 @@ public class NewMapPanel extends JPanel{
 		btnSave.setBounds(367, 249, 89, 23);
 		newMapPanel.add(btnSave);
 	}
-
+	
+	/*Author: Yamil Gonzalez | Date: March 28 2020 
 	//Helper method to write the name of the map and header of the file
-	//header -> Map name
+	//header -> Map name */
 	private void writingHeader(String s) {
 		writer.open(s);
 		writer.write("Map name = ");

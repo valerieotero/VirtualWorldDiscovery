@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+/*Author: Valerie Otero | Date: March 8 2020
+ * Class initializes the Design panel when the user clicks such option in previous panel (GameModePanel).
+ * If the user clicks on the Create New Map button, the constructor calls another 
+ * method that initializes the New Map Panel. */	
 public class DesignPanel extends JPanel{
 	
 	//Design Panel Variables
@@ -21,11 +26,7 @@ public class DesignPanel extends JPanel{
 	private JPanel designPanel;
 	
 	
-	/*Author: Valerie Otero | Date: March 8 2020
-	 * Method initializes the design panel when the user clicks such option.
-	 * If the user clicks on the Create New Map option, this method calls another 
-	 * method that initializes that panel.
-	*/	
+	
 	public DesignPanel(JFrame frame) {		
 
 		//DESIGN PANEL

@@ -68,15 +68,16 @@ public class CreatedMapPanel extends JPanel {
 	//Class-Objects needed.
 	Writer writer;
 	NewBuildingFrame newBuildingFrame;
+	
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
 	private static ArrayList<Line> linesListFinal = new ArrayList<Line>();
 	private JComboBox<String> comboBoxCoordinates = new JComboBox<String>();
 	private String Coordinates = "Cartesian";
 
+	//Line variables 
 	private Line line;
 	private Line finishedLine;
-
 	private int mousePosX;
 	private int mousePosY;
 	
@@ -122,7 +123,7 @@ public class CreatedMapPanel extends JPanel {
 
 			}
 		});
-		btnNewBuilding.setBounds(386, 15, 145, 20);
+		btnNewBuilding.setBounds(207, 11, 145, 24);
 		newCreatedMapPanel.add(btnNewBuilding);
 
 		initializeManualCoordinatesLabelsAndTextFields();
@@ -135,7 +136,7 @@ public class CreatedMapPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				btnUploadBackgroundImageMouseEvent(e);	
+				UploadBackgroundImageMouseEvent(e);	
 
 			}
 		});
@@ -168,7 +169,7 @@ public class CreatedMapPanel extends JPanel {
 	 * Method initializes a chooser box when the map designer selects to "Upload background image" 
 	 * that lets the map designer select an image from their computer
 	 */	
-	public void btnUploadBackgroundImageMouseEvent(MouseEvent e) {
+	public void UploadBackgroundImageMouseEvent(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
 		BufferedImage img;	   				   
@@ -200,73 +201,73 @@ public class CreatedMapPanel extends JPanel {
 
 		//LABEL - FROM:
 		JLabel lblFrom = new JLabel("From:");
-		lblFrom.setBounds(800, 1, 37, 14);
+		lblFrom.setBounds(618, 1, 37, 14);
 		newCreatedMapPanel.add(lblFrom);
 
 		//LABEL (FROM) - x=
 		JLabel lblFromX = new JLabel("x=");
-		lblFromX.setBounds(751, 18, 14, 14);
+		lblFromX.setBounds(580, 18, 14, 14);
 		newCreatedMapPanel.add(lblFromX);
 
 		//(FROM) X INPUT
 		textFieldFromX = new JTextField();
-		textFieldFromX.setBounds(768, 17, 37, 20);
+		textFieldFromX.setBounds(596, 15, 30, 20);
 		newCreatedMapPanel.add(textFieldFromX);
 		textFieldFromX.setColumns(10);
 
 		//LABEL (FROM) - y=
 		JLabel lblFromY = new JLabel("y=");
-		lblFromY.setBounds(818, 18, 14, 14);
+		lblFromY.setBounds(636, 18, 14, 14);
 		newCreatedMapPanel.add(lblFromY);
 
 		//(FROM) Y INPUT
 		textFieldFromY = new JTextField();
-		textFieldFromY.setBounds(834, 16, 37, 20);
+		textFieldFromY.setBounds(653, 15, 30, 20);
 		newCreatedMapPanel.add(textFieldFromY);
 		textFieldFromY.setColumns(10);
 
 		//LABEL - TO:
 		JLabel lblTo = new JLabel("To:");
-		lblTo.setBounds(935, 1, 22, 14);
+		lblTo.setBounds(748, 1, 22, 14);
 		newCreatedMapPanel.add(lblTo);	
 
 		//LABEL (TO) - x=
 		JLabel labelToX = new JLabel("x=");
-		labelToX.setBounds(879, 18, 14, 14);
+		labelToX.setBounds(703, 18, 14, 14);
 		newCreatedMapPanel.add(labelToX);
 
 		//(TO) X INPUT
 		textFieldToX = new JTextField();
 		textFieldToX.setColumns(10);
-		textFieldToX.setBounds(897, 17, 37, 20);
+		textFieldToX.setBounds(720, 15, 30, 20);
 		newCreatedMapPanel.add(textFieldToX);
 
 		//LABEL (TO) - y=
 		JLabel labelToY = new JLabel("y=");
-		labelToY.setBounds(944, 18, 14, 14);
+		labelToY.setBounds(760, 18, 14, 14);
 		newCreatedMapPanel.add(labelToY);
 
 		//(TO) Y INPUT
 		textFieldToY = new JTextField();
 		textFieldToY.setColumns(10);
-		textFieldToY.setBounds(962, 17, 37, 20);
+		textFieldToY.setBounds(774, 15, 30, 20);
 		newCreatedMapPanel.add(textFieldToY);
 		
 		//LABEL Mouse Position
 		JLabel labelMousePos = new JLabel("Mouse Position=");
-		labelMousePos.setBounds(1019, 18, 100, 14);
+		labelMousePos.setBounds(823, 18, 100, 14);
 		newCreatedMapPanel.add(labelMousePos);
 		
 		//MousePosX Input
 		textFieldMousePosX = new JTextField();
 		textFieldMousePosX.setColumns(10);
-		textFieldMousePosX.setBounds(1115, 15, 37, 20);
+		textFieldMousePosX.setBounds(922, 15, 37, 20);
 		newCreatedMapPanel.add(textFieldMousePosX);
 
 		//MousePosY Input
 		textFieldMousePosY = new JTextField();
 		textFieldMousePosY.setColumns(10);
-		textFieldMousePosY.setBounds(1162, 15, 37, 20);
+		textFieldMousePosY.setBounds(961, 15, 37, 20);
 		newCreatedMapPanel.add(textFieldMousePosY);
 
 	}
@@ -291,7 +292,7 @@ public class CreatedMapPanel extends JPanel {
 				drawLines();
 			}
 		});		
-		btnDrawLines.setBounds(386, 15, 145, 20);
+		btnDrawLines.setBounds(207, 15, 145, 20);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 
@@ -315,7 +316,7 @@ public class CreatedMapPanel extends JPanel {
 				drawLines();
 			}
 		});		
-		btnDrawLinesManually.setBounds(541, 15, 200, 20);
+		btnDrawLinesManually.setBounds(362, 11, 200, 24);
 		newCreatedMapPanel.add(btnDrawLinesManually);
 	}
 
@@ -470,6 +471,9 @@ public class CreatedMapPanel extends JPanel {
 		  }
 	};
 
+	/*Author: Valerie Otero | Date: March 22 2020
+	 * This method initializes the drop down where the 3 tree options appear with icons
+	 * so the designer can choose from those option to place on the map.*/
 	public void initializeTreeDropDown() {
 
 		TreeDropDownRenderer renderer= new TreeDropDownRenderer();
@@ -485,7 +489,7 @@ public class CreatedMapPanel extends JPanel {
 
 		//TREE DROPDOWN
 		treeComboBox = new JComboBox(intArray);
-		treeComboBox.setBounds(207, 11, 163, 23);
+		treeComboBox.setBounds(1025, 14, 163, 23);
 		newCreatedMapPanel.add(treeComboBox);
 		treeComboBox.setRenderer(renderer);
 
@@ -499,6 +503,10 @@ public class CreatedMapPanel extends JPanel {
 	}
 
 
+	/*Author: Valerie Otero | Date: March 22 2020
+	 * Helper method for initializeTreeDropDown(). This method receives a path to an image,
+	 * and turns into a URL type. With this, the image can be set as an image icon for the tree drop down options. 
+	 * It also verifies that the image in the path exists.*/
 	protected ImageIcon createImageIcon(String path) {
 
 		URL imgURL = getClass().getClassLoader().getResource(path);
@@ -512,6 +520,9 @@ public class CreatedMapPanel extends JPanel {
 	}
 
 
+	/*Author: Valerie Otero | Date: March 22 2020
+	 * This method saves the selected option from the tree drop down. After that, it awaits for a click anywhere inside
+	 * the panel to draw the tree where the designer selected. Calls the Tree class to draw the tree. */
 	public void insertTrees() {		
 
 		treeComboBox.addActionListener(new ActionListener() {			
@@ -623,6 +634,8 @@ public class CreatedMapPanel extends JPanel {
 //	}
 
 
+	/*Author: Valerie Otero | Date: March 22 2020
+	 * This nested class is a default class of Java Swing for rendering the tree option with the associated image. */
 	class TreeDropDownRenderer extends JLabel implements ListCellRenderer {
 
 		public TreeDropDownRenderer() {

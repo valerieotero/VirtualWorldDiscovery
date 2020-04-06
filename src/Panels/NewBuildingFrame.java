@@ -22,6 +22,9 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/*Author: Valerie Otero | Date: March 31 2020
+ * This class defines a new frame when the designer selects the "New Building" button.
+ * Here the designer can enter information that will be associated to a building. */
 public class NewBuildingFrame {
 
 	private JFrame NewBuildingFrame;
@@ -50,6 +53,8 @@ public class NewBuildingFrame {
 	
 	Writer writer;
 	File file;
+	
+	
 	//CONSTRUCTOR
 	public NewBuildingFrame() {
 		newBuildingInfoFrame();
@@ -97,7 +102,8 @@ public class NewBuildingFrame {
 		this.imageIcon = imageIcon;
 	}
 	
-	
+	/*Author: Valerie Otero | Date: March 31 2020
+	 * This method initializes the frame with all the components for the new building information. */
 	private void newBuildingInfoFrame() {
 		NewBuildingFrame = new JFrame();
 		NewBuildingFrame.setBounds(100, 100, 527, 415);
@@ -133,7 +139,7 @@ public class NewBuildingFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				btnUploadBackgroundImageMouseEvent(e);	
+				UploadBuildingImageMouseEvent(e);	
 
 			}
 		});
@@ -245,8 +251,10 @@ public class NewBuildingFrame {
 		NewBuildingFrame.setVisible(true);
 	}
 
-
-	public void btnUploadBackgroundImageMouseEvent(MouseEvent e) {
+	/*Author: Valerie Otero | Date: March 31 2020
+	 * Method is called in the newBuildingInfoFrame() when the map designer selects to "Upload Image". 
+	 * It initializes a chooser box that lets the designer select an image from their computer. */		
+	public void UploadBuildingImageMouseEvent(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
 		BufferedImage img;	   				    				  
@@ -268,6 +276,9 @@ public class NewBuildingFrame {
 		}
 	}
 
+	/*Author: Valerie Otero | Date: March 31 2020
+	 * Method is called in the newBuildingInfoFrame() when the map designer wants to close. 
+	 * It verifies that all fields are saved, if so then the deigner can close the frame. */		
 	public boolean areTheFieldsCompleted() {
 
 		if(imageIcon!=null && amountOfWalls!=0 && buildingName!=null && buildingWidth!=0 && buildingHeight!=0) {
