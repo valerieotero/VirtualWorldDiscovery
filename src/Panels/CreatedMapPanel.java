@@ -51,11 +51,6 @@ public class CreatedMapPanel extends JPanel {
 	JTextField textFieldToY;
 	JTextField textFieldMousePosX;
 	JTextField textFieldMousePosY;
-	ImageIcon[] images;
-	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
-	JComboBox<?> treeComboBox;
-	private Tree tree;
-	private int selectedTree;
 	private JButton btnNewBuilding;
 	private JButton btnDone;
 
@@ -91,8 +86,15 @@ public class CreatedMapPanel extends JPanel {
 	private int wallsNeeded = 4;
 	//John - for testing purposes
 
+	//Tree variables
+	ImageIcon[] images;
+	private int selectedTree;
+	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
+	JComboBox<?> treeComboBox;
+	private Tree tree;
+	public ArrayList<JLabel> treeList = new ArrayList<>();
 
-
+	//CONSTRUCTOR
 	public CreatedMapPanel(JFrame frame, Writer writer){
 
 		this.writer = writer;	
@@ -518,8 +520,8 @@ public class CreatedMapPanel extends JPanel {
 			return null;
 		}
 	}
-
-
+	
+	
 	/*Author: Valerie Otero | Date: March 22 2020
 	 * This method saves the selected option from the tree drop down. After that, it awaits for a click anywhere inside
 	 * the panel to draw the tree where the designer selected. Calls the Tree class to draw the tree. */
@@ -543,13 +545,21 @@ public class CreatedMapPanel extends JPanel {
 				}
 				else {
 					tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
-
+					
+					treeList.add(tree);
+				
+					//for debug
+					System.out.println(treeList.size());
+					
 					newCreatedMapPanel.add(tree);
 					tree.revalidate();
 					tree.repaint();
 					newCreatedMapPanel.add(lblBackGroundLabel);	
+					
 				}
+				
 			}
+			
 		});
 	}
 

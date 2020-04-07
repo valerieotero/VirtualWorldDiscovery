@@ -40,6 +40,12 @@ public class DesignPanel extends JPanel{
 		lblChooseMap.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblChooseMap.setBounds(552, 124, 139, 23);
 		designPanel.add(lblChooseMap);
+		
+		//LABEL - LOAD MAP
+		JLabel lblLoadMap = new JLabel("Load Map:");
+		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblLoadMap.setBounds(563, 206, 89, 23);
+		designPanel.add(lblLoadMap);
 
 		//NEW MAP BUTTON
 		JButton btnNewMap = new JButton("New Map");
@@ -59,20 +65,12 @@ public class DesignPanel extends JPanel{
 		});
 		btnNewMap.setBounds(552, 151, 89, 23);
 		designPanel.add(btnNewMap);
-
-		//LABEL - LOAD MAP
-		JLabel lblLoadMap = new JLabel("Load Map:");
-		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLoadMap.setBounds(563, 206, 89, 23);
-		designPanel.add(lblLoadMap);
+	
 
 		//LOAD MAP DROPDOWN
 		comboBoxLoadMap = new JComboBox<String>();	
-
 		filesPath = System.getProperty("user.dir");		
-
 		File directory = new File(filesPath+"\\Maps");
-
 		String[] fileList = directory.list();
 
 		for(String name:fileList){
@@ -80,6 +78,17 @@ public class DesignPanel extends JPanel{
 		} 		
 		comboBoxLoadMap.setBounds(558, 240, 107, 20);
 		designPanel.add(comboBoxLoadMap);
+		
+		//LOAD BUTTON
+		JButton btnLoad = new JButton("Load");
+		btnLoad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				
+			}
+		});
+		btnLoad.setBounds(687, 239, 89, 23);
+		designPanel.add(btnLoad);
 	}
-
 }
