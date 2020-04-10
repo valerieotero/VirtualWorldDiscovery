@@ -49,16 +49,12 @@ public class DesignPanel extends JPanel{
 
 		//NEW MAP BUTTON
 		JButton btnNewMap = new JButton("New Map");
-		btnNewMap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnNewMap.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {	
 
 				designPanel.setVisible(false);
-				
+
 				NewMapPanel newMapPanel = new NewMapPanel(frame);
 
 			}

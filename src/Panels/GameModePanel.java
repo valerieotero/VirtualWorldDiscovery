@@ -53,8 +53,14 @@ public class GameModePanel extends JPanel {
 
 		//PLAY BUTTON
 		JButton btnPlay = new JButton("Play");
-		btnPlay.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnPlay.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				gameModePanel.setVisible(false);
+				
+				PlayPanel designPanel = new PlayPanel(frame);				
+
 			}
 		});
 		btnPlay.setBounds(566, 194, 89, 23);
