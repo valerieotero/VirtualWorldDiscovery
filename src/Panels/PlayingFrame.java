@@ -3,11 +3,14 @@ package Panels;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Avatar.AvatarManager;
+import Avatar.AvatarManagerPanel;
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
 import Avatar.KeysLogic;
 import Input.AvatarInputHandler;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 
 public class PlayingFrame extends JFrame {
@@ -31,16 +34,17 @@ public class PlayingFrame extends JFrame {
 		this.addKeyListener(inputHandler);		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);					
 						
-		AvatarManager avatarManager = new AvatarManager(keyLogic, inputHandler, graphicsMan);	
+		AvatarManagerPanel avatarManagerPanel = new AvatarManagerPanel(keyLogic, inputHandler, graphicsMan);	
 						
-		this.getContentPane().add(avatarManager);				
-		keyLogic.setAvatarManager(avatarManager);
-		inputHandler.setAvatarManager(avatarManager);	
+		this.getContentPane().add(avatarManagerPanel);				
+		keyLogic.setAvatarManager(avatarManagerPanel);
+		inputHandler.setAvatarManager(avatarManagerPanel);	
 						
 		this.setVisible(true); 
 		
-		Thread gameLoop = new Thread(new GameLoop(avatarManager));
+		Thread gameLoop = new Thread(new GameLoop(avatarManagerPanel));
+		avatarManagerPanel.setLayout(null);		
+
 		gameLoop.start();	
 	}
-
 }  

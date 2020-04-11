@@ -7,12 +7,12 @@ import Input.AvatarInputHandler;
  */
 public class GameLoop implements Runnable{
 	
-	private AvatarManager avatarManager;
+	private AvatarManagerPanel avatarManager;
 	private KeysLogic keyLogic;
 	private AvatarInputHandler inputHandler;
 
 	//Constructor
-	public GameLoop(AvatarManager avatarManager){
+	public GameLoop(AvatarManagerPanel avatarManager){
 		
 		this.avatarManager = avatarManager;
 		this.keyLogic = avatarManager.getKeyLogic();

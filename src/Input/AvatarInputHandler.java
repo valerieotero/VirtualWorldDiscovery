@@ -3,7 +3,7 @@ package Input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Avatar.AvatarManager;
+import Avatar.AvatarManagerPanel;
 
 /**
  * Handles user input events.
@@ -15,10 +15,10 @@ public class AvatarInputHandler implements KeyListener{
 	private boolean downIsPressed;
 	private boolean upIsPressed;
 
-	private AvatarManager avatarManager;	
+	private AvatarManagerPanel avatarManager;	
 
-	public AvatarManager getAvatarManager() { return avatarManager; }
-	public void setAvatarManager(AvatarManager avatarManager) { this.avatarManager = avatarManager; }
+	public AvatarManagerPanel getAvatarManager() { return avatarManager; }
+	public void setAvatarManager(AvatarManagerPanel avatarManager) { this.avatarManager = avatarManager; }
 
 	/**
 	 * Create a new input handler

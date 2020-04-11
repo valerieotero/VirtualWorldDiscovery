@@ -4,23 +4,24 @@ import Input.AvatarInputHandler;
 
 public class KeysLogic {
 
-	private AvatarManager avatarManager;
+	private AvatarManagerPanel avatarManager;
 	
 	//Constructor
 	public KeysLogic(){
 	}
 
-	public AvatarManager getAvatarManager() {
+	public AvatarManagerPanel getAvatarManager() {
 		return avatarManager;
 	}
 	
-	public void setAvatarManager(AvatarManager avatarManager) {
+	public void setAvatarManager(AvatarManagerPanel avatarManager) {
 		this.avatarManager = avatarManager;
 	}
 	
 	public void keyControls(AvatarInputHandler ih) {							
-			avatarManager.moveAvatar();
-			handleKeysDuringPlay(ih);					
+			avatarManager.updateScreen();
+			handleKeysDuringPlay(ih);		
+			
 	}
 
 	

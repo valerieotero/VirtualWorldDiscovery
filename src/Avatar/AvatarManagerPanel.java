@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -11,11 +12,13 @@ import javax.swing.JPanel;
 import Input.AvatarInputHandler;
 
 
-public class AvatarManager extends JPanel {
+public class AvatarManagerPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
 	protected Avatar avatar;	
+	protected Avatar fourWalls;
+	protected Rectangle walls;
 
 	private GraphicsManager graphicsManager;
 	private KeysLogic keyLogic;
@@ -26,7 +29,7 @@ public class AvatarManager extends JPanel {
 	
 	
 	//Constructor
-	public AvatarManager(KeysLogic keyLogic, AvatarInputHandler inputHandler, GraphicsManager graphicsMan) {		
+	public AvatarManagerPanel(KeysLogic keyLogic, AvatarInputHandler inputHandler, GraphicsManager graphicsMan) {		
 		this.setPreferredSize(new Dimension(1220, 681));	
 		this.setKeyLogic(keyLogic);
 		this.setInputHandler(inputHandler);
@@ -51,13 +54,16 @@ public class AvatarManager extends JPanel {
 
     //Sets avatar at the bottom left corner
 	public void initiateAvatar() {
-		newAvatar();		
+		newAvatar();
+		new4Walls();
 		avatar.setDirection(1);	//start with the image looking to the right
 	}
 
-	public void moveAvatar() {
+	public void updateScreen() {
 		clearScreen();
-		drawAvatar();		
+		drawAvatar();
+		
+		checkAvatarWallsCollisions();
 	}
 
 	@Override
@@ -69,7 +75,7 @@ public class AvatarManager extends JPanel {
 
 	//draw one of two possible MegaMan poses according to direction
 	protected void drawAvatar() {
-	
+			
 		Graphics2D g2d = getGraphics2D();
 		
 		if (avatar.getDirection() > 0) {		
@@ -92,9 +98,22 @@ public class AvatarManager extends JPanel {
 
 	//Draws avatar in the bottom left corner 
 	public Avatar newAvatar(){
-		this.avatar = new Avatar(20,633,42,41); //x, y, width, height	
+		this.avatar = new Avatar(20,633,42,45); //x, y, width, height		
 		return avatar;
 	}
+	
+	//Initiate posotion of the wall
+	public Avatar new4Walls() {
+		this.fourWalls = new Avatar(60, 94, 100, 58);//Use avatar class because it extends from Rectangle class.
+		return fourWalls;
+	}
+	
+	public void draw4Walls() {
+		Graphics2D g2d = getGraphics2D();			
+		getGraphicsManager().draw4Walls(fourWalls, g2d, this);			
+	}
+	
+	
 	
 	public void moveAvatarUp(){
 		if(avatar.getY() - avatar.getSpeed() >= 0){
@@ -123,5 +142,11 @@ public class AvatarManager extends JPanel {
 			avatar.translate(avatar.getSpeed(), 0);
 		}
 	}
-
+	
+	protected void checkAvatarWallsCollisions() {	
+		if(fourWalls.intersects(avatar)){				
+			draw4Walls();		
+		}	
+	}
+	
 }

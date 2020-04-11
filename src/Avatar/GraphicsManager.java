@@ -16,6 +16,8 @@ public class GraphicsManager {
 	private BufferedImage avatarImg;			
 	
 	private BufferedImage leftAvatarImg; 
+	
+	private BufferedImage wallImg; 
 
 		
 	//Constructor. Creates a new graphics manager and loads the game images.	 
@@ -24,6 +26,7 @@ public class GraphicsManager {
 		try {
 			this.avatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/megaMan3.png"));						
 			this.leftAvatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/reversemegaMan3.png"));
+			this.wallImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/4Walls.png"));	
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
@@ -37,11 +40,13 @@ public class GraphicsManager {
 	 //Draws a MegaMan image to the specified graphics canvas.	
 	public void drawAvatar (Avatar avatar, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(avatarImg, avatar.x, avatar.y, observer);	
-	}
-	
+	}	
 	
 	public void drawLeftAvatar (Avatar avatar, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(leftAvatarImg, avatar.x, avatar.y, observer);	
 	}	
 
+	public void draw4Walls (Rectangle wall, Graphics2D g2d, ImageObserver observer){
+		g2d.drawImage(wallImg, wall.x, wall.y, observer);	
+	}	
 }
