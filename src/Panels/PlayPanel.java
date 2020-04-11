@@ -10,8 +10,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import Avatar.AvatarManager;
+import Avatar.GameLoop;
+import Avatar.GraphicsManager;
+import Avatar.KeysLogic;
+import Input.AvatarInputHandler;
+
 
 public class PlayPanel {
 	
@@ -28,8 +33,7 @@ public class PlayPanel {
 		playPanel.setBounds(0, 0, 1220, 681);
 		frame.getContentPane().add(playPanel);
 		playPanel.setLayout(null);	
-		
-		
+				
 		//LABEL - LOAD MAP
 		JLabel lblLoadMap = new JLabel("Choose map to play:");
 		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -55,8 +59,9 @@ public class PlayPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				
 				mapName = (String) comboBoxLoadMap.getSelectedItem();
-				playPanel.setVisible(false);
-				PlaySelectedMapPanel p = new PlaySelectedMapPanel(frame, mapName);
+								
+				PlayingFrame gameFrame = new PlayingFrame(); 
+				gameFrame.setTitle(mapName);			
 
 			}
 		});
