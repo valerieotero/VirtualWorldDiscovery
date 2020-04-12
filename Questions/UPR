@@ -1,0 +1,34 @@
+Questions File = C:\Users\yamil\git\VirtualWorldDiscovery\questions\UPR
+
+
+Building = Chardon
+Question = Cuanto Min pasaron
+1
+2
+3
+4
+Question = Hour
+10
+20
+30
+40
+Question = Day
+11
+22
+33
+44
+Question = Week
+1
+2
+3
+4
+Question = Month
+6
+7
+8
+9
+Question = Year
+1000
+2000
+3000
+4000

@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -19,12 +20,12 @@ import javax.swing.ImageIcon;
  */
 
 public class Writer {
-	private static BufferedWriter configFile;
+	private static FileWriter configFile;
 	
 	//Will try to open a file given a path
 	public static void open(String fileName) {
 		try {
-			configFile = new BufferedWriter(new FileWriter(fileName, true));
+			configFile = new FileWriter(fileName, true);
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
@@ -50,10 +51,21 @@ public class Writer {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void writeSpace(String sentence) {
+		try {
+			configFile.write(sentence);
+			configFile.write(System.getProperty("line.separator"));
+		}catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+	
 	//Will try to move the cursor to the next line of the file
 	public static void newLine() {
 		try {
-			configFile.newLine();
+			configFile.write(System.getProperty("line.separator"));
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
@@ -74,39 +86,12 @@ public class Writer {
 	public static void buildingInfo(String name, int number, File file) {
 		try {
 			configFile.append("Building "+number+" = "+name);
-			configFile.newLine();
-			configFile.write(file.getPath());
-			configFile.newLine();
+			configFile.append(System.getProperty("line.separator"));
+			configFile.append(file.getPath());
+			configFile.append(System.getProperty("line.separator"));
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
 	}
-	
-	public static void buildingTest(String comboQandA, int number,  File file) {
-		try {
-			String[] separateCombo = comboQandA.split(",");
-			configFile.write("Test:");
-			for(int i = 0 ; i < separateCombo.length; i++) {
-				if(i == 0) {
-					configFile.write(separateCombo[i]);
-				}
-				else if(i % 10 == 1 || i % 10 == 6 ) {
-					configFile.newLine();
-					configFile.write(separateCombo[i]);
-				}
-				else {
-					configFile.newLine();
-					configFile.write(separateCombo[i]);
-				}
-			}
-			configFile.newLine();
-			
-		}catch(IOException e) {
-			System.out.println("An error ocurred");
-			e.printStackTrace();
-		}
-	}
-	
-	
 }

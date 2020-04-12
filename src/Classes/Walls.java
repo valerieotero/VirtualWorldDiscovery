@@ -8,8 +8,8 @@ package Classes;
  */
 
 public class Walls {
-	int x1, y1, x2, y2, width, height;
-	String picture;
+	private int x1, y1, x2, y2, width, height;
+	private String picture;
 
 	public Walls(int x1, int y1, int x2, int y2, int width, int height, String picture) {
 		this.x1 = x1;

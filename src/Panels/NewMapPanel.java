@@ -3,6 +3,7 @@ package Panels;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Classes.Writer;
+import Classes.fileNames;
 
 public class NewMapPanel extends JPanel{
 
@@ -20,9 +22,13 @@ public class NewMapPanel extends JPanel{
 	//Writer/Reader variables
 	private String configFile;
 	private String path;
+	private String pathQuestions;
+	private String pathTrees;
 	private Writer writer;
 	private JTextField textFieldBuildingAmount;
-	public int buildingAmount;
+	//public static ArrayList<String> fileNames = new ArrayList<String>();	
+	fileNames locations = new fileNames();
+	private int buildingAmount;
 
 	public NewMapPanel(JFrame frame) {		
 
@@ -63,12 +69,12 @@ public class NewMapPanel extends JPanel{
 				//Gets the name entered by the user				
 				configFile = textFieldNewMapName.getText();
 				path = System.getProperty("user.dir")+File.separator+"maps"+File.separator+configFile;
-
-
+				pathQuestions = System.getProperty("user.dir")+File.separator+"questions"+File.separator+configFile;
+				pathTrees = System.getProperty("user.dir")+File.separator+"trees"+File.separator+configFile;
 				//Validates that the name is not an empty string or empty value 
 				if(!(configFile.isEmpty() && buildingAmount==0 ) )  {
-
-					writingHeader(path);
+					createFileNames(path, pathQuestions, pathTrees);
+					//writingHeader(path);
 
 					try {
 						buildingAmount = Integer.parseInt(textFieldBuildingAmount.getText());
@@ -91,14 +97,35 @@ public class NewMapPanel extends JPanel{
 		newMapPanel.add(btnSave);
 	}
 
+	private void createFileNames(String s, String q, String t) {
+		locations.save(s);
+		locations.save(q);
+		locations.save(t);
+		writingHeader(locations.load(0));
+		tester(locations.load(1), locations.load(2));
+	}
+	
 	//Helper method to write the name of the map and header of the file
 	//header -> Map name
 	private void writingHeader(String s) {
 		writer.open(s);
 		writer.write("Map name = ");
-		writer.write(s);
+		writer.writeSpace(s);
+		writer.newLine();
+		writer.close();
+	}
+	private void tester(String s, String q) {
+		writer.open(s);
+		writer.write("Questions File = ");
+		writer.writeSpace(s);
 		writer.newLine();
 		writer.newLine();
-		//writer.close();
+		writer.close();
+		
+		writer.open(q);
+		writer.write("Trees File = ");
+		writer.writeSpace(s);
+		writer.newLine();
+		writer.close();
 	}
 }

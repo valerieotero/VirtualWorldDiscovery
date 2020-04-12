@@ -35,6 +35,7 @@ import Classes.Line;
 import Classes.Question;
 import Classes.Tree;
 import Classes.Writer;
+import Classes.fileNames;
 
 
 public class CreatedMapPanel extends JPanel {
@@ -65,6 +66,7 @@ public class CreatedMapPanel extends JPanel {
 
 	//Class-Objects needed.
 	Writer writer;
+	fileNames locations = new fileNames();
 	NewBuildingFrame newBuildingFrame;
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
@@ -81,7 +83,7 @@ public class CreatedMapPanel extends JPanel {
 	private int wight = 10;
 	private int wallsNeeded = 4;
 	//John - for testing purposes
-
+	private int count = 0;
 
 
 	public CreatedMapPanel(JFrame frame, Writer writer){
@@ -343,43 +345,35 @@ public class CreatedMapPanel extends JPanel {
 			line.coordinateList.set(1, ybegin);
 			line.coordinateList.set(2, xend);
 			line.coordinateList.set(3, yend);
+			System.out.println("Looking to draw "+ count++);
 			buildingInformation();
+			linesList.add(finishedLine);
+			line.repaint();
 		}
 	};
 
 	private void buildingInformation() {
 		//calls writing functions
 		if(walls == newBuildingFrame.getAmountOfWalls()) {
-//			walls = 0;
-//			linesList.add(finishedLine);
-//			line.repaint();
+			walls = 0;
+			writer.open(locations.load(0));
 			writer.newLine();
-			closing(); //need to add a button to know how many walls each building has
+			closing();
 			System.out.println("number of walls completed "+walls);
 			return;
 		}
 		else {
 			System.out.println("number of on-going walls "+walls);
+			writer.open(locations.load(0));
 			writingCoordinates(walls, "wall.png");
+			closing();
 			walls++;
-			linesList.add(finishedLine);
-			line.repaint();
 		}
-	}
-
-	//Write the building name and number into the file
-	//Saves reference picture
-	private void writingBuildingName(String s,String p, int w) {
-		writer.write("Building "+w+" = "+s);
-		writer.newLine();
-		writer.write(p);
-		writer.newLine();
 	}
 
 	//Writes the wall, wall number and wall coordinates
 	private void writingCoordinates(int w,String p) {
-		writer.write("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+newBuildingFrame.getBuildingWidth()+","+newBuildingFrame.getBuildingHeight()+")"+p);
-		writer.newLine();
+		writer.writeSpace("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+newBuildingFrame.getBuildingWidth()+","+newBuildingFrame.getBuildingHeight()+")"+p);
 	}
 
 	private void closing() {

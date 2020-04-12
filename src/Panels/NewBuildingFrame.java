@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Classes.Writer;
+import Classes.fileNames;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -48,8 +50,11 @@ public class NewBuildingFrame {
 	private int buildingWidth;
 	private int buildingHeight;		
 	
+	public HashMap<Integer, String> mapQuestions = new HashMap<Integer, String>();
 	Writer writer;
 	File file;
+	TestCreatorFrame TCF = new TestCreatorFrame();
+	fileNames locations = new fileNames();
 	//CONSTRUCTOR
 	public NewBuildingFrame() {
 		newBuildingInfoFrame();
@@ -269,13 +274,20 @@ public class NewBuildingFrame {
 	}
 
 	public boolean areTheFieldsCompleted() {
-
 		if(imageIcon!=null && amountOfWalls!=0 && buildingName!=null && buildingWidth!=0 && buildingHeight!=0) {
-			Writer.buildingInfo(this.getBuildingName(), count, file);
+			buildingInfo();
+			//mapQuestions.put(count, TCF.getComboQAndA());
 			return true;
 		}
 		else {
 			return false;
 		}
+	}
+	
+	public void buildingInfo() {
+		Writer.open(locations.load(0));
+		Writer.buildingInfo(this.getBuildingName(), count, file);
+		Writer.newLine();
+		Writer.close();
 	}
 }
