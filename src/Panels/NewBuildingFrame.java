@@ -23,44 +23,58 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
+/*Author: Valerie Otero | Date: March 31 2020
+ * This class defines a new frame when the designer selects the "New Building" button.
+ * Here the designer can enter information that will be associated to a building. */
 public class NewBuildingFrame {
 
 	private JFrame NewBuildingFrame;
-	
-	private JLabel lblSelectImage;
+
+	private JLabel lblBuildingImage;
 	private static JLabel lblAmountOfWalls;
-		
+
 	private JTextField textFieldBuildingName;
 	private JTextField textFieldAmountOfWalls;
 	private JTextField textFieldWallHeight;
 	private JTextField textFieldWalWidth;
-	private JTextField textFieldImage;
-	
-	private JButton btnUploadImage;
+	private JTextField textFieldBuildingImage;
+	private JTextField textFieldWallImage;
+
+	private JButton btnUploadBuildingImage;
+	private JButton btnUploadWallImage;
 	private JButton btnSave;	
 	private JButton btnSaveImage;
 	private JButton btnTestCreator;
-	
-	ImageIcon icon;
-	ImageIcon imageIcon;	
-	private int count = 0;
+
+	ImageIcon wallIcon;
+	ImageIcon buildingIcon;
+
+	ImageIcon wallImageIcon;
+	ImageIcon buildingImageIcon;	
+
 	private static String buildingName;
+
+	private int count = 0;	
 	private int amountOfWalls; 
 	private int buildingWidth;
 	private int buildingHeight;		
-	
+
 	public HashMap<Integer, String> mapQuestions = new HashMap<Integer, String>();
 	Writer writer;
 	File file;
 	TestCreatorFrame TCF = new TestCreatorFrame();
 	fileNames locations = new fileNames();
+
+
+
 	//CONSTRUCTOR
 	public NewBuildingFrame() {
 		newBuildingInfoFrame();
 	}
-	
-	
+
+
 	//GETTERS AND SETTERS
 	public static String getBuildingName() {
 		return buildingName;
@@ -93,21 +107,33 @@ public class NewBuildingFrame {
 	public void setBuildingHeight(int buildingHeight) {
 		this.buildingHeight = buildingHeight;
 	}
-	
-	public ImageIcon getImageIcon() {
-		return imageIcon;
+
+	public ImageIcon getBuildingImageIcon() {
+		return buildingImageIcon;
 	}
 
-	public void setImageIcon(ImageIcon imageIcon) {
-		this.imageIcon = imageIcon;
+	public void setBuildingImageIcon(ImageIcon imageIcon) {
+		this.buildingImageIcon = imageIcon;
+	}	
+
+	public ImageIcon getWallImageIcon() {
+		return wallImageIcon;
 	}
-	
-	
+
+	public void setWallImageIcon(ImageIcon wallImageIcon) {
+		this.wallImageIcon = wallImageIcon;
+	}
+
+
+	/*Author: Valerie Otero | Date: March 31 2020
+	 * This method initializes the frame with all the components for the new building information. */
 	private void newBuildingInfoFrame() {
+
 		NewBuildingFrame = new JFrame();
-		NewBuildingFrame.setBounds(100, 100, 527, 415);
+		NewBuildingFrame.setBounds(100, 100, 527, 497);
 		NewBuildingFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		NewBuildingFrame.getContentPane().setLayout(null);
+		NewBuildingFrame.setVisible(true);
 
 		//LABEL - BUILDING NAME:
 		JLabel lblBuildingName = new JLabel("Building name:");
@@ -120,7 +146,7 @@ public class NewBuildingFrame {
 		NewBuildingFrame.getContentPane().add(textFieldBuildingName);
 		textFieldBuildingName.setColumns(10);
 
-		//LABEL - AMOUNT OF WALLS"
+		//LABEL - AMOUNT OF WALLS
 		lblAmountOfWalls = new JLabel("Amount of walls: ");
 		lblAmountOfWalls.setBounds(22, 57, 100, 14);
 		NewBuildingFrame.getContentPane().add(lblAmountOfWalls);
@@ -131,23 +157,49 @@ public class NewBuildingFrame {
 		NewBuildingFrame.getContentPane().add(textFieldAmountOfWalls);
 		textFieldAmountOfWalls.setColumns(10);
 
-		//BUTTON UPLOAD IMAGE
-		btnUploadImage = new JButton("Upload image");		
-		btnUploadImage.setBounds(174, 235, 114, 23);
-		btnUploadImage.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		//LABEL - SELECT BUILDING IMAGE
+		lblBuildingImage = new JLabel("Select image for building:");
+		lblBuildingImage.setBounds(22, 239, 154, 14);
+		NewBuildingFrame.getContentPane().add(lblBuildingImage);
 
-				btnUploadBackgroundImageMouseEvent(e);	
+		//LABEL - SELECT IMAGE FOR WALLS
+		JLabel lblSelectImageFor = new JLabel("Select image for walls:");
+		lblSelectImageFor.setBounds(22, 284, 140, 14);
+		NewBuildingFrame.getContentPane().add(lblSelectImageFor);
 
-			}
-		});
-		NewBuildingFrame.getContentPane().add(btnUploadImage);
+		//NAME OF WALL IMAGE UPLOADED TEXT FIELD
+		textFieldWallImage = new JTextField();
+		textFieldWallImage.setBounds(353, 281, 86, 20);
+		NewBuildingFrame.getContentPane().add(textFieldWallImage);
+		textFieldWallImage.setColumns(10);
 
-		//LABEL - SELECT IMAGE
-		lblSelectImage = new JLabel("Select image for building:");
-		lblSelectImage.setBounds(22, 239, 154, 14);
-		NewBuildingFrame.getContentPane().add(lblSelectImage);
+		//NAME OF IMAGE UPLOADED TEXT FIELD
+		textFieldBuildingImage = new JTextField();
+		textFieldBuildingImage.setBounds(353, 236, 86, 20);
+		NewBuildingFrame.getContentPane().add(textFieldBuildingImage);
+		textFieldBuildingImage.setColumns(10);
+
+		//LABEL - WALL HEIGHT
+		JLabel lblHeightOfWalls = new JLabel("Height of walls:");
+		lblHeightOfWalls.setBounds(22, 92, 86, 14);
+		NewBuildingFrame.getContentPane().add(lblHeightOfWalls);
+
+		//LABEL - WALL WIDTH
+		JLabel lblWidthOfWalls = new JLabel("Width of walls:");
+		lblWidthOfWalls.setBounds(22, 126, 86, 14);
+		NewBuildingFrame.getContentPane().add(lblWidthOfWalls);
+
+		//WALL HEIGHT INPUT
+		textFieldWallHeight = new JTextField();
+		textFieldWallHeight.setBounds(128, 89, 86, 20);
+		NewBuildingFrame.getContentPane().add(textFieldWallHeight);
+		textFieldWallHeight.setColumns(10);
+
+		//WALL WIDTH INPUT
+		textFieldWalWidth = new JTextField();
+		textFieldWalWidth.setBounds(128, 123, 86, 20);
+		NewBuildingFrame.getContentPane().add(textFieldWalWidth);
+		textFieldWalWidth.setColumns(10);
 
 		//SAVE BUTTON
 		btnSave = new JButton("Save");
@@ -174,58 +226,62 @@ public class NewBuildingFrame {
 				System.out.println("Building Width: " + buildingWidth);
 			}
 		});
+		btnSave.setBounds(72, 164, 89, 23);
+		NewBuildingFrame.getContentPane().add(btnSave);
+
 		//Setting variables for getters
 		this.setBuildingHeight(buildingHeight);
 		this.setBuildingWidth(buildingWidth);
 		this.setBuildingName(buildingName);
-		this.setAmountOfWalls(amountOfWalls);
-		
-		btnSave.setBounds(73, 171, 89, 23);
-		NewBuildingFrame.getContentPane().add(btnSave);
+		this.setAmountOfWalls(amountOfWalls);		
 
-		//NAME OF IMAGE UPLOADED TEXT FIELD
-		textFieldImage = new JTextField();
-		textFieldImage.setBounds(22, 270, 114, 20);
-		NewBuildingFrame.getContentPane().add(textFieldImage);
-		textFieldImage.setColumns(10);
+		//BUTTON BUILDING IMAGE
+		btnUploadBuildingImage = new JButton("Upload building image");		
+		btnUploadBuildingImage.setHorizontalAlignment(SwingConstants.LEFT);
+		btnUploadBuildingImage.setBounds(172, 235, 160, 23);
+		btnUploadBuildingImage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 
-		//LABEL - WALL HEIGHT
-		JLabel lblHeightOfWalls = new JLabel("Height of walls:");
-		lblHeightOfWalls.setBounds(22, 92, 86, 14);
-		NewBuildingFrame.getContentPane().add(lblHeightOfWalls);
-		
-		//LABEL - WALL WIDTH
-		JLabel lblWidthOfWalls = new JLabel("Width of walls:");
-		lblWidthOfWalls.setBounds(22, 126, 86, 14);
-		NewBuildingFrame.getContentPane().add(lblWidthOfWalls);
-		
-		//WALL HEIGHT INPUT
-		textFieldWallHeight = new JTextField();
-		textFieldWallHeight.setBounds(128, 89, 86, 20);
-		NewBuildingFrame.getContentPane().add(textFieldWallHeight);
-		textFieldWallHeight.setColumns(10);
-		
-		//WALL WIDTH INPUT
-		textFieldWalWidth = new JTextField();
-		textFieldWalWidth.setBounds(128, 123, 86, 20);
-		NewBuildingFrame.getContentPane().add(textFieldWalWidth);
-		textFieldWalWidth.setColumns(10);
-		
-		//SAVE IMAGE BUTTON
-		btnSaveImage = new JButton("Save Image");
+				UploadBuildingImageMouseEvent(e);	
+
+			}
+		});
+		NewBuildingFrame.getContentPane().add(btnUploadBuildingImage);
+
+		// BUTTON WALL IMAGE
+		btnUploadWallImage = new JButton("Upload wall image");
+		btnUploadWallImage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				UploadWallImageMouseEvent(arg0);
+			}
+		});
+		btnUploadWallImage.setBounds(172, 280, 154, 23);
+		NewBuildingFrame.getContentPane().add(btnUploadWallImage);
+
+		//SAVE IMAGES BUTTON
+		btnSaveImage = new JButton("Save Images");
 		btnSaveImage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				imageIcon = icon;
-				System.out.println("ImageIcon: " + imageIcon);
+				buildingImageIcon = buildingIcon;
+				wallImageIcon = wallIcon;
+
+				//debug
+				System.out.println("BuildingImageIcon: " + buildingImageIcon);
+				System.out.println("WallImageIcon: " + wallImageIcon);
 
 			}
 		});
-		this.setImageIcon(imageIcon);
-		//Writer.write(this.getImageIcon());
-		btnSaveImage.setBounds(174, 269, 114, 23);
+		btnSaveImage.setBounds(100, 331, 114, 23);
 		NewBuildingFrame.getContentPane().add(btnSaveImage);	
+
+		this.setBuildingImageIcon(buildingImageIcon);
+		this.setWallImageIcon(wallImageIcon);
+		//Writer.write(this.getImageIcon());
 
 		NewBuildingFrame.addWindowListener(new WindowAdapter() {			
 
@@ -235,7 +291,7 @@ public class NewBuildingFrame {
 				}
 			}
 		});
-		
+
 		//MAKE TEST BUTTON
 		btnTestCreator = new JButton("Add Questions with Answers");
 		btnTestCreator.addMouseListener(new MouseAdapter() {
@@ -244,46 +300,75 @@ public class NewBuildingFrame {
 				TestCreatorFrame testFrame = new TestCreatorFrame();
 			}
 		});
-		btnTestCreator.setBounds(20, 325, 230, 23);
+		btnTestCreator.setBounds(22, 401, 230, 23);
 		NewBuildingFrame.getContentPane().add(btnTestCreator);
-		
-		NewBuildingFrame.setVisible(true);
+
 	}
 
-
-	public void btnUploadBackgroundImageMouseEvent(MouseEvent e) {
+	/*Author: Valerie Otero | Date: March 31 2020
+	 * Method is called in the newBuildingInfoFrame() when the map designer selects to "Upload Building Image". 
+	 * It initializes a chooser box that lets the designer select an image from their computer. */		
+	public void UploadBuildingImageMouseEvent(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
 		BufferedImage img;	   				    				  
 
-		if (e.getSource()==btnUploadImage) {
+		if (e.getSource()==btnUploadBuildingImage) {
 			chooser.showOpenDialog(null);
 			file = chooser.getSelectedFile();
 
 			try {
 				img=ImageIO.read(file);
-				icon=new ImageIcon(img);										
+				buildingIcon=new ImageIcon(img);										
 			}
 
 			catch(IOException e1) {
 				System.out.println("Must select an image");
 			}
 
-			textFieldImage.setText(file.getName());			
+			textFieldBuildingImage.setText(file.getName());			
 		}
 	}
 
+	/*Author: Valerie Otero | Date: March 31 2020
+	 * Method is called in the newBuildingInfoFrame() when the map designer selects to "Upload Wall Image". 
+	 * It initializes a chooser box that lets the designer select an image from their computer. */		
+	public void UploadWallImageMouseEvent(MouseEvent e) {
+
+		JFileChooser chooser = new JFileChooser();
+		BufferedImage img;	   				    				  
+
+		if (e.getSource()==btnUploadWallImage) {
+			chooser.showOpenDialog(null);
+			file = chooser.getSelectedFile();
+
+			try {
+				img=ImageIO.read(file);
+				wallIcon=new ImageIcon(img);										
+			}
+
+			catch(IOException e1) {
+				System.out.println("Must select an image");
+			}
+
+			textFieldWallImage.setText(file.getName());			
+		}
+	}
+
+	/*Author: Valerie Otero | Date: March 31 2020
+	 * Method is called in the newBuildingInfoFrame() when the map designer wants to close. 
+	 * It verifies that all fields are saved, if so then the deigner can close the frame. */		
 	public boolean areTheFieldsCompleted() {
-		if(imageIcon!=null && amountOfWalls!=0 && buildingName!=null && buildingWidth!=0 && buildingHeight!=0) {
+
+		if(buildingImageIcon!=null && wallImageIcon!=null&& amountOfWalls!=0 && buildingName!=null && buildingWidth!=0 && buildingHeight!=0) {
 			buildingInfo();
-			//mapQuestions.put(count, TCF.getComboQAndA());
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-	
+
 	public void buildingInfo() {
 		Writer.open(locations.load(0));
 		Writer.buildingInfo(this.getBuildingName(), count, file);

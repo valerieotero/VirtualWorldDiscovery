@@ -27,7 +27,7 @@ public class Menu {
 	public void initializeFrame() {
 
 		frame = new JFrame();
-		frame.setBounds(10, 10, 1024, 720);
+		frame.setBounds(10, 10, 1220, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);

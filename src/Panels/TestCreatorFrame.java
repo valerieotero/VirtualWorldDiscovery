@@ -63,7 +63,6 @@ public class TestCreatorFrame {
 
 	private void newTestCreator() {
 
-
 		//FRAME CREATOR
 		testFrame = new JFrame();
 		testFrame.setBounds(100,100, 450, 570);
