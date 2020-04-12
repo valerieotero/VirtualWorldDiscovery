@@ -16,6 +16,8 @@ import javax.swing.ImageIcon;
 public class PlayingFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
+	
+	public int buildingCount = 0;
 
 	
 	public PlayingFrame() {			
@@ -35,7 +37,12 @@ public class PlayingFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);					
 						
 		AvatarManagerPanel avatarManagerPanel = new AvatarManagerPanel(keyLogic, inputHandler, graphicsMan);	
-						
+		avatarManagerPanel.setLayout(null);		
+		
+		JLabel lblBuildingCount = new JLabel("Building(s) remaining: " + buildingCount);
+		lblBuildingCount.setBounds(1050,20,200,15);
+		avatarManagerPanel.add(lblBuildingCount);				
+		
 		this.getContentPane().add(avatarManagerPanel);				
 		keyLogic.setAvatarManager(avatarManagerPanel);
 		inputHandler.setAvatarManager(avatarManagerPanel);	

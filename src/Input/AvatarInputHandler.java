@@ -14,6 +14,7 @@ public class AvatarInputHandler implements KeyListener{
 	private boolean rightIsPressed;
 	private boolean downIsPressed;
 	private boolean upIsPressed;
+	private boolean eKeyIsPressed;
 
 	private AvatarManagerPanel avatarManager;	
 
@@ -49,6 +50,10 @@ public class AvatarInputHandler implements KeyListener{
 	public boolean isUpPressed() {
 		return upIsPressed;
 	}
+	
+	public boolean isEKeyPressed() {
+		return eKeyIsPressed;
+	}
 
 
 	/**
@@ -68,6 +73,21 @@ public class AvatarInputHandler implements KeyListener{
 		case KeyEvent.VK_RIGHT:
 			this.rightIsPressed = true;
 			break;	
+		case KeyEvent.VK_W:			
+			this.upIsPressed = true;
+			break;
+		case KeyEvent.VK_S:			
+			this.downIsPressed = true;
+			break;
+		case KeyEvent.VK_A:
+			this.leftIsPressed = true;
+			break;
+		case KeyEvent.VK_D:
+			this.rightIsPressed = true;
+			break;	
+		case KeyEvent.VK_E:
+			this.eKeyIsPressed = true;
+			break;
 		case KeyEvent.VK_ESCAPE:
 			System.exit(1);
 			break;
@@ -91,6 +111,21 @@ public class AvatarInputHandler implements KeyListener{
 			this.leftIsPressed = false;
 			break;
 		case KeyEvent.VK_RIGHT:
+			this.rightIsPressed = false;
+			break;
+		case KeyEvent.VK_W:			
+			this.upIsPressed = false;
+			break;
+		case KeyEvent.VK_S:			
+			this.downIsPressed = false;
+			break;
+		case KeyEvent.VK_A:
+			this.leftIsPressed = false;
+			break;
+		case KeyEvent.VK_D:
+			this.rightIsPressed = false;
+			break;	
+		case KeyEvent.VK_E:
 			this.rightIsPressed = false;
 			break;
 		}

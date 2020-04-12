@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import Input.AvatarInputHandler;
+import Panels.TakeTestFrame;
+import Panels.TestCreatorFrame;
 
 
 public class AvatarManagerPanel extends JPanel {
@@ -26,6 +28,9 @@ public class AvatarManagerPanel extends JPanel {
 	
 	private Graphics2D g2d;
 	protected BufferedImage backBuffer;
+	
+	public boolean isOpen = false;
+	private boolean haveTouched = false;
 	
 	
 	//Constructor
@@ -114,11 +119,22 @@ public class AvatarManagerPanel extends JPanel {
 	}
 	
 	
+	public boolean avatarStatic(){
+		if(avatar.getSpeed() == 0) {
+			return true;
+		}
+		return false;
+	}
 	
 	public void moveAvatarUp(){
-		if(avatar.getY() - avatar.getSpeed() >= 0){
-			avatar.translate(0, -avatar.getSpeed()*2);
+		if(avatar.getCollision().intersects(fourWalls.getCollision())) {
+			avatar.translate(0, 0);
 		}
+		else {
+			if(avatar.getY() - avatar.getSpeed() >= 0){
+				avatar.translate(0, -avatar.getSpeed()*2);
+			}
+		 }
 	}
 
 	public void moveAvatarDown(){
@@ -143,10 +159,21 @@ public class AvatarManagerPanel extends JPanel {
 		}
 	}
 	
+	public void interactAvatar(AvatarInputHandler ih) {
+		if(ih.isEKeyPressed() && isOpen == false) {
+			TakeTestFrame testFrame = new TakeTestFrame();
+			isOpen = true;
+		}
+	}
+	
 	protected void checkAvatarWallsCollisions() {	
-		if(fourWalls.intersects(avatar)){				
-			draw4Walls();		
+		if(fourWalls.intersects(avatar) && haveTouched == false){				
+			draw4Walls();	
+			haveTouched = true;
 		}	
+		if(haveTouched == true) {
+			draw4Walls();
+		}
 	}
 	
 }

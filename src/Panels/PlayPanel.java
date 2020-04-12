@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Avatar.AvatarManager;
+import Avatar.AvatarManagerPanel;
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
 import Avatar.KeysLogic;

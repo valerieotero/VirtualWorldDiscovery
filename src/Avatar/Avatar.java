@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 public class Avatar extends Rectangle {
 	
+	private Rectangle avatar = new Rectangle((int) x, (int) y, WIDTH, HEIGHT);
 	private static final long serialVersionUID = 1L;
 	
 	public static final int DEFAULT_SPEED = 2;
@@ -30,6 +31,7 @@ public class Avatar extends Rectangle {
 	public int getDefaultSpeed(){ return DEFAULT_SPEED;	}	
 	public int getPixelsWide() { return (int) getWidth(); }	
 	public int getPixelsTall() { return (int) getHeight(); }	
+	public Rectangle getCollision() {return avatar;}
 	
 	
 	//Setters

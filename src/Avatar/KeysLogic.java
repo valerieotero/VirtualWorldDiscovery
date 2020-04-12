@@ -42,6 +42,9 @@ public class KeysLogic {
 		if(ih.isRightPressed()){
 			getAvatarManager().moveAvatarRight();
 		}
+		if(ih.isEKeyPressed()) {
+			getAvatarManager().interactAvatar(ih);
+		}
 
 	}
 
