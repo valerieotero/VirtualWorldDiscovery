@@ -540,7 +540,7 @@ public class CreatedMapPanel extends JPanel {
 				}
 				else {
 					tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
-					
+					treeWriter((selectedTree+1), e.getX(), e.getY() ,60, 87);
 					treeList.add(tree);
 				
 					//for debug
@@ -550,14 +550,16 @@ public class CreatedMapPanel extends JPanel {
 					tree.revalidate();
 					tree.repaint();
 					newCreatedMapPanel.add(lblBackGroundLabel);	
-					
 				}
-				
 			}
-			
 		});
 	}
-
+	
+	public void treeWriter(int image, int X, int Y, int W, int H) {
+		Writer.open(locations.load(2));
+		Writer.writeSpace("TreeImage"+Integer.toString(image)+" = "+"("+X+","+Y+")("+W+","+H+")");
+		Writer.close();
+	}
 
 	/*Author: Juan Davila | Date: March 21 2020
 	 * Method creates an array of questions.

@@ -36,6 +36,14 @@ public class NewMapPanel extends JPanel{
 	fileNames locations = new fileNames();
 	private int buildingAmount;
 
+	public int getBuildingAmount() {
+		return buildingAmount;
+	}
+
+	public void setBuildingAmount(int buildingAmount) {
+		this.buildingAmount = buildingAmount;
+	}
+	
 	public NewMapPanel(JFrame frame) {		
 
 		//NEW MAP PANEL
@@ -79,8 +87,6 @@ public class NewMapPanel extends JPanel{
 				pathTrees = System.getProperty("user.dir")+File.separator+"trees"+File.separator+configFile;
 				//Validates that the name is not an empty string or empty value 
 				if(!(configFile.isEmpty() && buildingAmount==0 ) )  {
-					createFileNames(path, pathQuestions, pathTrees);
-					//writingHeader(path);
 
 					try {
 						buildingAmount = Integer.parseInt(textFieldBuildingAmount.getText());
@@ -88,6 +94,7 @@ public class NewMapPanel extends JPanel{
 						newMapPanel.setVisible(false);
 
 						CreatedMapPanel createdMapPanel = new CreatedMapPanel(frame, writer);	
+						createFileNames(path, pathQuestions, pathTrees);
 					}
 
 					catch(NumberFormatException ex){
@@ -101,8 +108,9 @@ public class NewMapPanel extends JPanel{
 			}});
 		btnSave.setBounds(367, 249, 89, 23);
 		newMapPanel.add(btnSave);
+		
+		this.setBuildingAmount(buildingAmount);
 	}
-
 	private void createFileNames(String s, String q, String t) {
 		locations.save(s);
 		locations.save(q);
@@ -120,7 +128,7 @@ public class NewMapPanel extends JPanel{
 		writer.open(s);
 		writer.write("Map name = ");
 		writer.writeSpace(s);
-		writer.newLine();
+		writer.writeSpace("Amount = "+Integer.toString(this.getBuildingAmount()));
 		writer.close();
 	}
 	private void tester(String s, String q) {

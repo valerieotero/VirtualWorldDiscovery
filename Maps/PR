@@ -1,2 +1,11 @@
 Map name = C:\Users\yamil\git\VirtualWorldDiscovery\maps\PR
+Amount = 0
+Building 1 = Fisica
+C:\Users\yamil\Pictures\GPIO-Pinout-Diagram-2.png
+
+Wall 0 = (373,84)(334,201)(30,20)wall.png
+Wall 1 = (334,199)(448,199)(30,20)wall.png
+Wall 2 = (334,199)(448,199)(30,20)wall.png
+Wall 3 = (372,82)(447,196)(30,20)wall.png
+Wall 4 = (372,82)(447,196)(30,20)wall.png
 
