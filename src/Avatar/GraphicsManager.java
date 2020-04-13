@@ -1,5 +1,8 @@
 package Avatar;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -18,6 +21,8 @@ public class GraphicsManager {
 	private BufferedImage leftAvatarImg; 
 	
 	private BufferedImage wallImg; 
+	
+	private BufferedImage messageImg;
 
 		
 	//Constructor. Creates a new graphics manager and loads the game images.	 
@@ -27,6 +32,7 @@ public class GraphicsManager {
 			this.avatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/megaMan3.png"));						
 			this.leftAvatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/reversemegaMan3.png"));
 			this.wallImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/4Walls.png"));	
+			this.messageImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/press e.png"));
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
@@ -49,4 +55,8 @@ public class GraphicsManager {
 	public void draw4Walls (Rectangle wall, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(wallImg, wall.x, wall.y, observer);	
 	}	
+	
+	public void writeMessage (Rectangle message, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(messageImg , message.x, message.y, observer);
+	}
 }

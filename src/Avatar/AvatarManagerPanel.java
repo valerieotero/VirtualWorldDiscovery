@@ -21,6 +21,7 @@ public class AvatarManagerPanel extends JPanel {
 	protected Avatar avatar;	
 	protected Avatar fourWalls;
 	protected Rectangle walls;
+	protected Rectangle message;
 
 	private GraphicsManager graphicsManager;
 	private KeysLogic keyLogic;
@@ -61,6 +62,7 @@ public class AvatarManagerPanel extends JPanel {
 	public void initiateAvatar() {
 		newAvatar();
 		new4Walls();
+		message();
 		avatar.setDirection(1);	//start with the image looking to the right
 	}
 
@@ -68,7 +70,9 @@ public class AvatarManagerPanel extends JPanel {
 		clearScreen();
 		drawAvatar();
 		
+
 		checkAvatarWallsCollisions();
+		checkMessageCollision();
 	}
 
 	@Override
@@ -113,11 +117,20 @@ public class AvatarManagerPanel extends JPanel {
 		return fourWalls;
 	}
 	
+	public Rectangle message() {
+		this.message = new Rectangle(60, 94, 96, 54);
+		return message;
+	}
+	
 	public void draw4Walls() {
 		Graphics2D g2d = getGraphics2D();			
 		getGraphicsManager().draw4Walls(fourWalls, g2d, this);			
 	}
 	
+	public void writeMessage() {
+		Graphics2D g2d = getGraphics2D();
+		getGraphicsManager().writeMessage(message, g2d, this);
+	}
 	
 	public boolean avatarStatic(){
 		if(avatar.getSpeed() == 0) {
@@ -173,6 +186,12 @@ public class AvatarManagerPanel extends JPanel {
 		}	
 		if(haveTouched == true) {
 			draw4Walls();
+		}
+	}
+	
+	protected void checkMessageCollision() {
+		if(message.intersects(avatar)) {
+			writeMessage();
 		}
 	}
 	
