@@ -60,7 +60,7 @@ public class Reader {
 		mapReaderController("UPR");
 		questionReaderController("UPR");
 		for(String s : buildingPictures) {
-			//System.out.println("Building picture "+s);
+			System.out.println("Building picture "+s);
 		}
 		System.out.println("Amount of building in the file = "+amount);
 		System.out.println("Walls of each building "+Collections.singletonList(buildings));
