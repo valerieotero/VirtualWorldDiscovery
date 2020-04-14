@@ -2,6 +2,9 @@ package Avatar;
 
 import Input.AvatarInputHandler;
 
+
+/* Author: Valerie Otero | Date: April 11 2020
+ * Class is responsable for detecting what key is being pressed and what action to take afterwards. */
 public class KeysLogic {
 
 	private AvatarManagerPanel avatarManager;

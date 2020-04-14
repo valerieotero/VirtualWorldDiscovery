@@ -11,9 +11,8 @@ import java.awt.image.ImageObserver;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-/**
- * Manages and draws game graphics and images.
- */
+/* Author: Valerie Otero | Date: April 12 2020
+ * Manages and draws game graphics and images. */
 public class GraphicsManager {
 	
 	private BufferedImage avatarImg;			
@@ -41,17 +40,22 @@ public class GraphicsManager {
 			System.exit(-1);
 		}
 	}
-
 	
-	 //Draws a MegaMan image to the specified graphics canvas.	
+
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Draws a avatar image to the specified graphics canvas. */		
 	public void drawAvatar (Avatar avatar, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(avatarImg, avatar.x, avatar.y, observer);	
 	}	
 	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Draws a avatar image to the specified graphics canvas. */
 	public void drawLeftAvatar (Avatar avatar, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(leftAvatarImg, avatar.x, avatar.y, observer);	
 	}	
 
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Draws a avatar image to the specified graphics canvas. */
 	public void draw4Walls (Rectangle wall, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(wallImg, wall.x, wall.y, observer);	
 	}	

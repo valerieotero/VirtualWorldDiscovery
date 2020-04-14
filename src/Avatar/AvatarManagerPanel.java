@@ -34,6 +34,9 @@ public class AvatarManagerPanel extends JPanel {
 	private boolean haveTouched = false;
 	
 	
+	/*Author: Valerie Otero | Date: April 11 2020
+	 * 
+	 */
 	//Constructor
 	public AvatarManagerPanel(KeysLogic keyLogic, AvatarInputHandler inputHandler, GraphicsManager graphicsMan) {		
 		this.setPreferredSize(new Dimension(1220, 681));	
@@ -57,8 +60,9 @@ public class AvatarManagerPanel extends JPanel {
 	protected void setInputHandler(AvatarInputHandler inputHandler) { this.inputHandler = inputHandler; }
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 
-
-    //Sets avatar at the bottom left corner
+	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Sets avatar at the bottom left corner. */
 	public void initiateAvatar() {
 		newAvatar();
 		new4Walls();
@@ -66,23 +70,25 @@ public class AvatarManagerPanel extends JPanel {
 		avatar.setDirection(1);	//start with the image looking to the right
 	}
 
+	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Method that constantly checks the screen for any changes and if so updates it with those changes or new objects */ 
 	public void updateScreen() {
 		clearScreen();
 		drawAvatar();
-		
-
 		checkAvatarWallsCollisions();
 		checkMessageCollision();
 	}
-
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(backBuffer, 0, 0, this);
 	}
 
-
-	//draw one of two possible MegaMan poses according to direction
+	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * This method draws one of two possible avatar poses according to direction.  */
 	protected void drawAvatar() {
 			
 		Graphics2D g2d = getGraphics2D();
@@ -96,22 +102,27 @@ public class AvatarManagerPanel extends JPanel {
 			
 		}
 	}
+	
 
-     /* Makes sure there is only one image of the avatar on the screen. 
+     /* Author: Valerie Otero | Date: April 11 2020
+      * Makes sure there is only one image of the avatar on the screen. 
 	  * If not used, you can see the trace of where the image has moved. */
 	protected void clearScreen() {		
 		Graphics2D g2d = getGraphics2D();	
 		g2d.fillRect(0, 0, getSize().width, getSize().height);
 	}
+	
 
-
-	//Draws avatar in the bottom left corner 
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Draws avatar in the bottom left corner  */	
 	public Avatar newAvatar(){
 		this.avatar = new Avatar(20,633,42,45); //x, y, width, height		
 		return avatar;
 	}
 	
-	//Initiate posotion of the wall
+	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Initiate position of the wall */ 	
 	public Avatar new4Walls() {
 		this.fourWalls = new Avatar(60, 94, 100, 58);//Use avatar class because it extends from Rectangle class.
 		return fourWalls;
@@ -122,6 +133,9 @@ public class AvatarManagerPanel extends JPanel {
 		return message;
 	}
 	
+	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * When called, it will draw on the screen the four wall image*/	
 	public void draw4Walls() {
 		Graphics2D g2d = getGraphics2D();			
 		getGraphicsManager().draw4Walls(fourWalls, g2d, this);			
@@ -139,6 +153,8 @@ public class AvatarManagerPanel extends JPanel {
 		return false;
 	}
 	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Moves the avatar in the up direction of the screen */ 
 	public void moveAvatarUp(){
 		if(avatar.getCollision().intersects(fourWalls.getCollision())) {
 			avatar.translate(0, 0);
@@ -150,6 +166,8 @@ public class AvatarManagerPanel extends JPanel {
 		 }
 	}
 
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Moves the avatar in the down direction of the screen */ 
 	public void moveAvatarDown(){
 		for(int i=0; i<9; i++){
 			if(avatar.getY() + avatar.getSpeed() + avatar.height < getHeight()) { 
@@ -157,7 +175,8 @@ public class AvatarManagerPanel extends JPanel {
 			}
 		}
 	}
-
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Moves the avatar in the left direction of the screen */ 
 	public void moveAvatarLeft(){		
 		if(avatar.getX() - avatar.getSpeed() >= 0){
 			avatar.translate(-avatar.getSpeed(), 0);
@@ -165,6 +184,8 @@ public class AvatarManagerPanel extends JPanel {
 		}
 	}
 
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Moves the avatar in the right direction of the screen */ 
 	public void moveAvatarRight(){
 		avatar.setDirection(1);
 		if(avatar.getX() + avatar.getSpeed() + avatar.width < getWidth()){
@@ -179,6 +200,8 @@ public class AvatarManagerPanel extends JPanel {
 		}
 	}
 	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Checks collision of the avatar with the four wall image */ 
 	protected void checkAvatarWallsCollisions() {	
 		if(fourWalls.intersects(avatar) && haveTouched == false){				
 			draw4Walls();	

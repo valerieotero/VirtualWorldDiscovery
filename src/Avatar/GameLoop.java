@@ -2,9 +2,9 @@ package Avatar;
 
 import Input.AvatarInputHandler;
 
-/**
- * Implements the main game loop, i.e. what actions should be taken on each frame update.
- */
+
+  /* Author: Valerie Otero | Date: April 11 2020 
+  * Implements the main game loop, i.e. what actions should be taken on each frame update. */
 public class GameLoop implements Runnable{
 	
 	private AvatarManagerPanel avatarManager;
