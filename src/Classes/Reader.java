@@ -176,8 +176,15 @@ public class Reader {
 		}
 	}
 
+	//Create tokens usinga a splitting function for trees
 	private static void treeTokenizer(String file) throws FileNotFoundException {
 		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\tree\\"+file));
+		while(scanner.hasNext()){
+			tokens = scanner.nextLine().split("[(|)|,| ]");
+			for(int i = 0; i < tokens.length; i++) {
+				str.add(tokens[i]);
+			}
+		}
 	}
 
 	//Create tokens using a splitting function for map

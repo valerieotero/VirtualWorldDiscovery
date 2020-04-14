@@ -1,0 +1,15 @@
+Map name = C:\Users\yamil\git\VirtualWorldDiscovery\maps\Marte
+Amount = 3
+Building 1 = Meteoro
+C:\Users\yamil\Pictures\GPIO-Pinout-Diagram-2.png
+
+Wall 0 = (303,99)(307,216)(30,30)wall.png
+Wall 1 = (304,98)(436,95)(30,30)wall.png
+Wall 2 = (441,95)(444,212)(30,30)wall.png
+
+Building 1 = Rocks
+C:\Users\yamil\Pictures\SRxSp8y2pSBjCRXo5jiWrG.jpg
+
+Wall 0 = (696,112)(703,232)(140,15)wall.png
+Wall 1 = (696,110)(848,198)(140,15)wall.png
+
