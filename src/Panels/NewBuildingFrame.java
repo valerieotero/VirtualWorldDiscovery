@@ -63,8 +63,7 @@ public class NewBuildingFrame {
 
 	public HashMap<Integer, String> mapQuestions = new HashMap<Integer, String>();
 	Writer writer;
-	File file;
-	TestCreatorFrame TCF = new TestCreatorFrame();
+	File file;	
 	fileNames locations = new fileNames();
 
 
