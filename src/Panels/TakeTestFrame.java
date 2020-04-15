@@ -40,7 +40,7 @@ public class TakeTestFrame {
 		counter = 0;
 		takeTestFrame = new JFrame();
 		takeTestFrame.setBounds(10, 480, 550, 250);
-		takeTestFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		takeTestFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		takeTestFrame.getContentPane().setLayout(null);
 		
 		Font obj = new Font("Arial", Font.BOLD, 18);

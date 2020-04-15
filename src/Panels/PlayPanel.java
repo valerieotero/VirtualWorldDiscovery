@@ -11,11 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Avatar.AvatarManagerPanel;
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
 import Avatar.KeysLogic;
-import Input.AvatarInputHandler;
+import Input.PlayingPanelInputHandler;
 
 
 public class PlayPanel {

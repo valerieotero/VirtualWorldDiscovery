@@ -1,52 +1,53 @@
 package Avatar;
 
-import Input.AvatarInputHandler;
+import Input.PlayingPanelInputHandler;
+import Panels.PlayingPanel;
 
 
 /* Author: Valerie Otero | Date: April 11 2020
- * Class is responsable for detecting what key is being pressed and what action to take afterwards. */
+ * Class is responsible for detecting what key is being pressed and what action to take afterwards. */
 public class KeysLogic {
 
-	private AvatarManagerPanel avatarManager;
-	
+	private PlayingPanel playingPanel;
+
 	//Constructor
 	public KeysLogic(){
 	}
 
-	public AvatarManagerPanel getAvatarManager() {
-		return avatarManager;
-	}
-	
-	public void setAvatarManager(AvatarManagerPanel avatarManager) {
-		this.avatarManager = avatarManager;
-	}
-	
-	public void keyControls(AvatarInputHandler ih) {							
-			avatarManager.updateScreen();
-			handleKeysDuringPlay(ih);		
-			
+	public PlayingPanel getPlayingPanel() {
+		return playingPanel;
 	}
 
-	
-	public void handleKeysDuringPlay(AvatarInputHandler ih) {				
+	public void setPlayingPanel(PlayingPanel playingPanel) {
+		this.playingPanel = playingPanel;
+	}
+
+	public void keyControls(PlayingPanelInputHandler ih) {							
+		playingPanel.updateScreen();
+		handleKeysDuringPlay(ih);		
+
+	}
+
+
+	public void handleKeysDuringPlay(PlayingPanelInputHandler ih) {				
 
 		if(ih.isUpPressed()){		
-			getAvatarManager().moveAvatarUp();			
+			getPlayingPanel().moveAvatarUp();			
 		}
 
 		if(ih.isDownPressed()){
-			getAvatarManager().moveAvatarDown();			
+			getPlayingPanel().moveAvatarDown();			
 		}
 
 		if(ih.isLeftPressed()){
-			getAvatarManager().moveAvatarLeft();
+			getPlayingPanel().moveAvatarLeft();
 		}
 
 		if(ih.isRightPressed()){
-			getAvatarManager().moveAvatarRight();
+			getPlayingPanel().moveAvatarRight();
 		}
 		if(ih.isEKeyPressed()) {
-			getAvatarManager().interactAvatar(ih);
+			getPlayingPanel().interactAvatar(ih);
 		}
 
 	}

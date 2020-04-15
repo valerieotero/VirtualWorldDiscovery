@@ -97,7 +97,7 @@ public class CreatedMapPanel extends JPanel {
 	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
 	JComboBox<?> treeComboBox;
 	private Tree tree;
-	public ArrayList<JLabel> treeList = new ArrayList<>();
+	
 
 	//CONSTRUCTOR
 	public CreatedMapPanel(JFrame frame, Writer writer){
@@ -545,12 +545,8 @@ public class CreatedMapPanel extends JPanel {
 				}
 				else {
 					tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
-					treeWriter((selectedTree+1), e.getX(), e.getY() ,60, 87);
-					treeList.add(tree);
-
-					//for debug
-					System.out.println(treeList.size());
-
+					treeWriter((selectedTree+1), e.getX(), e.getY() ,60, 87);				
+					
 					newCreatedMapPanel.add(tree);
 					tree.revalidate();
 					tree.repaint();

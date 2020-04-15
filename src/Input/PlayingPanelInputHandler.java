@@ -3,12 +3,12 @@ package Input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Avatar.AvatarManagerPanel;
+import Panels.PlayingPanel;
 
 /**
  * Handles user input events.
  */
-public class AvatarInputHandler implements KeyListener{
+public class PlayingPanelInputHandler implements KeyListener{
 	
 	private boolean leftIsPressed;
 	private boolean rightIsPressed;
@@ -16,15 +16,14 @@ public class AvatarInputHandler implements KeyListener{
 	private boolean upIsPressed;
 	private boolean eKeyIsPressed;
 
-	private AvatarManagerPanel avatarManager;	
+	private PlayingPanel playingPanel;	
 
-	public AvatarManagerPanel getAvatarManager() { return avatarManager; }
-	public void setAvatarManager(AvatarManagerPanel avatarManager) { this.avatarManager = avatarManager; }
+	public PlayingPanel getPlayingPanel() { return playingPanel; }
+	public void setPlayingPanel(PlayingPanel playingPanel) { this.playingPanel = playingPanel; }
+	
 
-	/**
-	 * Create a new input handler
-	**/
-	public AvatarInputHandler(){
+	//Creates a new input handler	
+	public PlayingPanelInputHandler(){
 		reset();
 	}
 
@@ -56,9 +55,8 @@ public class AvatarInputHandler implements KeyListener{
 	}
 
 
-	/**
-	 * Handle a key input event.
-	 */
+
+	//Handle a key input event	
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_UP:			
@@ -96,9 +94,8 @@ public class AvatarInputHandler implements KeyListener{
 		e.consume();
 	}
 
-	/**
-	 * Handle a key release event.
-	 */
+	
+	//Handle a key release event	
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_UP:			

@@ -1,36 +1,36 @@
 package Avatar;
 
-import Input.AvatarInputHandler;
+import Input.PlayingPanelInputHandler;
+import Panels.PlayingPanel;
 
 
   /* Author: Valerie Otero | Date: April 11 2020 
   * Implements the main game loop, i.e. what actions should be taken on each frame update. */
 public class GameLoop implements Runnable{
 	
-	private AvatarManagerPanel avatarManager;
+	private PlayingPanel playingPanel;
 	private KeysLogic keyLogic;
-	private AvatarInputHandler inputHandler;
+	private PlayingPanelInputHandler inputHandler;
 
 	//Constructor
-	public GameLoop(AvatarManagerPanel avatarManager){
+	public GameLoop(PlayingPanel playingPanel){
 		
-		this.avatarManager = avatarManager;
-		this.keyLogic = avatarManager.getKeyLogic();
-		this.inputHandler = avatarManager.getInputHandler();
+		this.playingPanel = playingPanel;
+		this.keyLogic = playingPanel.getKeyLogic();
+		this.inputHandler = playingPanel.getInputHandler();
 	}
 
-	/**
-	 * Implements the run interface method. Should be called by the running thread (In Play Frame).
-	 */
+	
+	//Implements the run interface method. Should be called by the running thread (In Play Frame).	
 	public void run() {
 
-		avatarManager.initiateAvatar();
+		playingPanel.initiateAvatar();
 
 		while(true) { 
 			
 			//Update the game graphics and repaint screen
 			keyLogic.keyControls(inputHandler);
-			avatarManager.repaint();
+			playingPanel.repaint();
 			
 			KeysLogic.delay(1000/60);			
 

@@ -1,4 +1,4 @@
-package Avatar;
+package Panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,12 +9,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import Input.AvatarInputHandler;
-import Panels.TakeTestFrame;
-import Panels.TestCreatorFrame;
+import Avatar.Avatar;
+import Avatar.GraphicsManager;
+import Avatar.KeysLogic;
+import Input.PlayingPanelInputHandler;
 
 
-public class AvatarManagerPanel extends JPanel {
+public class PlayingPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -25,7 +26,7 @@ public class AvatarManagerPanel extends JPanel {
 
 	private GraphicsManager graphicsManager;
 	private KeysLogic keyLogic;
-	private AvatarInputHandler inputHandler;
+	private PlayingPanelInputHandler inputHandler;
 	
 	private Graphics2D g2d;
 	protected BufferedImage backBuffer;
@@ -38,7 +39,7 @@ public class AvatarManagerPanel extends JPanel {
 	 * 
 	 */
 	//Constructor
-	public AvatarManagerPanel(KeysLogic keyLogic, AvatarInputHandler inputHandler, GraphicsManager graphicsMan) {		
+	public PlayingPanel(KeysLogic keyLogic, PlayingPanelInputHandler inputHandler, GraphicsManager graphicsMan) {		
 		this.setPreferredSize(new Dimension(1220, 681));	
 		this.setKeyLogic(keyLogic);
 		this.setInputHandler(inputHandler);
@@ -50,14 +51,14 @@ public class AvatarManagerPanel extends JPanel {
 	// Getters
 	public GraphicsManager getGraphicsManager() { return graphicsManager; }
 	public KeysLogic getKeyLogic() { return keyLogic; }
-	public AvatarInputHandler getInputHandler() { return inputHandler; }
+	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
 	public Graphics2D getGraphics2D() { return g2d; }
 	public Avatar getAvatar() 	{return avatar;}
 
 	// Setters
 	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }
 	protected void setKeyLogic(KeysLogic gameLogic) { this.keyLogic = gameLogic; }
-	protected void setInputHandler(AvatarInputHandler inputHandler) { this.inputHandler = inputHandler; }
+	protected void setInputHandler(PlayingPanelInputHandler inputHandler) { this.inputHandler = inputHandler; }
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 
 	
@@ -193,7 +194,7 @@ public class AvatarManagerPanel extends JPanel {
 		}
 	}
 	
-	public void interactAvatar(AvatarInputHandler ih) {
+	public void interactAvatar(PlayingPanelInputHandler ih) {
 		if(ih.isEKeyPressed() && isOpen == false) {
 			TakeTestFrame testFrame = new TakeTestFrame();
 			isOpen = true;

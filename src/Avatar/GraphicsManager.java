@@ -11,8 +11,7 @@ import java.awt.image.ImageObserver;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-/* Author: Valerie Otero | Date: April 12 2020
- * Manages and draws game graphics and images. */
+
 public class GraphicsManager {
 	
 	private BufferedImage avatarImg;			
@@ -23,8 +22,9 @@ public class GraphicsManager {
 	
 	private BufferedImage messageImg;
 
-		
-	//Constructor. Creates a new graphics manager and loads the game images.	 
+	
+	/* Author: Valerie Otero | Date: April 12 2020
+ 	 * Creates a new graphics manager and loads the game images. */ 
 	public GraphicsManager(){
 		// load images
 		try {
