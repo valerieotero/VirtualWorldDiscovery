@@ -205,13 +205,15 @@ public class NewBuildingFrame {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				buildingName = textFieldBuildingName.getText();
-				setBuildingName(buildingName);
+				
+				setBuildingName(textFieldBuildingName.getText());
+				
 				try {
-					amountOfWalls = Integer.parseInt(textFieldAmountOfWalls.getText());
-					buildingHeight = Integer.parseInt(textFieldWallHeight.getText());
-					buildingWidth = Integer.parseInt(textFieldWalWidth.getText());		
+					saveAmountOfWalls(Integer.parseInt(textFieldAmountOfWalls.getText()));
+					
+					//Setting variables for getters					
+					setBuildingHeight(Integer.parseInt(textFieldWallHeight.getText()));
+					setBuildingWidth(Integer.parseInt(textFieldWalWidth.getText()));											
 				}
 
 				catch(NumberFormatException ex){
@@ -219,21 +221,16 @@ public class NewBuildingFrame {
 				}
 				count++;
 				//For debug
-				System.out.println("Building Name: "+ buildingName);		
-				System.out.println("Amount Of Walls: " + amountOfWalls);
-				System.out.println("Building Height: " + buildingHeight);
-				System.out.println("Building Width: " + buildingWidth);
+				System.out.println("Building Name: "+ getBuildingName());		
+				System.out.println("Amount Of Walls: " + getAmountOfWalls());
+				System.out.println("Building Height: " + getBuildingHeight());
+				System.out.println("Building Width: " + getBuildingWidth());
 			}
 		});
 		btnSave.setBounds(72, 164, 89, 23);
 		NewBuildingFrame.getContentPane().add(btnSave);
 
-		//Setting variables for getters
-		this.setBuildingHeight(buildingHeight);
-		this.setBuildingWidth(buildingWidth);
-		this.setBuildingName(buildingName);
-		this.setAmountOfWalls(amountOfWalls);		
-
+		
 		//BUTTON BUILDING IMAGE
 		btnUploadBuildingImage = new JButton("Upload building image");		
 		btnUploadBuildingImage.setHorizontalAlignment(SwingConstants.LEFT);
@@ -242,7 +239,7 @@ public class NewBuildingFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				UploadBuildingImageMouseEvent(e);	
+				UploadBuildingImage(e);	
 
 			}
 		});
@@ -254,7 +251,7 @@ public class NewBuildingFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				UploadWallImageMouseEvent(arg0);
+				UploadWallImage(arg0);
 			}
 		});
 		btnUploadWallImage.setBounds(172, 280, 154, 23);
@@ -303,11 +300,15 @@ public class NewBuildingFrame {
 		NewBuildingFrame.getContentPane().add(btnTestCreator);
 
 	}
+	
+	public void saveAmountOfWalls(int walls) {
+		this.setAmountOfWalls(walls);
+	}
 
 	/*Author: Valerie Otero | Date: March 31 2020
 	 * Method is called in the newBuildingInfoFrame() when the map designer selects to "Upload Building Image". 
 	 * It initializes a chooser box that lets the designer select an image from their computer. */		
-	public void UploadBuildingImageMouseEvent(MouseEvent e) {
+	public void UploadBuildingImage(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
 		BufferedImage img;	   				    				  
@@ -332,7 +333,7 @@ public class NewBuildingFrame {
 	/*Author: Valerie Otero | Date: March 31 2020
 	 * Method is called in the newBuildingInfoFrame() when the map designer selects to "Upload Wall Image". 
 	 * It initializes a chooser box that lets the designer select an image from their computer. */		
-	public void UploadWallImageMouseEvent(MouseEvent e) {
+	public void UploadWallImage(MouseEvent e) {
 
 		JFileChooser chooser = new JFileChooser();
 		BufferedImage img;	   				    				  
