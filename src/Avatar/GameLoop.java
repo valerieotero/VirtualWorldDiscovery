@@ -22,7 +22,7 @@ public class GameLoop implements Runnable{
 	//Implements the run interface method. Should be called by the running thread (In Play Frame).	
 	public void run() {
 
-		playingPanel.initiateAvatar();
+		playingPanel.initialize();
 
 		while(true) { 
 			

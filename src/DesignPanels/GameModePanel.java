@@ -61,7 +61,7 @@ public class GameModePanel extends JPanel {
 
 				gameModePanel.setVisible(false);
 				
-				PlayPanel designPanel = new PlayPanel(frame);				
+				PlayPanel playPanel = new PlayPanel(frame);				
 
 			}
 		});

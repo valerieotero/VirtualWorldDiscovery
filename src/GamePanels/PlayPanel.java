@@ -58,7 +58,7 @@ public class PlayPanel {
 				
 				mapName = (String) comboBoxLoadMap.getSelectedItem();
 								
-				PlayingFrame gameFrame = new PlayingFrame(); 
+				PlayingFrame gameFrame = new PlayingFrame(mapName); 
 				gameFrame.setTitle(mapName);			
 
 			}

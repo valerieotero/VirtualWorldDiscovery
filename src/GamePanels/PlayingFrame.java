@@ -1,9 +1,12 @@
 package GamePanels;
 
-import javax.swing.JFrame;
 
+import java.io.FileNotFoundException;
+
+import javax.swing.JFrame;
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
+import Classes.Reader;
 import Input.PlayingPanelInputHandler;
 import javax.swing.JLabel;
 
@@ -11,12 +14,17 @@ import javax.swing.JLabel;
 
 public class PlayingFrame extends JFrame {
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	public int buildingCount = 0;
-
 	
-	public PlayingFrame() {			
+	public PlayingFrame(String mapName) {	
+		
+		try {
+			Reader.mapReaderController(mapName);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");			
+		}
+		
 		initialize();		
 	}
 
@@ -28,7 +36,7 @@ public class PlayingFrame extends JFrame {
 		this.setVisible(true); 
 		
 		playingPanelComponents();		
-		
+	
 	}
 	
 	public void playingPanelComponents() {
@@ -52,6 +60,6 @@ public class PlayingFrame extends JFrame {
 		Thread gameLoop = new Thread(new GameLoop(playingPanel));			
 
 		gameLoop.start();
-		
+
 	}
 }  

@@ -1,15 +1,28 @@
 package GamePanels;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Avatar.Avatar;
 import Avatar.GraphicsManager;
+import Classes.Line;
+import Classes.Reader;
+import Classes.Walls;
 import Input.PlayingPanelInputHandler;
 
 
@@ -30,10 +43,11 @@ public class PlayingPanel extends JPanel {
 	
 	public boolean isOpen = false;
 	private boolean haveTouched = false;
+			
+	BufferedImage background;
 	
 	
 	/*Author: Valerie Otero | Date: April 11 2020
-	 * 
 	 */
 	//Constructor
 	public PlayingPanel(PlayingPanelInputHandler inputHandler, GraphicsManager graphicsMan) {		
@@ -41,7 +55,12 @@ public class PlayingPanel extends JPanel {
 		this.setInputHandler(inputHandler);
 		this.setGraphicsManager(graphicsMan);		
 		backBuffer = new BufferedImage(1220, 681, BufferedImage.TYPE_INT_RGB);
-		this.setGraphics2D(backBuffer.createGraphics());
+		this.setGraphics2D(backBuffer.createGraphics());		
+		try {
+			background = ImageIO.read(new File(Reader.getBackground()));
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}	
 	}
 
 	// Getters
@@ -56,31 +75,43 @@ public class PlayingPanel extends JPanel {
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 
 	
+	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Sets avatar at the bottom left corner. */
-	public void initiateAvatar() {
-		newAvatar();
+	public void initialize() {
+		newAvatar();		
 		new4Walls();
 		message();
-		avatar.setDirection(1);	//start with the image looking to the right
+		avatar.setDirection(1);	//start with the image looking to the right	
+		
 	}
 
 	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Method that constantly checks the screen for any changes and if so updates it with those changes or new objects */ 
-	public void updateScreen() {
-		clearScreen();
+	public void updateScreen() {	
+		clearScreen();		
+		drawBackground();	
+		addWalls();
 		drawAvatar();
 		checkAvatarWallsCollisions();
-		checkMessageCollision();
+		checkMessageCollision();		
 	}
+	
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(backBuffer, 0, 0, this);
 	}
+	
 
+	public void drawBackground(){
+		Graphics2D g2d = getGraphics2D();
+		super.paintComponent(g2d);	    	
+		g2d.drawImage(background, 0, 0, this);				
+	}
+	
 	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * This method draws one of two possible avatar poses according to direction.  */
@@ -88,14 +119,12 @@ public class PlayingPanel extends JPanel {
 			
 		Graphics2D g2d = getGraphics2D();
 		
-		if (avatar.getDirection() > 0) {		
-			
-			getGraphicsManager().drawAvatar(avatar, g2d, this);			
+		if (avatar.getDirection() > 0) {					
+			getGraphicsManager().drawAvatar(avatar, g2d, this);					
 		}
 		else {			
-			getGraphicsManager().drawLeftAvatar(avatar, g2d, this);
-			
-		}
+			getGraphicsManager().drawLeftAvatar(avatar, g2d, this);	
+		}				
 	}
 	
 
@@ -111,7 +140,7 @@ public class PlayingPanel extends JPanel {
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Draws avatar in the bottom left corner  */	
 	public Avatar newAvatar(){
-		this.avatar = new Avatar(20,633,42,45); //x, y, width, height		
+		this.avatar = new Avatar(20,633,42,45); //x, y, width, height			
 		return avatar;
 	}
 	
@@ -136,10 +165,12 @@ public class PlayingPanel extends JPanel {
 		getGraphicsManager().draw4Walls(fourWalls, g2d, this);			
 	}
 	
+	
 	public void writeMessage() {
 		Graphics2D g2d = getGraphics2D();
 		getGraphicsManager().writeMessage(message, g2d, this);
 	}
+	
 	
 	public boolean avatarStatic(){
 		if(avatar.getSpeed() == 0) {
@@ -147,6 +178,7 @@ public class PlayingPanel extends JPanel {
 		}
 		return false;
 	}
+	
 	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the up direction of the screen */ 
@@ -161,6 +193,7 @@ public class PlayingPanel extends JPanel {
 		 }
 	}
 
+	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the down direction of the screen */ 
 	public void moveAvatarDown(){
@@ -170,6 +203,8 @@ public class PlayingPanel extends JPanel {
 			}
 		}
 	}
+	
+	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the left direction of the screen */ 
 	public void moveAvatarLeft(){		
@@ -211,6 +246,24 @@ public class PlayingPanel extends JPanel {
 		if(message.intersects(avatar)) {
 			writeMessage();
 		}
-	}
+	}	
 	
+
+	public void addWalls() {
+		
+		Graphics2D g2d = getGraphics2D();
+
+		for(Map.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {
+
+			for(Walls wall : buildings.getValue()) {
+
+				g2d.drawLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2());
+				g2d.setStroke(new BasicStroke(3)); //Line width
+				g2d.setColor(Color.BLACK);		
+			
+			}
+
+		}
+
+	}
 }
