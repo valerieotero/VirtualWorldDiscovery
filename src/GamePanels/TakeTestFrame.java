@@ -1,4 +1,4 @@
-package Panels;
+package GamePanels;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

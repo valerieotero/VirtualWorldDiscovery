@@ -1,4 +1,4 @@
-package Panels;
+package GamePanels;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
-import Avatar.KeysLogic;
 import Input.PlayingPanelInputHandler;
 
 

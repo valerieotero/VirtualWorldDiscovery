@@ -1,4 +1,4 @@
-package Panels;
+package DesignPanels;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;

@@ -8,9 +8,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Scanner;
 
-import Panels.NewBuildingFrame;
+import DesignPanels.NewBuildingFrame;
+
+import java.util.Scanner;
 
 /*
  * Created by: Yamil J. Gonzalez

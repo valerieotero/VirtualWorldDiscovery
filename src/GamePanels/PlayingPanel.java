@@ -1,6 +1,5 @@
-package Panels;
+package GamePanels;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,7 +10,6 @@ import javax.swing.JPanel;
 
 import Avatar.Avatar;
 import Avatar.GraphicsManager;
-import Avatar.KeysLogic;
 import Input.PlayingPanelInputHandler;
 
 
@@ -24,8 +22,7 @@ public class PlayingPanel extends JPanel {
 	protected Rectangle walls;
 	protected Rectangle message;
 
-	private GraphicsManager graphicsManager;
-	private KeysLogic keyLogic;
+	private GraphicsManager graphicsManager;	
 	private PlayingPanelInputHandler inputHandler;
 	
 	private Graphics2D g2d;
@@ -39,9 +36,8 @@ public class PlayingPanel extends JPanel {
 	 * 
 	 */
 	//Constructor
-	public PlayingPanel(KeysLogic keyLogic, PlayingPanelInputHandler inputHandler, GraphicsManager graphicsMan) {		
-		this.setPreferredSize(new Dimension(1220, 681));	
-		this.setKeyLogic(keyLogic);
+	public PlayingPanel(PlayingPanelInputHandler inputHandler, GraphicsManager graphicsMan) {		
+		this.setPreferredSize(new Dimension(1220, 681));			
 		this.setInputHandler(inputHandler);
 		this.setGraphicsManager(graphicsMan);		
 		backBuffer = new BufferedImage(1220, 681, BufferedImage.TYPE_INT_RGB);
@@ -49,15 +45,13 @@ public class PlayingPanel extends JPanel {
 	}
 
 	// Getters
-	public GraphicsManager getGraphicsManager() { return graphicsManager; }
-	public KeysLogic getKeyLogic() { return keyLogic; }
+	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
 	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
 	public Graphics2D getGraphics2D() { return g2d; }
 	public Avatar getAvatar() 	{return avatar;}
 
 	// Setters
-	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }
-	protected void setKeyLogic(KeysLogic gameLogic) { this.keyLogic = gameLogic; }
+	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }	
 	protected void setInputHandler(PlayingPanelInputHandler inputHandler) { this.inputHandler = inputHandler; }
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 

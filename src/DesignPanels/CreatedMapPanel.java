@@ -1,4 +1,4 @@
-package Panels;
+package DesignPanels;
 
 import java.awt.Color;
 import java.awt.Component;

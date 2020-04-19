@@ -1,4 +1,4 @@
-package Panels;
+package DesignPanels;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -63,7 +63,7 @@ public class NewBuildingFrame {
 
 	public HashMap<Integer, String> mapQuestions = new HashMap<Integer, String>();
 	Writer writer;
-	File file;	
+	File file;	 
 	fileNames locations = new fileNames();
 
 

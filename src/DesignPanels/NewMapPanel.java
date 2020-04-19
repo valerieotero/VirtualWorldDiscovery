@@ -1,4 +1,4 @@
-package Panels;
+package DesignPanels;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -85,6 +85,7 @@ public class NewMapPanel extends JPanel{
 				path = System.getProperty("user.dir")+File.separator+"maps"+File.separator+configFile;
 				pathQuestions = System.getProperty("user.dir")+File.separator+"questions"+File.separator+configFile;
 				pathTrees = System.getProperty("user.dir")+File.separator+"trees"+File.separator+configFile;
+				
 				//Validates that the name is not an empty string or empty value 
 				if(!(configFile.isEmpty() && buildingAmount==0 ) )  {
 
@@ -111,6 +112,7 @@ public class NewMapPanel extends JPanel{
 		
 		this.setBuildingAmount(buildingAmount);
 	}
+	
 	private void createFileNames(String s, String q, String t) {
 		locations.save(s);
 		locations.save(q);

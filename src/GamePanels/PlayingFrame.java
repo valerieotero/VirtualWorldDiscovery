@@ -1,15 +1,12 @@
-package Panels;
+package GamePanels;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
-import Avatar.KeysLogic;
 import Input.PlayingPanelInputHandler;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
+
 
 
 public class PlayingFrame extends JFrame {
@@ -30,13 +27,18 @@ public class PlayingFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true); 
 		
-		KeysLogic keyLogic = new KeysLogic(); 
+		playingPanelComponents();		
+		
+	}
+	
+	public void playingPanelComponents() {
+				
 		PlayingPanelInputHandler inputHandler = new PlayingPanelInputHandler(); 
 		GraphicsManager graphicsMan = new GraphicsManager(); 				
 									
 		this.addKeyListener(inputHandler);									
 						
-		PlayingPanel playingPanel = new PlayingPanel(keyLogic, inputHandler, graphicsMan);	
+		PlayingPanel playingPanel = new PlayingPanel(inputHandler, graphicsMan);	
 		playingPanel.setLayout(null);		
 		
 		//LABEL - BUILDING COUNT
@@ -44,12 +46,12 @@ public class PlayingFrame extends JFrame {
 		lblBuildingCount.setBounds(1050,20,200,15);
 		playingPanel.add(lblBuildingCount);				
 		
-		this.getContentPane().add(playingPanel);				
-		keyLogic.setPlayingPanel(playingPanel);
+		this.getContentPane().add(playingPanel);		
 		inputHandler.setPlayingPanel(playingPanel);					
 				
 		Thread gameLoop = new Thread(new GameLoop(playingPanel));			
 
-		gameLoop.start();	
+		gameLoop.start();
+		
 	}
 }  

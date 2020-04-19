@@ -3,7 +3,7 @@ package Input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Panels.PlayingPanel;
+import GamePanels.PlayingPanel;
 
 /**
  * Handles user input events.
@@ -129,8 +129,52 @@ public class PlayingPanelInputHandler implements KeyListener{
 		e.consume();
 	}
 
+	
+	public void keyControls(PlayingPanelInputHandler ih) {							
+		playingPanel.updateScreen();
+		handleKeysDuringPlay(ih);		
+
+	}
+
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Method is responsible for detecting what key is being pressed and what action to take afterwards. */
+	public void handleKeysDuringPlay(PlayingPanelInputHandler ih) {				
+
+		if(ih.isUpPressed()){		
+			getPlayingPanel().moveAvatarUp();			
+		}
+
+		if(ih.isDownPressed()){
+			getPlayingPanel().moveAvatarDown();			
+		}
+
+		if(ih.isLeftPressed()){
+			getPlayingPanel().moveAvatarLeft();
+		}
+
+		if(ih.isRightPressed()){
+			getPlayingPanel().moveAvatarRight();
+		}
+		if(ih.isEKeyPressed()) {
+			getPlayingPanel().interactAvatar(ih);
+		}
+
+	}
+
+	
+	public static void delay(long millis) {
+		try{
+			Thread.sleep(millis);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void keyTyped(KeyEvent e) {
 		// not used; comes with the interface
 	}
+	
 
 }
