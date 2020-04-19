@@ -4,12 +4,16 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Classes.Reader;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -81,6 +85,11 @@ public class DesignPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				designPanel.setVisible(false);
+				
+				String mapName = (String) comboBoxLoadMap.getSelectedItem();				
+				
+				new EditExistingMapPanel(frame, mapName);
 				
 			}
 		});

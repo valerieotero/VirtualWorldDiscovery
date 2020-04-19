@@ -187,12 +187,14 @@ public class CreatedMapPanel extends JPanel {
 			file = chooser.getSelectedFile();
 
 			try {
+				backgorundWriter(file);
 				img=ImageIO.read(file);
 				ImageIcon icon=new ImageIcon(img);
 				lblBackGroundLabel.setIcon(icon); 			
 
 				lblBackGroundLabel.revalidate(); 
-				lblBackGroundLabel.repaint();			
+				lblBackGroundLabel.repaint();		
+				
 			}
 			catch(IOException e1) {
 				System.out.println("Must select an image");
@@ -200,6 +202,12 @@ public class CreatedMapPanel extends JPanel {
 		}
 	}
 
+	public void backgorundWriter(File file) {
+		Writer.open(locations.load(0));
+		Writer.writeSpace(file.getPath());
+		Writer.close();
+	}
+	
 
 	/* Author: Valerie Otero | Date: March 9 2020
 	 * Method initializes several labels and text fields associated with the panel

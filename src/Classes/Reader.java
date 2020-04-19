@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import Panels.NewBuildingFrame;
@@ -47,7 +49,8 @@ public class Reader {
 	private static LinkedList<Walls> space = new LinkedList<Walls>();
 	private static HashMap<Integer, LinkedList<Walls>> buildings = new HashMap<>();
 	private static HashMap<Integer, String> buildingNames = new HashMap<>();
-
+    private static String background;
+		
 
 	//question variables
 	static NewBuildingFrame NBF;
@@ -55,15 +58,43 @@ public class Reader {
 	private static HashMap<Integer,LinkedList<Integer>> buildingQuestions = new HashMap<>();
 	private static HashMap<Integer,LinkedList<String>> questionAnswers = new HashMap<>();
 
+	
+	
+	//GETTERS
+	public static ArrayList<String> getBuildingPictures() {
+		return buildingPictures;
+	}
+	
+	public static HashMap<Integer, LinkedList<Walls>> getBuildings() {
+		return buildings;
+	}
+	public static String getBackground() {
+		return background;
+	}
+	
+	//SETTERS
+	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) {
+		Reader.buildings = buildings;
+	}
+	
+	public static void setBuildingPictures(ArrayList<String> buildingPictures) {
+		Reader.buildingPictures = buildingPictures;
+	}
+	
+	public static void setBackground(String background) {
+		Reader.background = background;
+	}
+
 	/*Testing*/
 	public static void main(String[] args) throws Exception {
-		mapReaderController("UPR");
-		questionReaderController("UPR");
-		for(String s : buildingPictures) {
-			System.out.println("Building picture "+s);
-		}
+		mapReaderController("Image");
+		questionReaderController("Image");
+		for(String s : getBuildingPictures()) {
+			System.out.println("Building picture " + s);
+		}				
+		System.out.println("Background: "+ getBackground());
 		System.out.println("Amount of building in the file = "+amount);
-		System.out.println("Walls of each building "+Collections.singletonList(buildings));
+		System.out.println("Walls of each building "+Collections.singletonList(getBuildings()));
 		System.out.println("Building Names "+Collections.singletonList(buildingNames));
 		System.out.println("Building question numbers "+Collections.singletonList(buildingQuestions));
 		System.out.println("Building questions "+Collections.singletonList(questions));
@@ -92,9 +123,12 @@ public class Reader {
 //			System.out.println("location "+i+ " = "+arr[i]);
 //		}
 		int i = 0, count = 0, buildingNumnber = 0;
+		if(i+7 < arr.length) {
+			amount = Integer.parseInt(arr[i+6].trim());
+			setBackground(arr[i+7].trim());
+		}
 		while(i < arr.length) {
 			if(arr[i].equals(" Building")){
-				amount = Integer.parseInt(arr[i-1].trim());
 				name = arr[i+3].trim();
 				buildingPictures.add(arr[i+4].trim());
 				buildingNumnber++;
@@ -131,7 +165,7 @@ public class Reader {
 	}
 
 	private static void questionReader(String s) throws FileNotFoundException {
-		questionTokenizer(s);
+		questionTokenizer(s);		
 		String data = null;
 		String[] arr = null;
 		data = str.toString();		
@@ -178,7 +212,7 @@ public class Reader {
 
 	//Create tokens usinga a splitting function for trees
 	private static void treeTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\tree\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\Val\\git\\VirtualWorldDiscovery\\Tree\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -189,7 +223,7 @@ public class Reader {
 
 	//Create tokens using a splitting function for map
 	private static void mapTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\maps\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\Val\\git\\VirtualWorldDiscovery\\Maps\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -200,7 +234,7 @@ public class Reader {
 
 	//Create tokens using a splitting function for questions
 	private static void questionTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\questions\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\Val\\git\\VirtualWorldDiscovery\\Questions\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,|=]");
 			for(int i = 0; i < tokens.length; i++) {
