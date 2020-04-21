@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
-import Panels.GameModePanel;
+
+import DesignPanels.GameModePanel;
 
 public class Menu {
 

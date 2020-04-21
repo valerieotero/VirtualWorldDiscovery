@@ -1,4 +1,4 @@
-package Panels;
+package DesignPanels;
 
 import java.awt.Font;
 
@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import GamePanels.PlayPanel;
 
 /* Author: Valerie Otero | Date: March 8 2020	
  * Class initializes the main panel where the user can choose if it wants
@@ -59,7 +61,7 @@ public class GameModePanel extends JPanel {
 
 				gameModePanel.setVisible(false);
 				
-				PlayPanel designPanel = new PlayPanel(frame);				
+				PlayPanel playPanel = new PlayPanel(frame);				
 
 			}
 		});

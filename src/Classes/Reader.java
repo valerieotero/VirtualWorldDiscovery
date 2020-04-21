@@ -1,4 +1,6 @@
 package Classes;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -6,9 +8,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import Panels.NewBuildingFrame;
+import DesignPanels.NewBuildingFrame;
+
+import java.util.Scanner;
 
 /*
  * Created by: Yamil J. Gonzalez
@@ -45,7 +50,7 @@ public class Reader {
 	private static ArrayList<String> pictures = new ArrayList<String>();
 	private static ArrayList<String> buildingPictures = new ArrayList<String>();
 	private static HashMap<Integer, LinkedList<Walls>> buildings = new HashMap<>();
-	private static HashMap<Integer, String> buildingNames = new HashMap<>();
+	private static HashMap<Integer, String> buildingNames = new HashMap<>();		
 
 	//question variables
 	private static ArrayList<HashMap<Integer, String>> questionList = new ArrayList<HashMap<Integer, String>>();
@@ -58,14 +63,42 @@ public class Reader {
 	private static HashMap<Integer,LinkedList<treeLocation>> treeLocation = new HashMap<>();
 	
 	
+	//GETTERS
+	public static ArrayList<String> getBuildingPictures() {	return buildingPictures; }	
+	public static HashMap<Integer, LinkedList<Walls>> getBuildings() { return buildings; }
+	public static String getBackground() { return background; }
+	public static int getAmount() { return amount; }
+
+	
+	//SETTERS
+	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) {
+		Reader.buildings = buildings;
+	}
+	
+	public static void setBuildingPictures(ArrayList<String> buildingPictures) {
+		Reader.buildingPictures = buildingPictures;
+	}
+	
+	public static void setBackground(String background) {
+		Reader.background = background;
+	}
+	public static void setAmount(int amount) {
+		Reader.amount = amount;
+	}
+
 	/*Testing*/
 	public static void main(String[] args) throws Exception {
+
 		mapReaderController("Tierra");
 		questionReaderController("Tierra");
 		treeReaderController("Corona");
 		
-		System.out.println("Amount of building in the file = "+amount);
-		System.out.println("Walls of each building "+Collections.singletonList(buildings));
+		for(String s : getBuildingPictures()) {
+			System.out.println("Building picture " + s);
+		}				
+		System.out.println("Background: "+ getBackground());
+		System.out.println("Amount of building in the file = "+getAmount());
+		System.out.println("Walls of each building "+Collections.singletonList(getBuildings()));
 		System.out.println("Building Names "+Collections.singletonList(buildingNames));
 		System.out.println("Building question numbers "+Collections.singletonList(buildingQuestions));
 		for(HashMap<Integer, String> z : questionList) {
@@ -101,8 +134,8 @@ public class Reader {
 		str.clear();
 		int i = 0, count = 0, buildingNumnber = 0;
 		if(i+7 < arr.length) {
-			amount = Integer.parseInt(arr[i+6].trim());
-			background = arr[i+7].trim();
+			setAmount(Integer.parseInt(arr[i+6].trim()));
+			setBackground(arr[i+7].trim());
 		}
 		while(i < arr.length) {
 			if(arr[i].equals(" Building")){
@@ -142,7 +175,7 @@ public class Reader {
 	}
 
 	private static void questionReader(String s) throws FileNotFoundException {
-		questionTokenizer(s);
+		questionTokenizer(s);		
 		String data = null;
 		String[] arr = null;
 		data = str.toString();		
@@ -247,7 +280,7 @@ public class Reader {
 
 	//Create tokens using a splitting function for questions
 	private static void questionTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\questions\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Questions\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,|=]");
 			for(int i = 0; i < tokens.length; i++) {

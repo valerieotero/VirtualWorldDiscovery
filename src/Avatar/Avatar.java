@@ -2,6 +2,9 @@ package Avatar;
 
 import java.awt.Rectangle;
 
+
+/* Author: Valerie Otero | Date: April 11 2020
+ * This class creates a rectangle object as the avatar for the game. */
 public class Avatar extends Rectangle {
 	
 	private Rectangle avatar = new Rectangle((int) x, (int) y, WIDTH, HEIGHT);

@@ -1,4 +1,4 @@
-package Panels;
+package GamePanels;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -11,11 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Avatar.AvatarManagerPanel;
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
-import Avatar.KeysLogic;
-import Input.AvatarInputHandler;
+import Input.PlayingPanelInputHandler;
+import java.awt.Color;
 
 
 public class PlayPanel {
@@ -36,6 +35,7 @@ public class PlayPanel {
 				
 		//LABEL - LOAD MAP
 		JLabel lblLoadMap = new JLabel("Choose map to play:");
+		lblLoadMap.setForeground(Color.DARK_GRAY);
 		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblLoadMap.setBounds(530, 164, 138, 23);
 		playPanel.add(lblLoadMap);
@@ -60,7 +60,7 @@ public class PlayPanel {
 				
 				mapName = (String) comboBoxLoadMap.getSelectedItem();
 								
-				PlayingFrame gameFrame = new PlayingFrame(); 
+				PlayingFrame gameFrame = new PlayingFrame(mapName); 
 				gameFrame.setTitle(mapName);			
 
 			}
