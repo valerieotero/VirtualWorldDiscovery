@@ -48,9 +48,10 @@ public class PlayingPanel extends JPanel {
 	BufferedImage background;
 		
 	//BUILDING VARIABLES		
-	private int buildingKey; 
+	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;	
 	int buildingAmount;
 
+	
 	/*Author: Valerie Otero | Date: April 11 2020
 	 */
 	//Constructor
@@ -71,22 +72,19 @@ public class PlayingPanel extends JPanel {
 	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
 	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
 	public Graphics2D getGraphics2D() { return g2d; }
-	public Avatar getAvatar() { return avatar; }
-	public int getBuildingKey() { return buildingKey; }
+	public Avatar getAvatar() { return avatar; }	
 
 	// Setters
 	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }	
 	protected void setInputHandler(PlayingPanelInputHandler inputHandler) { this.inputHandler = inputHandler; }
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
-	public void setBuildingKey(int key) { this.buildingKey = key; }
-
+	
 
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Sets avatar at the bottom left corner. */
 	public void initialize() {				
-		newAvatar();			
-		//new4Walls();
-		message();
+		newAvatar();		
+	//	message();
 		avatar.setDirection(1);	//start with the image looking to the right
 		buildingAmountLabel();
 	}
@@ -98,10 +96,9 @@ public class PlayingPanel extends JPanel {
 		clearScreen();		
 		drawBackground();		
 		drawAvatar();		
-		checkWallCollision();
-		//checkAvatarWallsCollisions();
-		checkMessageCollision();		
-		
+		checkWallCollision();		
+	//	checkMessageCollision();	
+		drawWalls();		
 	}
 
 
@@ -117,6 +114,7 @@ public class PlayingPanel extends JPanel {
 		super.paintComponent(g2d);	    	
 		g2d.drawImage(background, 0, 0, this);				
 	}
+	
 
 	public void buildingAmountLabel() {
 		//LABEL - BUILDING COUNT
@@ -160,28 +158,12 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	/* Author: Valerie Otero | Date: April 11 2020
-	 * Initiate position of the wall */ 	
-	//	public Avatar new4Walls() {
-	//		this.fourWalls = new Avatar(60, 94, 100, 58);//Use avatar class because it extends from Rectangle class.
-	//		return fourWalls;
-	//	}
-	
-
 	public Rectangle message() {
 		this.message = new Rectangle(60, 94, 96, 54);
 		return message;
 	}
 
-
-	/* Author: Valerie Otero | Date: April 11 2020
-	 * When called, it will draw on the screen the four wall image*/	
-	//	public void draw4Walls() {
-	//		Graphics2D g2d = getGraphics2D();			
-	//		getGraphicsManager().draw4Walls(fourWalls, g2d, this);			
-	//	}
-
-
+	
 	public void writeMessage() {
 		Graphics2D g2d = getGraphics2D();
 		getGraphicsManager().writeMessage(message, g2d, this);
@@ -199,15 +181,9 @@ public class PlayingPanel extends JPanel {
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the up direction of the screen */ 
 	public void moveAvatarUp(){
-
-		//		if(avatar.getCollision().intersects(fourWalls.getCollision())) {
-		//			avatar.translate(0, 0);
-		//		}
-		//else {
 		if(avatar.getY() - avatar.getSpeed() >= 0){
 			avatar.translate(0, -avatar.getSpeed()*2);
 		}
-		//	 }
 	}
 
 
@@ -247,18 +223,7 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	/* Author: Valerie Otero | Date: April 11 2020
-	 * Checks collision of the avatar with the four wall image */ 
-	//	protected void checkAvatarWallsCollisions() {	
-	//		if(fourWalls.intersects(avatar) && haveTouched == false){				
-	//			draw4Walls();	
-	//			haveTouched = true;
-	//		}	
-	//		if(haveTouched == true) {
-	//			draw4Walls();
-	//		}
-	//	}
-
+	
 	protected void checkMessageCollision() {
 		if(message.intersects(avatar)) {
 			writeMessage();
@@ -266,46 +231,50 @@ public class PlayingPanel extends JPanel {
 	}	
 	
 	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Checks collision of the avatar with building walls */ 
 	protected void checkWallCollision() {
 				
-		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {			 					
-			//System.out.println("looking for buildings );
-			
-			for(Walls wall : buildings.getValue()) {
-				//System.out.println("looking for walls  );
+		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		 					
+						
+			for(Walls wall : buildings.getValue()) {			
 
-				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {
+				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {																
 					
-					System.out.println("Collide"); //debug												
-					setBuildingKey(buildings.getKey());
-					addWalls(getBuildingKey());					
-					haveTouched = true;							
+					addWallsToList(buildings.getKey());		
+						
 				}
-				if (haveTouched == true) {
-					addWalls(getBuildingKey());
-			
-				}
-
 			}			
-
 		}	
-
 	}
 
-	public void addWalls(int key) {
-
-		Graphics2D g2d = getGraphics2D();				
+	public void addWallsToList(int key) {
+				
 		LinkedList<Walls> wall = get(key);
 			
 		for (Walls w : wall) {
-		  
-			g2d.drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());			
-			g2d.setStroke(new BasicStroke(3)); //Line width
-			g2d.setColor(Color.black);	 	
+			
+			wallsDrawn.add(w);
 					
 		}
 	}
 	
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * When called, it will draw on the screen the building walls that the avatar has collided with */	
+	public void drawWalls() {
+		
+		if(!wallsDrawn.isEmpty()) {
+			
+			for (Walls w :wallsDrawn ) {
+				
+				g2d.drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());			
+				g2d.setStroke(new BasicStroke(3)); //Line width
+				g2d.setColor(Color.black);
+			}
+		}
+	}
+
 	//get key value
 	public LinkedList<Walls> get (Integer key) {
 
@@ -317,6 +286,5 @@ public class PlayingPanel extends JPanel {
 
 		}
 		return null;
-
 	}
 }
