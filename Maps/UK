@@ -1,0 +1,18 @@
+Map name = C:\Users\yamil\git\VirtualWorldDiscovery\maps\UK
+Amount = 2
+C:\Users\yamil\Pictures\ABTFD59973CB50CB84E24C347D40EF519C9AE57C4F9389327CC90C478E04C97609A.jpg
+Building 1 = Spain
+C:\Users\yamil\Pictures\GPIO-Pinout-Diagram-2.png
+
+Wall 0 = (331,83)(331,166)(10,10)wall.png
+Wall 1 = (331,83)(401,85)(10,10)wall.png
+Wall 2 = (333,164)(403,85)(10,10)wall.png
+
+Building 1 = Italy
+C:\Users\yamil\Pictures\SRxSp8y2pSBjCRXo5jiWrG.jpg
+
+Wall 0 = (357,286)(362,371)(30,20)wall.png
+Wall 1 = (356,285)(445,285)(30,20)wall.png
+Wall 2 = (364,370)(440,286)(30,20)wall.png
+Wall 3 = (437,283)(438,392)(30,20)wall.png
+

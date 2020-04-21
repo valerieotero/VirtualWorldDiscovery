@@ -54,7 +54,7 @@ public class CreatedMapPanel extends JPanel {
 	JTextField textFieldMousePosY;
 	private JButton btnNewBuilding;
 	private JButton btnDone;
-	private boolean entered = false;
+	private boolean entered = false, treeEntered = false;
 
 	//Coordinate variables
 	private JTextField inputX;
@@ -187,6 +187,7 @@ public class CreatedMapPanel extends JPanel {
 			file = chooser.getSelectedFile();
 
 			try {
+				backgroundWriter(file);
 				img=ImageIO.read(file);
 				ImageIcon icon=new ImageIcon(img);
 				lblBackGroundLabel.setIcon(icon); 			
@@ -198,6 +199,14 @@ public class CreatedMapPanel extends JPanel {
 				System.out.println("Must select an image");
 			}
 		}
+	}
+
+
+	private void backgroundWriter(File file) {
+		Writer.open(locations.load(0));
+		Writer.writeSpace(file.getPath());
+		Writer.close();
+
 	}
 
 
@@ -413,11 +422,12 @@ public class CreatedMapPanel extends JPanel {
 		//calls writing functions
 		if(entered) {
 			entered = false;
-			if(walls == newBuildingFrame.getAmountOfWalls()) {
-				walls = 0;
+			if(walls == newBuildingFrame.getAmountOfWalls()-1) {
 				writer.open(locations.load(0));
+				writingCoordinates(walls, "wall.png");
 				writer.newLine();
 				closing();
+				walls = 0;
 				System.out.println("number of walls completed "+walls);
 				return;
 			}
@@ -545,6 +555,7 @@ public class CreatedMapPanel extends JPanel {
 				}
 				else {
 					tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
+					treeEntered = true;
 					treeWriter((selectedTree+1), e.getX(), e.getY() ,60, 87);
 					treeList.add(tree);
 
@@ -560,91 +571,16 @@ public class CreatedMapPanel extends JPanel {
 		});
 	}
 
+
+	//Insert boolean variable
 	public void treeWriter(int image, int X, int Y, int W, int H) {
-		Writer.open(locations.load(2));
-		Writer.writeSpace("TreeImage"+Integer.toString(image)+" = "+"("+X+","+Y+")("+W+","+H+")");
-		Writer.close();
+		if(treeEntered) {
+			treeEntered = false;
+			Writer.open(locations.load(2));
+			Writer.writeSpace("TreeImage"+Integer.toString(image)+" = "+"("+X+","+Y+")("+W+","+H+")");
+			Writer.close();
+		}
 	}
-
-	/*Author: Juan Davila | Date: March 21 2020
-	 * Method creates an array of questions.
-	 */
-	//	public void initializeTakeTest() {
-	//
-	//		Font obj = new Font("Arial", Font.BOLD, 18);
-	//		JLabel question1= new JLabel("How many seats in this building?");
-	//		question1.setFont(obj);
-	//		question1.setBounds(10, 525, 300, 20);
-	//		newCreatedMapPanel.add(question1);
-	//
-	//
-	//		JLabel answer1= new JLabel("24 no more no less");
-	//		answer1.setFont(obj);
-	//		answer1.setBounds(10, 558, 300, 20);
-	//		newCreatedMapPanel.add(answer1);
-	//
-	//		JLabel answer2= new JLabel("About 9");
-	//		answer2.setFont(obj);
-	//		answer2.setBounds(10, 600, 300, 20);
-	//		newCreatedMapPanel.add(answer2);
-	//
-	//		JLabel answer3= new JLabel("A lot");
-	//		answer3.setFont(obj);
-	//		answer3.setBounds(10, 644, 300, 20);
-	//		newCreatedMapPanel.add(answer3);
-	//
-	//
-	//		JButton option1 = new JButton("Select");
-	//		option1.addActionListener(new ActionListener() {
-	//			public void actionPerformed(ActionEvent arg0) {
-	//			}
-	//		});
-	//		option1.setBounds(908, 550, 100, 44);
-	//		newCreatedMapPanel.add(option1);	
-	//
-	//
-	//		JButton option2 = new JButton("Select");
-	//		option2.addActionListener(new ActionListener() {
-	//			public void actionPerformed(ActionEvent arg0) {
-	//			}
-	//		});
-	//		option2.setBounds(908, 594, 100, 44);
-	//		newCreatedMapPanel.add(option2);	
-	//
-	//
-	//		JButton option3 = new JButton("Select");
-	//		option3.addActionListener(new ActionListener() {
-	//			public void actionPerformed(ActionEvent arg0) {
-	//			}
-	//		});
-	//		option3.setBounds(908, 638, 100, 44);
-	//		newCreatedMapPanel.add(option3);	
-	//
-	//		JPanel questionPanel = new JPanel();
-	//		questionPanel.setBorder(new LineBorder(Color.BLACK));
-	//		questionPanel.setBackground(Color.WHITE);
-	//		questionPanel.setBounds(0, 638, 1024, 44); //1024 x 720
-	//		newCreatedMapPanel.add(questionPanel);
-	//
-	//		JPanel questionPanel2 = new JPanel();
-	//		questionPanel2.setBorder(new LineBorder(Color.BLACK));
-	//		questionPanel2.setBackground(Color.WHITE);
-	//		questionPanel2.setBounds(0, 594, 1024, 44); //1024 x 720
-	//		newCreatedMapPanel.add(questionPanel2);
-	//
-	//		JPanel questionPanel3 = new JPanel();
-	//		questionPanel3.setBorder(new LineBorder(Color.BLACK));
-	//		questionPanel3.setBackground(Color.WHITE);
-	//		questionPanel3.setBounds(0, 550, 1024, 44); //1024 x 720
-	//		newCreatedMapPanel.add(questionPanel3);
-	//
-	//		JPanel answerPanel = new JPanel();
-	//		answerPanel.setBorder(new LineBorder(Color.BLACK));
-	//		answerPanel.setBackground(Color.GRAY);
-	//		answerPanel.setBounds(0, 520, 1024, 200); //1024 x 720
-	//		newCreatedMapPanel.add(answerPanel);
-	//	}
-
 
 	/*Author: Valerie Otero | Date: March 22 2020
 	 * This nested class is a default class of Java Swing for rendering the tree option with the associated image. */

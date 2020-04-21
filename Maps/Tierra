@@ -1,0 +1,18 @@
+Map name = C:\Users\yamil\git\VirtualWorldDiscovery\maps\Tierra
+Amount = 3
+C:\Users\yamil\Pictures\ABTFD59973CB50CB84E24C347D40EF519C9AE57C4F9389327CC90C478E04C97609A.jpg
+Building 1 = PR
+C:\Users\yamil\Pictures\GPIO-Pinout-Diagram-2.png
+
+Wall 0 = (393,74)(380,161)(20,15)wall.png
+Wall 1 = (394,73)(495,95)(20,15)wall.png
+Wall 2 = (381,158)(493,95)(20,15)wall.png
+Wall 3 = (383,154)(479,175)(20,15)wall.png
+Wall 4 = (468,169)(493,96)(20,15)wall.png
+
+Building 1 = USA
+C:\Users\yamil\Pictures\SRxSp8y2pSBjCRXo5jiWrG.jpg
+
+Wall 0 = (752,153)(770,265)(60,35)wall.png
+Wall 1 = (749,153)(912,183)(60,35)wall.png
+Wall 2 = (770,262)(914,184)(60,35)wall.png

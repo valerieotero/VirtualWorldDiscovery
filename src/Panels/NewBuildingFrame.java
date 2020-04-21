@@ -217,7 +217,6 @@ public class NewBuildingFrame {
 				catch(NumberFormatException ex){
 					JOptionPane.showMessageDialog(null, "Must enter a number for 'Amount of Walls', 'Height of walls' and 'Width of walls'", "Warning", JOptionPane.INFORMATION_MESSAGE);
 				}
-				count++;
 				//For debug
 				System.out.println("Building Name: "+ buildingName);		
 				System.out.println("Amount Of Walls: " + amountOfWalls);
@@ -280,7 +279,6 @@ public class NewBuildingFrame {
 
 		this.setBuildingImageIcon(buildingImageIcon);
 		this.setWallImageIcon(wallImageIcon);
-		//Writer.write(this.getImageIcon());
 
 		NewBuildingFrame.addWindowListener(new WindowAdapter() {			
 
@@ -371,6 +369,7 @@ public class NewBuildingFrame {
 	public void buildingInfo() {
 		Writer.open(locations.load(0));
 		Writer.buildingInfo(this.getBuildingName(), count, file);
+		count++;
 		Writer.newLine();
 		Writer.close();
 	}
