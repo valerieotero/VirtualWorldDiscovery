@@ -21,6 +21,10 @@ public class GraphicsManager {
 	private BufferedImage wallImg; 
 	
 	private BufferedImage messageImg;
+	
+	private BufferedImage tree1;
+	private BufferedImage tree2;
+	private BufferedImage tree3;
 
 	
 	/* Author: Valerie Otero | Date: April 12 2020
@@ -32,6 +36,9 @@ public class GraphicsManager {
 			this.leftAvatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/reversemegaMan3.png"));
 			this.wallImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/4Walls.png"));	
 			this.messageImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/press e.png"));
+			this.tree1 = ImageIO.read(getClass().getClassLoader().getResource("Resources/TreeImage1.png"));
+			this.tree2 = ImageIO.read(getClass().getClassLoader().getResource("Resources/TreeImage2.png"));
+			this.tree3 = ImageIO.read(getClass().getClassLoader().getResource("Resources/TreeImage3.png"));
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
@@ -62,5 +69,15 @@ public class GraphicsManager {
 	
 	public void writeMessage (Rectangle message, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(messageImg , message.x, message.y, observer);
+	}
+	
+	public void drawTree1 (int x, int y, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(tree1 , x, y, observer);
+	}
+	public void drawTree2 (int x, int y, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(tree2 , x, y, observer);
+	}
+	public void drawTree3 (int x, int y, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(tree3 , x, y, observer);
 	}
 }

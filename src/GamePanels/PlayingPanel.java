@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -22,6 +23,7 @@ import Avatar.GraphicsManager;
 
 import Classes.Reader;
 import Classes.Walls;
+import Classes.treeLocation;
 import Input.PlayingPanelInputHandler;
 
 
@@ -86,7 +88,7 @@ public class PlayingPanel extends JPanel {
 		newAvatar();		
 	//	message();
 		avatar.setDirection(1);	//start with the image looking to the right
-		buildingAmountLabel();
+		buildingAmountLabel();			
 	}
 
 
@@ -98,7 +100,8 @@ public class PlayingPanel extends JPanel {
 		drawAvatar();		
 		checkWallCollision();		
 	//	checkMessageCollision();	
-		drawWalls();		
+		drawWalls();	
+	    drawTrees();
 	}
 
 
@@ -231,6 +234,53 @@ public class PlayingPanel extends JPanel {
 	}	
 	
 	
+	public void drawTrees() {				
+
+		for(HashMap.Entry<Integer,LinkedList<treeLocation>> treeLocation : Reader.getTreeLocation().entrySet()) {
+
+			for(treeLocation location : treeLocation.getValue()) {					
+				getTrees(location.getX(),location.getY(), treeLocation.getKey());	
+			}			
+		}
+	}
+
+	
+	public void getTrees(int x, int y, int key) {
+
+		Graphics2D g2d = getGraphics2D();
+		String imageType = getKeyValuesForTrees(key);
+		
+		switch(imageType) {
+
+		case "TreeImage1":
+			getGraphicsManager().drawTree1(x,y,g2d,this);
+			break;
+
+		case "TreeImage2":
+			getGraphicsManager().drawTree2(x,y,g2d,this);
+			break;
+
+		case "TreeImage3":
+			getGraphicsManager().drawTree3(x,y,g2d,this);
+			break;
+		}
+	}
+	
+	
+	//get key values
+	public String getKeyValuesForTrees (int key) {
+
+		for(HashMap.Entry<Integer,String> treeType : Reader.getTreeType().entrySet()) {
+
+			if (treeType.getKey().equals(key)) {
+				return treeType.getValue();
+			}	
+
+		}
+		return null;
+	}
+
+
 	/* Author: Valerie Otero | Date: April 21 2020
 	 * Checks collision of the avatar with building walls */ 
 	protected void checkWallCollision() {
@@ -250,12 +300,11 @@ public class PlayingPanel extends JPanel {
 
 	public void addWallsToList(int key) {
 				
-		LinkedList<Walls> wall = get(key);
+		LinkedList<Walls> wall = getKeyValuesForBuilding(key);
 			
 		for (Walls w : wall) {
 			
-			wallsDrawn.add(w);
-					
+			wallsDrawn.add(w);					
 		}
 	}
 	
@@ -263,6 +312,8 @@ public class PlayingPanel extends JPanel {
 	/* Author: Valerie Otero | Date: April 21 2020
 	 * When called, it will draw on the screen the building walls that the avatar has collided with */	
 	public void drawWalls() {
+		
+		Graphics2D g2d = getGraphics2D();
 		
 		if(!wallsDrawn.isEmpty()) {
 			
@@ -276,15 +327,14 @@ public class PlayingPanel extends JPanel {
 	}
 
 	//get key value
-	public LinkedList<Walls> get (Integer key) {
+	public LinkedList<Walls> getKeyValuesForBuilding (Integer key) {
 
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		
 
 			if (buildings.getKey().equals(key)) {
 				return buildings.getValue();
 			}
-
 		}
 		return null;
-	}
+	}	
 }
