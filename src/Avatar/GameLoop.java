@@ -27,7 +27,8 @@ public class GameLoop implements Runnable{
 		while(true) { 
 			
 			//Update the game graphics and repaint screen
-			inputHandler.keyControls(inputHandler);
+			playingPanel.updateScreen();
+			inputHandler.handleKeysDuringPlay(inputHandler);
 			playingPanel.repaint();
 			
 			PlayingPanelInputHandler.delay(1000/60);			

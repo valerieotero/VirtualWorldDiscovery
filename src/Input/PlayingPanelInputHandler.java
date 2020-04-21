@@ -128,13 +128,7 @@ public class PlayingPanelInputHandler implements KeyListener{
 		}
 		e.consume();
 	}
-
 	
-	public void keyControls(PlayingPanelInputHandler ih) {							
-		playingPanel.updateScreen();
-		handleKeysDuringPlay(ih);		
-
-	}
 
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Method is responsible for detecting what key is being pressed and what action to take afterwards. */

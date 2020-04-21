@@ -1,4 +1,6 @@
 package Classes;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -62,16 +64,11 @@ public class Reader {
 	
 	
 	//GETTERS
-	public static ArrayList<String> getBuildingPictures() {
-		return buildingPictures;
-	}
-	
-	public static HashMap<Integer, LinkedList<Walls>> getBuildings() {
-		return buildings;
-	}
-	public static String getBackground() {
-		return background;
-	}
+	public static ArrayList<String> getBuildingPictures() {	return buildingPictures; }	
+	public static HashMap<Integer, LinkedList<Walls>> getBuildings() { return buildings; }
+	public static String getBackground() { return background; }
+	public static int getAmount() { return amount; }
+
 	
 	//SETTERS
 	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) {
@@ -85,16 +82,27 @@ public class Reader {
 	public static void setBackground(String background) {
 		Reader.background = background;
 	}
+	public static void setAmount(int amount) {
+		Reader.amount = amount;
+	}
 
 	/*Testing*/
 	public static void main(String[] args) throws Exception {
-		mapReaderController("Image");
-		questionReaderController("Image");
+		mapReaderController("two");
+		questionReaderController("two");
 		for(String s : getBuildingPictures()) {
 			System.out.println("Building picture " + s);
 		}				
+//		for(Map.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {
+//
+//			for(Walls wall : buildings.getValue()) {
+//								
+//				System.out.println(wall.getX1()+ "," + wall.getY1() + "," + wall.getX2() + "," + wall.getY2() );
+//			}
+//
+//		}
 		System.out.println("Background: "+ getBackground());
-		System.out.println("Amount of building in the file = "+amount);
+		System.out.println("Amount of building in the file = "+getAmount());
 		System.out.println("Walls of each building "+Collections.singletonList(getBuildings()));
 		System.out.println("Building Names "+Collections.singletonList(buildingNames));
 		System.out.println("Building question numbers "+Collections.singletonList(buildingQuestions));
@@ -125,7 +133,7 @@ public class Reader {
 //		}
 		int i = 0, count = 0, buildingNumnber = 0;
 		if(i+7 < arr.length) {
-			amount = Integer.parseInt(arr[i+6].trim());
+			setAmount(Integer.parseInt(arr[i+6].trim()));
 			setBackground(arr[i+7].trim());
 		}
 		while(i < arr.length) {

@@ -3,31 +3,28 @@ package GamePanels;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Avatar.Avatar;
 import Avatar.GraphicsManager;
-import Classes.Line;
+
 import Classes.Reader;
 import Classes.Walls;
 import Input.PlayingPanelInputHandler;
 
-import java.util.List;
+
 
 
 public class PlayingPanel extends JPanel {
@@ -49,11 +46,10 @@ public class PlayingPanel extends JPanel {
 	private boolean haveTouched = false;
 
 	BufferedImage background;
-	
-	//BUILDING VARIABLES	
-	protected Walls wall; 
+		
+	//BUILDING VARIABLES		
 	private int buildingKey; 
-
+	int buildingAmount;
 
 	/*Author: Valerie Otero | Date: April 11 2020
 	 */
@@ -87,13 +83,12 @@ public class PlayingPanel extends JPanel {
 
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Sets avatar at the bottom left corner. */
-	public void initialize() {
-		newAvatar();	
-		newWalls();
+	public void initialize() {				
+		newAvatar();			
 		//new4Walls();
 		message();
-		avatar.setDirection(1);	//start with the image looking to the right	
-
+		avatar.setDirection(1);	//start with the image looking to the right
+		buildingAmountLabel();
 	}
 
 
@@ -106,6 +101,7 @@ public class PlayingPanel extends JPanel {
 		checkWallCollision();
 		//checkAvatarWallsCollisions();
 		checkMessageCollision();		
+		
 	}
 
 
@@ -122,6 +118,15 @@ public class PlayingPanel extends JPanel {
 		g2d.drawImage(background, 0, 0, this);				
 	}
 
+	public void buildingAmountLabel() {
+		//LABEL - BUILDING COUNT
+		buildingAmount = Reader.getAmount();
+		JLabel lblBuildingCount = new JLabel("Building(s) remaining: " + buildingAmount);
+		lblBuildingCount.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblBuildingCount.setBounds(1030,10,200,20);
+		this.add(lblBuildingCount);	
+	}
+	
 
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * This method draws one of two possible avatar poses according to direction.  */
@@ -161,21 +166,7 @@ public class PlayingPanel extends JPanel {
 	//		this.fourWalls = new Avatar(60, 94, 100, 58);//Use avatar class because it extends from Rectangle class.
 	//		return fourWalls;
 	//	}
-
-	public Walls newWalls() {
-
-		for(Map.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {
-
-			for(Walls wall : buildings.getValue()) {
-
-				this.wall = new Walls(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2());
-				//debug
-				System.out.println(wall.getX1()+ "," + wall.getY1() + "," + wall.getX2() + "," + wall.getY2() );
-			}
-		}
-		return wall;
-
-	}
+	
 
 	public Rectangle message() {
 		this.message = new Rectangle(60, 94, 96, 54);
@@ -273,39 +264,45 @@ public class PlayingPanel extends JPanel {
 			writeMessage();
 		}
 	}	
-
-
+	
+	
 	protected void checkWallCollision() {
 				
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {			 					
-	
+			//System.out.println("looking for buildings );
+			
 			for(Walls wall : buildings.getValue()) {
+				//System.out.println("looking for walls  );
 
-				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2()) && haveTouched == false ) {
-					System.out.println("Collide"); //debug
+				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {
+					
+					System.out.println("Collide"); //debug												
 					setBuildingKey(buildings.getKey());
-					System.out.println("Key inside if: "+ getBuildingKey()); //debug
 					addWalls(getBuildingKey());					
-					haveTouched = true;
+					haveTouched = true;							
 				}
-
-				if(haveTouched == true) {
+				if (haveTouched == true) {
 					addWalls(getBuildingKey());
-
+			
 				}
-			}
-		}		
+
+			}			
+
+		}	
+
 	}
 
 	public void addWalls(int key) {
 
 		Graphics2D g2d = getGraphics2D();				
 		LinkedList<Walls> wall = get(key);
-		
+			
 		for (Walls w : wall) {
-			g2d.drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());
+		  
+			g2d.drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());			
 			g2d.setStroke(new BasicStroke(3)); //Line width
-			g2d.setColor(Color.black);				
+			g2d.setColor(Color.black);	 	
+					
 		}
 	}
 	

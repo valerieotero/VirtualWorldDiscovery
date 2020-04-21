@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import Avatar.GameLoop;
 import Avatar.GraphicsManager;
 import Input.PlayingPanelInputHandler;
+import java.awt.Color;
 
 
 public class PlayPanel {
@@ -34,6 +35,7 @@ public class PlayPanel {
 				
 		//LABEL - LOAD MAP
 		JLabel lblLoadMap = new JLabel("Choose map to play:");
+		lblLoadMap.setForeground(Color.DARK_GRAY);
 		lblLoadMap.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblLoadMap.setBounds(530, 164, 138, 23);
 		playPanel.add(lblLoadMap);

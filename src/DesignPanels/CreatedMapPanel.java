@@ -308,7 +308,7 @@ public class CreatedMapPanel extends JPanel {
 				drawLines();
 			}
 		});		
-		btnDrawLines.setBounds(207, 15, 145, 20);
+		btnDrawLines.setBounds(207, 11, 145, 24);
 		newCreatedMapPanel.add(btnDrawLines);
 	}
 
@@ -421,11 +421,12 @@ public class CreatedMapPanel extends JPanel {
 		//calls writing functions
 		if(entered) {
 			entered = false;
-			if(walls == newBuildingFrame.getAmountOfWalls()) {
-				walls = 0;
+			if(walls == newBuildingFrame.getAmountOfWalls()-1) {
 				writer.open(locations.load(0));
+				writingCoordinates(walls, "wall.png");
 				writer.newLine();
 				closing();
+				walls = 0;
 				System.out.println("number of walls completed "+walls);
 				return;
 			}
