@@ -52,7 +52,7 @@ public class Reader {
 	private static HashMap<Integer, LinkedList<Walls>> buildings = new HashMap<>();
 	private static HashMap<Integer, String> buildingNames = new HashMap<>();		
 
-	//question variables
+	//question variables	
 	private static ArrayList<HashMap<Integer, String>> questionList = new ArrayList<HashMap<Integer, String>>();
 	private static ArrayList<HashMap<Integer,LinkedList<String>>> questionAnswersList = new ArrayList<HashMap<Integer,LinkedList<String>>>();
 	private static HashMap<Integer,LinkedList<Integer>> buildingQuestions = new HashMap<>();
@@ -70,33 +70,29 @@ public class Reader {
 	public static int getAmount() { return amount; }
 	public static HashMap<Integer, String> getTreeType() { return treeType;	}
 	public static HashMap<Integer, LinkedList<treeLocation>> getTreeLocation() { return treeLocation; }
+	public static HashMap<Integer, LinkedList<Integer>> getBuildingQuestions() { return buildingQuestions;	}
+	public static ArrayList<HashMap<Integer, LinkedList<String>>> getQuestionAnswersList() { return questionAnswersList; }
+	public static ArrayList<HashMap<Integer, String>> getQuestionList() { return questionList; }	
+	
 	
 	//SETTERS
-	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) {
-		Reader.buildings = buildings;
-	}	
-	public static void setBuildingPictures(ArrayList<String> buildingPictures) {
-		Reader.buildingPictures = buildingPictures;
-	}	
-	public static void setBackground(String background) {
-		Reader.background = background;
-	}
-	public static void setAmount(int amount) {
-		Reader.amount = amount;
-	}
-	public static void setTreeType(HashMap<Integer, String> treeType) {
-		Reader.treeType = treeType;
-	}	
-	public static void setTreeLocation(HashMap<Integer, LinkedList<treeLocation>> treeLocation) {
-		Reader.treeLocation = treeLocation;
-	}
+	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) { Reader.buildings = buildings;	}	
+	public static void setBuildingPictures(ArrayList<String> buildingPictures) { Reader.buildingPictures = buildingPictures; }	
+	public static void setBackground(String background) { Reader.background = background; }
+	public static void setAmount(int amount) { Reader.amount = amount; }
+	public static void setTreeType(HashMap<Integer, String> treeType) {	Reader.treeType = treeType;	}	
+	public static void setTreeLocation(HashMap<Integer, LinkedList<treeLocation>> treeLocation) { Reader.treeLocation = treeLocation; }
+	public static void setBuildingQuestions(HashMap<Integer, LinkedList<Integer>> buildingQuestions) { Reader.buildingQuestions = buildingQuestions; }
+	public static void setQuestionAnswersList(ArrayList<HashMap<Integer, LinkedList<String>>> questionAnswersList) { Reader.questionAnswersList = questionAnswersList; }
+	public static void setQuestionList(ArrayList<HashMap<Integer, String>> questionList) { Reader.questionList = questionList; }
+
 
 	/*Testing*/
 	public static void main(String[] args) throws Exception {
 
-		mapReaderController("Test");
-		questionReaderController("Test");
-		treeReaderController("Test");
+		mapReaderController("twoBdgs");
+		questionReaderController("twoBdgs");
+		treeReaderController("twoBdgs");
 		
 //		for(String s : getBuildingPictures()) {
 //			System.out.println("Building picture " + s);
@@ -104,17 +100,42 @@ public class Reader {
 //		System.out.println("Background: "+ getBackground());
 //		System.out.println("Amount of building in the file = "+getAmount());
 //		System.out.println("Walls of each building "+Collections.singletonList(getBuildings()));
-//		System.out.println("Building Names "+Collections.singletonList(buildingNames));
-//		System.out.println("Building question numbers "+Collections.singletonList(buildingQuestions));
-//		for(HashMap<Integer, String> z : questionList) {
-//			System.out.println("Building Questions"+z);
+//		System.out.println("Building Names "+Collections.singletonList(buildingNames));		
+//		System.out.println("Treetype "+Collections.singletonList(treeType));
+//		System.out.println("Tree location "+Collections.singletonList(treeLocation));	
+		
+		
+		//QUESTIONS		
+		
+//		for(HashMap.Entry<Integer,LinkedList<Integer>> z : getBuildingQuestions().entrySet()) {
+//			System.out.println("Building question numbers"+z);
 //		}
+//		
+//		for (ArrayList<HashMap<Integer, String>> l : getQuestionList()) {
+//			
+//		}
+		
+
+		for (int i =0; i<getQuestionList().size() ; i++) {
+			System.out.println(getQuestionList().get(i));
+		
+		}				
+		
+		
+//		for(HashMap<Integer, String> z : getQuestionList()) {
+//			
+//			for (Entry<Integer, String> x : z.entrySet()) {			
+//
+//				System.out.println("Building Questions "+x.getKey() + ", " + x.getValue());
+//			}
+//		}
+	
+
 //		for(HashMap<Integer,LinkedList<String>> z : questionAnswersList) {
 //			System.out.println("Building Question Answers"+z);
 //		}
-	
-		System.out.println("Treetype "+Collections.singletonList(treeType));
-		System.out.println("Tree location "+Collections.singletonList(treeLocation));
+//	
+
 	}
 
 	//Call this method of called form other classes
@@ -217,9 +238,9 @@ public class Reader {
 					questions.put(questionNumber, question);
 					count = 0;
 					if(questionNumber >= 6) {
-						buildingQuestions.put(buildingNumber, numQuestion);
-						questionList.add(questions);
-						questionAnswersList.add(questionAnswers);
+						getBuildingQuestions().put(buildingNumber, numQuestion);
+						getQuestionList().add(questions);
+						getQuestionAnswersList().add(questionAnswers);
 						questionNumber = 0;
 					}
 				}

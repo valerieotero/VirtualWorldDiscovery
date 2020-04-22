@@ -169,6 +169,5 @@ public class PlayingPanelInputHandler implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		// not used; comes with the interface
 	}
-	
 
 }

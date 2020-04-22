@@ -1,0 +1,15 @@
+Map name = C:\Users\Val\git\VirtualWorldDiscovery\maps\twoBdgs
+Amount = 2
+C:\Users\Val\Desktop\Green.png
+Building 1 = first
+C:\Users\Val\Desktop\4Walls.png
+
+Wall 0 = (269,281)(428,246)(1,1)wall.png
+Wall 1 = (427,243)(361,126)(1,1)wall.png
+
+Building 1 = second
+C:\Users\Val\Desktop\city.png
+
+Wall 0 = (693,231)(704,399)(1,1)wall.png
+Wall 1 = (693,228)(832,379)(1,1)wall.png
+

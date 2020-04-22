@@ -4,35 +4,51 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Classes.Reader;
+
 public class TakeTestPanel extends JPanel{
 	
 	
 	private JLabel question;
-	private JLabel answerA;
-	private JLabel answerB;
-	private JLabel answerC;
-	private JLabel answerD;
 	
 	private JButton optionA;
 	private JButton optionB;
 	private JButton optionC;
 	private JButton optionD;
 	
-	private ArrayList<String>  qAndA = new ArrayList<String>();
-		
+	private int buildingKey;
 	
-	public TakeTestPanel(JFrame frame) {			
+	private ArrayList<String> questions = new ArrayList<String>();
+		
+	private HashMap<Integer, String> questionsByKey= new HashMap<Integer, String>();
+	
+	
+	//GETTER
+	public int getBuildingKey() { return buildingKey; }
+
+	//SETTER
+	public void setBuildingKey(int buildingKey) { this.buildingKey = buildingKey; }
+	
+	
+	public TakeTestPanel(JFrame frame, int key) {			
 			
 		frame.getContentPane().add(this);
 		this.setVisible(true);	
+		this.setBuildingKey(key);
+		
+		getQuestion();
 		
 		initialize();
+		
+		
 	}
 	
 	public void initialize() {				
@@ -40,38 +56,40 @@ public class TakeTestPanel extends JPanel{
 		Font obj = new Font("Arial", Font.BOLD, 18);
 		setLayout(null);
 		
-		question = new JLabel(/*QandA.get(0)*/ "How Many Floors Does this Building have?");
+		
+		//LABELS
+		JLabel label = new JLabel("1)");
+		label.setBounds(23, 63, 46, 14);
+		add(label);
+		
+		JLabel label_1 = new JLabel("2)");
+		label_1.setBounds(23, 107, 46, 14);
+		add(label_1);
+		
+		JLabel label_2 = new JLabel("3)");
+		label_2.setBounds(23, 154, 46, 14);
+		add(label_2);
+		
+		JLabel label_3 = new JLabel("4)");
+		label_3.setBounds(23, 198, 46, 14);
+		add(label_3);
+		
+		
+		//QUESTION
+		question = new JLabel(questions.get(0));
 		question.setFont(obj);
 		question.setBounds(23, 16, 374, 22);
 		this.add(question);
 		
-		answerA = new JLabel ("6");
-		answerA.setFont(obj);
-		answerA.setBounds(28, 49, 10, 22);
-		this.add(answerA);
 		
-		answerB = new JLabel ("4");
-		answerB.setFont(obj);
-		answerB.setBounds(28, 82, 10, 22);
-		this.add(answerB);
-		
-		answerC = new JLabel ("5");
-		answerC.setFont(obj);
-		answerC.setBounds(28, 106, 10, 22);
-		this.add(answerC);
-		
-		answerD = new JLabel ("7");
-		answerD.setFont(obj);
-		answerD.setBounds(28, 139, 10, 22);
-		this.add(answerD);
-		
+		//BUTTONS (ANSWERS)		
 		optionA = new JButton("Select");
 		optionA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 			}
 		});
-		optionA.setBounds(441, 51, 76, 23);
+		optionA.setBounds(43, 59, 76, 23);
 		this.add(optionA);
 		
 		optionB = new JButton("Select");
@@ -80,7 +98,7 @@ public class TakeTestPanel extends JPanel{
 				//this.remove(this);
 			}
 		});
-		optionB.setBounds(441, 141, 76, 23);
+		optionB.setBounds(43, 194, 76, 23);
 		this.add(optionB);
 		
 		optionC = new JButton("Select");
@@ -89,7 +107,7 @@ public class TakeTestPanel extends JPanel{
 
 			}
 		});
-		optionC.setBounds(441, 108, 76, 23);
+		optionC.setBounds(43, 150, 76, 23);
 		this.add(optionC);
 		
 		optionD = new JButton("Select");
@@ -98,9 +116,21 @@ public class TakeTestPanel extends JPanel{
 
 			}
 		});
-		optionD.setBounds(441, 82, 76, 23);
-		this.add(optionD);
-		
+		optionD.setBounds(43, 103, 76, 23);
+		this.add(optionD);			
 		
 	}
+	
+	public void getQuestion() {
+		
+		questionsByKey = Reader.getQuestionList().get(getBuildingKey()-1);
+			
+		
+		for(HashMap.Entry<Integer, String> z : questionsByKey.entrySet()) {
+			
+				questions.add(z.getValue());			
+				
+		}
+	}
+	
 }

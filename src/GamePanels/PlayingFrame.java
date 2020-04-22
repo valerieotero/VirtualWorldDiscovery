@@ -21,6 +21,7 @@ public class PlayingFrame extends JFrame {
 		try {
 			Reader.mapReaderController(mapName);
 			Reader.treeReaderController(mapName);
+			Reader.questionReaderController(mapName);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");			
 		}
