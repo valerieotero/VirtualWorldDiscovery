@@ -19,6 +19,7 @@ public class PlayingPanelInputHandler implements KeyListener{
 	private PlayingPanel playingPanel;	
 
 	public PlayingPanel getPlayingPanel() { return playingPanel; }
+
 	public void setPlayingPanel(PlayingPanel playingPanel) { this.playingPanel = playingPanel; }
 	
 
@@ -31,12 +32,13 @@ public class PlayingPanelInputHandler implements KeyListener{
 		leftIsPressed = false;
 		rightIsPressed = false;
 		downIsPressed = false;
-		upIsPressed = false;		
+		upIsPressed = false;	
+		eKeyIsPressed = false;
 	}
 
 	public boolean isLeftPressed() {
 		return leftIsPressed;
-	}
+	}	
 
 	public boolean isRightPressed() {
 		return rightIsPressed;
@@ -54,8 +56,10 @@ public class PlayingPanelInputHandler implements KeyListener{
 		return eKeyIsPressed;
 	}
 
-
-
+	public void seteKeyIsPressed(boolean eKeyIsPressed) {
+		this.eKeyIsPressed = eKeyIsPressed;
+	}
+	
 	//Handle a key input event	
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){
@@ -71,20 +75,20 @@ public class PlayingPanelInputHandler implements KeyListener{
 		case KeyEvent.VK_RIGHT:
 			this.rightIsPressed = true;
 			break;	
-		case KeyEvent.VK_W:			
-			this.upIsPressed = true;
-			break;
-		case KeyEvent.VK_S:			
-			this.downIsPressed = true;
-			break;
-		case KeyEvent.VK_A:
-			this.leftIsPressed = true;
-			break;
-		case KeyEvent.VK_D:
-			this.rightIsPressed = true;
-			break;	
+//		case KeyEvent.VK_W:			
+//			this.upIsPressed = true;
+//			break;
+//		case KeyEvent.VK_S:			
+//			this.downIsPressed = true;
+//			break;
+//		case KeyEvent.VK_A:
+//			this.leftIsPressed = true;
+//			break;
+//		case KeyEvent.VK_D:
+//			this.rightIsPressed = true;
+//			break;	
 		case KeyEvent.VK_E:
-			this.eKeyIsPressed = true;
+			this.eKeyIsPressed = true;			
 			break;
 		case KeyEvent.VK_ESCAPE:
 			System.exit(1);
@@ -110,20 +114,20 @@ public class PlayingPanelInputHandler implements KeyListener{
 		case KeyEvent.VK_RIGHT:
 			this.rightIsPressed = false;
 			break;
-		case KeyEvent.VK_W:			
-			this.upIsPressed = false;
-			break;
-		case KeyEvent.VK_S:			
-			this.downIsPressed = false;
-			break;
-		case KeyEvent.VK_A:
-			this.leftIsPressed = false;
-			break;
-		case KeyEvent.VK_D:
-			this.rightIsPressed = false;
-			break;	
+//		case KeyEvent.VK_W:			
+//			this.upIsPressed = false;
+//			break;
+//		case KeyEvent.VK_S:			
+//			this.downIsPressed = false;
+//			break;
+//		case KeyEvent.VK_A:
+//			this.leftIsPressed = false;
+//			break;
+//		case KeyEvent.VK_D:
+//			this.rightIsPressed = false;
+//			break;	
 		case KeyEvent.VK_E:
-			this.rightIsPressed = false;
+			this.eKeyIsPressed = false;		
 			break;
 		}
 		e.consume();
@@ -149,10 +153,6 @@ public class PlayingPanelInputHandler implements KeyListener{
 		if(ih.isRightPressed()){
 			getPlayingPanel().moveAvatarRight();
 		}
-		if(ih.isEKeyPressed()) {
-			getPlayingPanel().interactAvatar(ih);
-		}
-
 	}
 
 	

@@ -1,10 +1,7 @@
 package Avatar;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
@@ -14,13 +11,8 @@ import javax.swing.JOptionPane;
 
 public class GraphicsManager {
 	
-	private BufferedImage avatarImg;			
-	
+	private BufferedImage avatarImg;		
 	private BufferedImage leftAvatarImg; 
-	
-	private BufferedImage wallImg; 
-	
-	private BufferedImage messageImg;
 	
 	private BufferedImage tree1;
 	private BufferedImage tree2;
@@ -33,9 +25,7 @@ public class GraphicsManager {
 		// load images
 		try {
 			this.avatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/megaMan3.png"));						
-			this.leftAvatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/reversemegaMan3.png"));
-			this.wallImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/4Walls.png"));	
-			this.messageImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/press e.png"));
+			this.leftAvatarImg = ImageIO.read(getClass().getClassLoader().getResource("Resources/reversemegaMan3.png"));			
 			this.tree1 = ImageIO.read(getClass().getClassLoader().getResource("Resources/TreeImage1.png"));
 			this.tree2 = ImageIO.read(getClass().getClassLoader().getResource("Resources/TreeImage2.png"));
 			this.tree3 = ImageIO.read(getClass().getClassLoader().getResource("Resources/TreeImage3.png"));
@@ -61,15 +51,6 @@ public class GraphicsManager {
 		g2d.drawImage(leftAvatarImg, avatar.x, avatar.y, observer);	
 	}	
 
-	/* Author: Valerie Otero | Date: April 11 2020
-	 * Draws a avatar image to the specified graphics canvas. */
-	public void draw4Walls (Rectangle wall, Graphics2D g2d, ImageObserver observer){
-		g2d.drawImage(wallImg, wall.x, wall.y, observer);	
-	}	
-	
-	public void writeMessage (Rectangle message, Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(messageImg , message.x, message.y, observer);
-	}
 	
 	public void drawTree1 (int x, int y, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(tree1 , x, y, observer);

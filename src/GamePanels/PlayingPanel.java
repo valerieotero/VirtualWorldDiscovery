@@ -10,9 +10,9 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -27,31 +27,25 @@ import Classes.treeLocation;
 import Input.PlayingPanelInputHandler;
 
 
-
-
 public class PlayingPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	protected Avatar avatar;	
-	protected Avatar fourWalls;
-	protected Rectangle walls;
-	protected Rectangle message;	
 
 	private GraphicsManager graphicsManager;	
 	private PlayingPanelInputHandler inputHandler;
 
 	private Graphics2D g2d;
-	protected BufferedImage backBuffer;
-
-	public boolean isOpen = false;
-	private boolean haveTouched = false;
+	protected BufferedImage backBuffer;	
 
 	BufferedImage background;
 		
+	
 	//BUILDING VARIABLES		
-	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;	
+	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
+	TakeTestFrame testFrame;
 
 	
 	/*Author: Valerie Otero | Date: April 11 2020
@@ -75,20 +69,21 @@ public class PlayingPanel extends JPanel {
 	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
 	public Graphics2D getGraphics2D() { return g2d; }
 	public Avatar getAvatar() { return avatar; }	
-
+	
+	
 	// Setters
 	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }	
 	protected void setInputHandler(PlayingPanelInputHandler inputHandler) { this.inputHandler = inputHandler; }
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
-	
+
 
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Sets avatar at the bottom left corner. */
 	public void initialize() {				
 		newAvatar();		
-	//	message();
 		avatar.setDirection(1);	//start with the image looking to the right
 		buildingAmountLabel();			
+		testFrame = new TakeTestFrame();;
 	}
 
 
@@ -98,12 +93,10 @@ public class PlayingPanel extends JPanel {
 		clearScreen();		
 		drawBackground();		
 		drawAvatar();		
-		checkWallCollision();		
-	//	checkMessageCollision();	
+		checkWallCollision();				
 		drawWalls();	
-	    drawTrees();
+	    drawTrees();	   
 	}
-
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -161,18 +154,6 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	public Rectangle message() {
-		this.message = new Rectangle(60, 94, 96, 54);
-		return message;
-	}
-
-	
-	public void writeMessage() {
-		Graphics2D g2d = getGraphics2D();
-		getGraphicsManager().writeMessage(message, g2d, this);
-	}
-
-
 	public boolean avatarStatic(){
 		if(avatar.getSpeed() == 0) {
 			return true;
@@ -219,20 +200,7 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	public void interactAvatar(PlayingPanelInputHandler ih) {
-		if(ih.isEKeyPressed() && isOpen == false) {
-			TakeTestFrame testFrame = new TakeTestFrame();
-			isOpen = true;
-		}
-	}
-
-	
-	protected void checkMessageCollision() {
-		if(message.intersects(avatar)) {
-			writeMessage();
-		}
-	}	
-	
+		
 	
 	public void drawTrees() {				
 
@@ -284,16 +252,20 @@ public class PlayingPanel extends JPanel {
 	/* Author: Valerie Otero | Date: April 21 2020
 	 * Checks collision of the avatar with building walls */ 
 	protected void checkWallCollision() {
-				
+		
+		Graphics2D g2d = getGraphics2D();
+		
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		 					
 						
 			for(Walls wall : buildings.getValue()) {			
 
-				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {																
+				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {	
 					
-					addWallsToList(buildings.getKey());		
-						
-				}
+					g2d.drawString("Press E to take test", wall.getX1(), wall.getY1());				
+					g2d.setColor(Color.BLACK);
+					
+					addWallsToList(buildings.getKey());	
+					drawTestFrame();				}
 			}			
 		}	
 	}
@@ -321,7 +293,7 @@ public class PlayingPanel extends JPanel {
 				
 				g2d.drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());			
 				g2d.setStroke(new BasicStroke(3)); //Line width
-				g2d.setColor(Color.black);
+				g2d.setColor(Color.black);			
 			}
 		}
 	}
@@ -336,5 +308,16 @@ public class PlayingPanel extends JPanel {
 			}
 		}
 		return null;
-	}	
+	}
+	
+	
+	public void drawTestFrame() {	
+
+		if(getInputHandler().isEKeyPressed()) {
+			
+			testFrame.initialize();
+			getInputHandler().seteKeyIsPressed(false);
+
+		}    
+	}
 }
