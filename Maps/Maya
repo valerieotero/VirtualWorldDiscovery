@@ -1,9 +1,0 @@
-Map name = C:\Users\yamil\git\VirtualWorldDiscovery\maps\Maya
-Amount = 4
-Building 1 = Casiano
-C:\Users\yamil\Pictures\GPIO-Pinout-Diagram-2.png
-
-Wall 0 = (293,135)(299,257)(5,15)wall.png
-Wall 1 = (299,252)(442,252)(5,15)wall.png
-Wall 2 = (293,134)(441,142)(5,15)wall.png
-Wall 3 = (442,141)(447,254)(5,15)wall.png
