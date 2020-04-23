@@ -261,7 +261,7 @@ public class PlayingPanel extends JPanel {
 
 				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {	
 					
-					g2d.drawString("Press E to take test", wall.getX1(), wall.getY1());				
+					g2d.drawString("Press E to take test, if not, continue search ", wall.getX1(), wall.getY1());				
 					g2d.setColor(Color.BLACK);					
 					
 					addWallsToList(buildings.getKey());	

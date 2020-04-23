@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +17,8 @@ import javax.swing.JPanel;
 import Classes.Reader;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 public class TakeTestPanel extends JPanel{
 
@@ -32,16 +35,19 @@ public class TakeTestPanel extends JPanel{
 	private ArrayList<String> questions = new ArrayList<String>();
 	private ArrayList<String> answers = new ArrayList<String>();	
 	
-	private HashMap<Integer, String> questionsByKey= new HashMap<Integer, String>();
+	//To be able to iterate and add each question regarding a building to an array list
+	private HashMap<Integer, String> questionsByKey= new HashMap<Integer, String>(); 
+	
 	private HashMap<Integer,LinkedList<String>> answersByKey = new HashMap<Integer,LinkedList<String>>();
 
-
+	
 	//GETTER
 	public int getBuildingKey() { return buildingKey; }
 
 	//SETTER
 	public void setBuildingKey(int buildingKey) { this.buildingKey = buildingKey; }
-
+	
+	int randomQuestoinNum;
 
 
 	public TakeTestPanel(JFrame frame, int key) {			
@@ -50,21 +56,24 @@ public class TakeTestPanel extends JPanel{
 		this.setVisible(true);	
 		this.setBuildingKey(key);
 		this.setLayout(null);
-
+		
+		//Para que random number pueda match con los keys, since empiezan en 1
+		randomQuestoinNum = ThreadLocalRandom.current().nextInt(1, 7); //Inclusive, exclusive 
+		
 		getQuestion();
-		getAnswers();
+		getAnswers(randomQuestoinNum);
 
-		initialize();
+		initialize(randomQuestoinNum);
 	}
 
-	public void initialize() {				
-
-		Font obj = new Font("Arial", Font.BOLD, 18);
-	
+	public void initialize(int randomQuestoinNum) {				
+		
+		Font obj = new Font("Arial", Font.BOLD, 16);		
+			
 		//QUESTION
-		question = new JLabel(questions.get(0));
+		question = new JLabel(questions.get(randomQuestoinNum-1));
 		question.setFont(obj);
-		question.setBounds(23, 16, 374, 22);
+		question.setBounds(0, 21, 495, 22);
 		this.add(question);
 
 
@@ -149,16 +158,19 @@ public class TakeTestPanel extends JPanel{
 		}
 	}
 
-	public void getAnswers() {
+	public void getAnswers(int randomQuestoinNum) {	
 
 		//answers regarding a specific building
 		answersByKey = Reader.getQuestionAnswersList().get(getBuildingKey()-1);
 
 		for(HashMap.Entry<Integer,LinkedList<String>> buildingAnswers : answersByKey.entrySet()) {
 
-			for(String answ : buildingAnswers.getValue()) {
+			if(buildingAnswers.getKey() == randomQuestoinNum) {	//get the answers for the random question		
 
-				answers.add(answ);				
+				for(String answ : buildingAnswers.getValue()) {
+
+					answers.add(answ);				
+				}
 			}
 		}		
 	}	
