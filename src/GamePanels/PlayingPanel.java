@@ -32,6 +32,7 @@ public class PlayingPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	protected Avatar avatar;	
+	int chosenAvatar;
 
 	private GraphicsManager graphicsManager;	
 	private PlayingPanelInputHandler inputHandler;
@@ -51,10 +52,11 @@ public class PlayingPanel extends JPanel {
 	/*Author: Valerie Otero | Date: April 11 2020
 	 */
 	//Constructor
-	public PlayingPanel(PlayingPanelInputHandler inputHandler, GraphicsManager graphicsMan) {		
+	public PlayingPanel(PlayingPanelInputHandler inputHandler, GraphicsManager graphicsMan, int chosenAvatar) {		
 		this.setPreferredSize(new Dimension(1220, 681));			
 		this.setInputHandler(inputHandler);
 		this.setGraphicsManager(graphicsMan);		
+		this.chosenAvatar = chosenAvatar;
 		backBuffer = new BufferedImage(1220, 681, BufferedImage.TYPE_INT_RGB);
 		this.setGraphics2D(backBuffer.createGraphics());		
 		try {
@@ -127,13 +129,35 @@ public class PlayingPanel extends JPanel {
 	protected void drawAvatar() {
 
 		Graphics2D g2d = getGraphics2D();
+		
+		switch(chosenAvatar) {
+		
+		case 0:
+			
+			if (avatar.getDirection() > 0) {					
+				getGraphicsManager().drawAvatar(avatar, g2d, this);					
+			}
+			else {			
+				getGraphicsManager().drawLeftAvatar(avatar, g2d, this);	
+			}
+			
+			break;
+			
 
-		if (avatar.getDirection() > 0) {					
-			getGraphicsManager().drawAvatar(avatar, g2d, this);					
+		case 1: 
+			
+			if (avatar.getDirection() > 0) {					
+				getGraphicsManager().drawMario(avatar, g2d, this);					
+			}
+			else {			
+				getGraphicsManager().drawLeftMario(avatar, g2d, this);	
+			}	
+			
+			break;	
+			
 		}
-		else {			
-			getGraphicsManager().drawLeftAvatar(avatar, g2d, this);	
-		}				
+
+					
 	}
 
 
