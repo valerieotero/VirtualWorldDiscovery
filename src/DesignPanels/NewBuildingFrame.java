@@ -219,7 +219,6 @@ public class NewBuildingFrame {
 				catch(NumberFormatException ex){
 					JOptionPane.showMessageDialog(null, "Must enter a number for 'Amount of Walls', 'Height of walls' and 'Width of walls'", "Warning", JOptionPane.INFORMATION_MESSAGE);
 				}
-				count++;
 				//For debug
 				System.out.println("Building Name: "+ getBuildingName());		
 				System.out.println("Amount Of Walls: " + getAmountOfWalls());
@@ -362,6 +361,7 @@ public class NewBuildingFrame {
 
 		if(buildingImageIcon!=null && wallImageIcon!=null&& amountOfWalls!=0 && buildingName!=null && buildingWidth!=0 && buildingHeight!=0) {
 			buildingInfo();
+			count++;
 			return true;
 		}
 		else {

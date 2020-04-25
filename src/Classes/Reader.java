@@ -98,20 +98,20 @@ public class Reader {
 		questionReaderController("Test");
 		treeReaderController("Test");
 		
-//		for(String s : getBuildingPictures()) {
-//			System.out.println("Building picture " + s);
-//		}				
-//		System.out.println("Background: "+ getBackground());
-//		System.out.println("Amount of building in the file = "+getAmount());
-//		System.out.println("Walls of each building "+Collections.singletonList(getBuildings()));
-//		System.out.println("Building Names "+Collections.singletonList(buildingNames));
-//		System.out.println("Building question numbers "+Collections.singletonList(buildingQuestions));
-//		for(HashMap<Integer, String> z : questionList) {
-//			System.out.println("Building Questions"+z);
-//		}
-//		for(HashMap<Integer,LinkedList<String>> z : questionAnswersList) {
-//			System.out.println("Building Question Answers"+z);
-//		}
+		for(String s : getBuildingPictures()) {
+			System.out.println("Building picture " + s);
+		}				
+		System.out.println("Background: "+ getBackground());
+		System.out.println("Amount of building in the file = "+getAmount());
+		System.out.println("Walls of each building "+Collections.singletonList(getBuildings()));
+		System.out.println("Building Names "+Collections.singletonList(buildingNames));
+		System.out.println("Building question numbers "+Collections.singletonList(buildingQuestions));
+		for(HashMap<Integer, String> z : questionList) {
+			System.out.println("Building Questions"+z);
+		}
+		for(HashMap<Integer,LinkedList<String>> z : questionAnswersList) {
+			System.out.println("Building Question Answers"+z);
+		}
 	
 		System.out.println("Treetype "+Collections.singletonList(treeType));
 		System.out.println("Tree location "+Collections.singletonList(treeLocation));
@@ -139,45 +139,45 @@ public class Reader {
 		String[] arr = data.split(",|\\]");
 		str.clear();
 		int i = 0, count = 0, buildingNumnber = 0;
-		if(i+7 < arr.length) {
+		if(i+7 < arr.length) { //1
 			setAmount(Integer.parseInt(arr[i+6].trim()));
 			setBackground(arr[i+7].trim());
-		}
-		while(i < arr.length) {
-			if(arr[i].equals(" Building")){
+		} //2
+		while(i < arr.length) {  //3
+			if(arr[i].equals(" Building")){ //4
 				name = arr[i+3].trim();
 				buildingPictures.add(arr[i+4].trim());
 				buildingNumnber++;
 				LinkedList<Walls> lines = new LinkedList<Walls>();
-				if(i+6 < arr.length) i = i+6;
+				if(i+6 < arr.length) i = i+6; //5
 				else break;
-				while(i < arr.length && arr[i].equals(" Wall")){
-					if(i+4 < arr.length)i = i+4;
+				while(i < arr.length && arr[i].equals(" Wall")){ //6
+					if(i+4 < arr.length)i = i+4;//7
 					else break;
-					while(count != 8) {
+					while(count != 8) {//8
 						try {
 							walls.add(Integer.parseInt(arr[i].trim()));
 						}catch(NumberFormatException ex){
 						}
 						i++;
 						count++;
-					}
+					}//9
 					pictures.add(arr[i].trim());
 					count = 0;
 					i++;
-					for(int a = 0, b = 0; a < walls.size() && b < pictures.size(); a+=6, b++) {
+					for(int a = 0, b = 0; a < walls.size() && b < pictures.size(); a+=6, b++) { //10
 						lines.add(new Walls(walls.get(a),walls.get(a+1),walls.get(a+2),walls.get(a+3),walls.get(a+4), walls.get(a+5), pictures.get(b)));
-					}
+					} //11
 					buildings.put(buildingNumnber, lines);
 					buildingNames.put(buildingNumnber, name);
 					walls.clear();
-				}
+				}//12
 				i++;
 			}
 			else {
 				i++;
 			}
-		}
+		}//13
 	}
 
 	private static void questionReader(String s) throws FileNotFoundException {
@@ -238,33 +238,33 @@ public class Reader {
 		arr = data.split(",|\\]");
 		str.clear();
 		int treeID = 1, count = 0;
-		for(int i = 5; i < arr.length; i++) {
+		for(int i = 5; i < arr.length; i++) { //1
 			LinkedList<treeLocation> treeCoords = new LinkedList<treeLocation>();
 			getTreeType().put(treeID, arr[i].trim());
-			if(i+3 < arr.length) i=i+3;
+			if(i+3 < arr.length) i=i+3; //2
 			else break;
-			while(count != 5) {
+			while(count != 5) { //3
 				try {
 					trees.add(Integer.parseInt(arr[i].trim()));
 				}catch(NumberFormatException ex){
 				}
 				i++;
 				count++;
-			}
+			} //4
 			count = 0;
 			i = i - 1;
-			for(int a = 0; a < trees.size(); a+=4) {
+			for(int a = 0; a < trees.size(); a+=4) { //5
 				treeCoords.add(new treeLocation(trees.get(0), trees.get(1), trees.get(2), trees.get(3)));
-			}
+			} //6
 			getTreeLocation().put(treeID, treeCoords);
 			treeID++;
 			trees.clear();
-		}
+		}//7
 	}
 	
 	//Create tokens usinga a splitting function for trees
 	private static void treeTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\Val\\git\\VirtualWorldDiscovery\\Trees\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Trees\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -275,7 +275,7 @@ public class Reader {
 
 	//Create tokens using a splitting function for map
 	private static void mapTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\Val\\git\\VirtualWorldDiscovery\\Maps\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Maps\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -286,7 +286,7 @@ public class Reader {
 
 	//Create tokens using a splitting function for questions
 	private static void questionTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\Val\\git\\VirtualWorldDiscovery\\Questions\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Questions\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,|=]");
 			for(int i = 0; i < tokens.length; i++) {
