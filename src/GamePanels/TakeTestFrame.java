@@ -1,24 +1,32 @@
 package GamePanels;
-
 import javax.swing.JFrame;
 
+/*
+ * Class creates the frame where the questions appears. 
+ * Then calls the TakeTestPanel class, where the labels and buttons are initiated.
+ */
+public class TakeTestFrame {
 
-public class TakeTestFrame extends JFrame {
+	public static JFrame frame; 
 
-
-	TakeTestFrame(){
-	}
-
-	public void initialize(int key) {
-
-		this.setBounds(10, 480, 575, 293);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
-		this.getContentPane().setLayout(null);
-		this.setVisible(true);	
-
-		TakeTestPanel takeTestPanel = new TakeTestPanel(this, key);		
-		takeTestPanel.setBounds(10, 11, 539, 232);
-
-	}
 	
+	TakeTestFrame() {
+		
+		initialize();
+	}
+
+
+	public void initialize() {
+
+		frame = new JFrame(); 
+
+		frame.setBounds(10, 480, 575, 293);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
+		frame.getContentPane().setLayout(null);
+
+		new TakeTestPanel();
+
+		frame.setVisible(true);	
+
+	}
 }

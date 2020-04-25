@@ -6,11 +6,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -46,8 +44,24 @@ public class PlayingPanel extends JPanel {
 	//BUILDING VARIABLES		
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
-	TakeTestFrame testFrame;
-
+	public static int buildingKey;
+	
+	
+	// Getters
+	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
+	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
+	public Graphics2D getGraphics2D() { return g2d; }
+	public Avatar getAvatar() { return avatar; }	
+	public static int getBuildingKey() { return buildingKey; }
+	
+	
+	// Setters
+	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }	
+	protected void setInputHandler(PlayingPanelInputHandler inputHandler) { this.inputHandler = inputHandler; }
+	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
+	public static void setBuildingKey(int buildingKey) { PlayingPanel.buildingKey = buildingKey;	}
+	
+	
 	
 	/*Author: Valerie Otero | Date: April 11 2020
 	 */
@@ -66,17 +80,6 @@ public class PlayingPanel extends JPanel {
 		}	
 	}
 
-	// Getters
-	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
-	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
-	public Graphics2D getGraphics2D() { return g2d; }
-	public Avatar getAvatar() { return avatar; }	
-	
-	
-	// Setters
-	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }	
-	protected void setInputHandler(PlayingPanelInputHandler inputHandler) { this.inputHandler = inputHandler; }
-	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 
 
 	/* Author: Valerie Otero | Date: April 11 2020
@@ -85,7 +88,6 @@ public class PlayingPanel extends JPanel {
 		newAvatar();		
 		avatar.setDirection(1);	//start with the image looking to the right
 		buildingAmountLabel();			
-		testFrame = new TakeTestFrame();;
 	}
 
 
@@ -139,11 +141,9 @@ public class PlayingPanel extends JPanel {
 			}
 			else {			
 				getGraphicsManager().drawLeftAvatar(avatar, g2d, this);	
-			}
-			
+			}			
 			break;
 			
-
 		case 1: 
 			
 			if (avatar.getDirection() > 0) {					
@@ -151,13 +151,9 @@ public class PlayingPanel extends JPanel {
 			}
 			else {			
 				getGraphicsManager().drawLeftMario(avatar, g2d, this);	
-			}	
-			
-			break;	
-			
-		}
-
-					
+			}				
+			break;				
+		}					
 	}
 
 
@@ -286,10 +282,12 @@ public class PlayingPanel extends JPanel {
 				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {	
 					
 					g2d.drawString("Press E to take test, if not, continue search ", wall.getX1(), wall.getY1());				
-					g2d.setColor(Color.BLACK);					
+					g2d.setColor(Color.BLACK);	
 					
-					addWallsToList(buildings.getKey());	
-					drawTestFrame(buildings.getKey());			
+					setBuildingKey(buildings.getKey());
+					
+					addWallsToList(buildings.getKey());						
+					drawTestFrame();
 				}
 			}			
 		}	
@@ -336,11 +334,12 @@ public class PlayingPanel extends JPanel {
 	}
 	
 	
-	public void drawTestFrame(int key) {	
+	public void drawTestFrame() {	
 
 		if(getInputHandler().isEKeyPressed()) {
 			
-			testFrame.initialize(key);
+			new TakeTestFrame();
+			
 			getInputHandler().seteKeyIsPressed(false);
 
 		}    

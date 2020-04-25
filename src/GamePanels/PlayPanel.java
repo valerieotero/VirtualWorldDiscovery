@@ -61,6 +61,7 @@ public class PlayPanel {
 		lblLoadMap.setBounds(530, 236, 138, 23);
 		playPanel.add(lblLoadMap);
 		
+		
 		//LOAD MAP DROPDOWN
 		comboBoxLoadMap = new JComboBox<String>();	
 		filesPath = System.getProperty("user.dir");		
@@ -72,6 +73,7 @@ public class PlayPanel {
 		} 		
 		comboBoxLoadMap.setBounds(543, 270, 125, 32);
 		playPanel.add(comboBoxLoadMap);
+		
 		
 		//LOAD BUTTON
 		JButton btnLoad = new JButton("Load");	

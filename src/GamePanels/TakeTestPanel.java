@@ -1,98 +1,67 @@
 package GamePanels;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map.Entry;
-import java.util.Random;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Classes.Reader;
+import Classes.QuestionsAndAnswers;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.ThreadLocalRandom;
+import java.awt.event.WindowEvent;
 
+public class TakeTestPanel {
 
-public class TakeTestPanel extends JPanel{
-
-
+	public JPanel panel; 
+	
 	private JLabel question;
-
 	private JButton optionA;
 	private JButton optionB;
 	private JButton optionC;
 	private JButton optionD;
 
-	private int buildingKey;
-
-	private ArrayList<String> questions = new ArrayList<String>();
-	private ArrayList<String> answers = new ArrayList<String>();	
+	static int questionCount = 0;	
 	
-	//To be able to iterate and add each question regarding a building to an array list
-	private HashMap<Integer, String> questionsByKey= new HashMap<Integer, String>(); 
+	QuestionsAndAnswers qAndA;
 	
-	private HashMap<Integer,LinkedList<String>> answersByKey = new HashMap<Integer,LinkedList<String>>();
-
 	
-	//GETTER
-	public int getBuildingKey() { return buildingKey; }
-
-	//SETTER
-	public void setBuildingKey(int buildingKey) { this.buildingKey = buildingKey; }
+	public TakeTestPanel() {
 	
-	int randomQuestoinNum;
-
-
-	public TakeTestPanel(JFrame frame, int key) {			
-
-		frame.getContentPane().add(this);
-		this.setVisible(true);	
-		this.setBuildingKey(key);
-		this.setLayout(null);
+		panel = new JPanel();
+		panel.setBounds(10, 11, 539, 232);
+		TakeTestFrame.frame.setContentPane(panel);			
+		panel.setVisible(true);		
+		panel.setLayout(null);
 		
-		//Para que random number pueda match con los keys, since empiezan en 1
-		randomQuestoinNum = ThreadLocalRandom.current().nextInt(1, 7); //Inclusive, exclusive 
-		
-		getQuestion();
-		getAnswers(randomQuestoinNum);
+		qAndA = new QuestionsAndAnswers();
 
-		initialize(randomQuestoinNum);
-	}
+		initialize();
+	}	
+	
 
-	public void initialize(int randomQuestoinNum) {				
-		
-		Font obj = new Font("Arial", Font.BOLD, 16);		
+	public void initialize() {				
 			
 		//QUESTION
-		question = new JLabel(questions.get(randomQuestoinNum-1));
-		question.setFont(obj);
-		question.setBounds(0, 21, 495, 22);
-		this.add(question);
+		question = new JLabel(qAndA.randomQuestion);	
+		question.setBounds(10, 21, 485, 22);
+		panel.add(question);
 
 
 		//LABELS (ANSWERS)	
-		JLabel label_1 = new JLabel(answers.get(0));
+		JLabel label_1 = new JLabel(qAndA.answers.get(0));
 		label_1.setBounds(23, 63, 103, 14);
-		add(label_1);
+		panel.add(label_1);
 
-		JLabel label_2 = new JLabel(answers.get(1));
+		JLabel label_2 = new JLabel(qAndA.answers.get(1));
 		label_2.setBounds(23, 107, 103, 14);
-		add(label_2);
+		panel.add(label_2);
 
-		JLabel label_3 = new JLabel(answers.get(2));
+		JLabel label_3 = new JLabel(qAndA.answers.get(2));
 		label_3.setBounds(23, 154, 103, 14);
-		add(label_3);
+		panel.add(label_3);
 
-		JLabel label_4 = new JLabel(answers.get(3));
+		JLabel label_4 = new JLabel(qAndA.answers.get(3));
 		label_4.setBounds(23, 198, 103, 14);
-		add(label_4);
+		panel.add(label_4);
 
 		
 		//OPTION 1
@@ -101,10 +70,21 @@ public class TakeTestPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				panel.setVisible(false);
+								
+				if(questionCount < 4) {																
+					new TakeTestPanel();
+					questionCount++;	
+					System.out.println("QuestionCount: " + questionCount);
+				}
+				else {
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
+					questionCount = 0;
+				}
 			}
 		});
 		optionA.setBounds(152, 59, 80, 23);
-		this.add(optionA);
+		panel.add(optionA);
 
 
 		//OPTION 2
@@ -113,11 +93,22 @@ public class TakeTestPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				panel.setVisible(false);
+				
+				if(questionCount < 4) {																
+					new TakeTestPanel();
+					questionCount++;	
+					System.out.println("QuestionCount: " + questionCount);
+				}
+				else {
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
+					questionCount = 0;
+				}
 				
 			}
 		});
 		optionB.setBounds(152, 103, 80, 23);
-		this.add(optionB);
+		panel.add(optionB);
 
 
 		//OPTION 3
@@ -126,11 +117,22 @@ public class TakeTestPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				panel.setVisible(false);
+				
+				if(questionCount < 4) {							
+					new TakeTestPanel();
+					questionCount++;	
+					System.out.println("QuestionCount: " + questionCount);
+				}
+				else {
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
+					questionCount = 0;
+				}
 				
 			}
 		});
 		optionC.setBounds(152, 150, 80, 23);
-		this.add(optionC);
+		panel.add(optionC);
 
 
 		//OPTION 4
@@ -139,39 +141,21 @@ public class TakeTestPanel extends JPanel{
 			@Override			
 			public void mouseClicked(MouseEvent arg0) {
 				
+				panel.setVisible(false);
 				
+				if(questionCount < 4) {																	
+					new TakeTestPanel();
+					questionCount++;
+					System.out.println("QuestionCount: " + questionCount);	
+				}
+				else {
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
+					questionCount = 0;
+				}				
 			}
 		});		
 		optionD.setBounds(152, 194, 80, 23);
-		this.add(optionD);
-
+		panel.add(optionD);
 
 	}
-
-	public void getQuestion() {
-
-		questionsByKey = Reader.getQuestionList().get(getBuildingKey()-1);			
-
-		for(HashMap.Entry<Integer, String> z : questionsByKey.entrySet()) {
-
-			questions.add(z.getValue());					
-		}
-	}
-
-	public void getAnswers(int randomQuestoinNum) {	
-
-		//answers regarding a specific building
-		answersByKey = Reader.getQuestionAnswersList().get(getBuildingKey()-1);
-
-		for(HashMap.Entry<Integer,LinkedList<String>> buildingAnswers : answersByKey.entrySet()) {
-
-			if(buildingAnswers.getKey() == randomQuestoinNum) {	//get the answers for the random question		
-
-				for(String answ : buildingAnswers.getValue()) {
-
-					answers.add(answ);				
-				}
-			}
-		}		
-	}	
 }
