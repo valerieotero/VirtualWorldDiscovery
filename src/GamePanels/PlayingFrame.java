@@ -15,16 +15,20 @@ import javax.swing.JLabel;
 public class PlayingFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;	
+	int chosenAvatar;
 	
-	public PlayingFrame(String mapName) {	
+	public PlayingFrame(String mapName, int chosenAvatar) {	
 		
 		try {
 			Reader.mapReaderController(mapName);
 			Reader.treeReaderController(mapName);
+			Reader.questionReaderController(mapName);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");			
 		}
 		
+		this.chosenAvatar = chosenAvatar;
+		System.out.print(this.chosenAvatar);
 		initialize();		
 	}
 
@@ -46,7 +50,7 @@ public class PlayingFrame extends JFrame {
 									
 		this.addKeyListener(inputHandler);									
 						
-		PlayingPanel playingPanel = new PlayingPanel(inputHandler, graphicsMan);	
+		PlayingPanel playingPanel = new PlayingPanel(inputHandler, graphicsMan, chosenAvatar);	
 		playingPanel.setLayout(null);		
 	
 		this.getContentPane().add(playingPanel);		
