@@ -1,14 +1,14 @@
 Map name = C:\Users\Val\git\VirtualWorldDiscovery\maps\Test
 Amount = 3
-C:\Users\Val\Desktop\images\map.png
+C:\Users\yamil\Desktop\images\map.png
 Building 1 = first
-C:\Users\Val\Desktop\images\textureA1.png
+C:\Users\yamil\Desktop\images\textureA1.png
 
 Wall 0 = (113,216)(179,146)(1,3)wall.png
 Wall 1 = (178,144)(238,212)(1,3)wall.png
 
 Building 1 = second
-C:\Users\Val\Desktop\images\TextureB1.png
+C:\Users\yamil\Desktop\images\TextureB1.png
 
 Wall 0 = (479,257)(566,183)(1,3)wall.png
 Wall 1 = (562,182)(643,260)(1,3)wall.png
@@ -17,7 +17,7 @@ Wall 3 = (562,329)(639,261)(1,3)wall.png
 
 Wall 0 = (704,156)(704,156)(1,3)wall.png
 Building 1 = third
-C:\Users\Val\Desktop\images\textureC1.png
+C:\Users\yamil\Desktop\images\textureC1.png
 
 Wall 1 = (441,524)(440,616)(1,3)wall.png
 Wall 2 = (441,536)(481,498)(1,3)wall.png
