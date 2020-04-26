@@ -112,7 +112,7 @@ public class PlayingPanel extends JPanel {
 	public void drawBackground(){
 		Graphics2D g2d = getGraphics2D();
 		super.paintComponent(g2d);	    	
-		g2d.drawImage(background, 0, 0, this);				
+		g2d.drawImage(background, 0, (681-background.getHeight()), this);				
 	}
 	
 
