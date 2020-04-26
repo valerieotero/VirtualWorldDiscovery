@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -39,30 +40,32 @@ public class PlayingPanel extends JPanel {
 	protected BufferedImage backBuffer;	
 
 	BufferedImage background;
-		
-	
+	ArrayList<BufferedImage> buildingImages = new ArrayList();;
+
+
 	//BUILDING VARIABLES		
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
 	public static int buildingKey;
-	
-	
+
+	TakeTestPanel p;
+
 	// Getters
 	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
 	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
 	public Graphics2D getGraphics2D() { return g2d; }
 	public Avatar getAvatar() { return avatar; }	
 	public static int getBuildingKey() { return buildingKey; }
-	
-	
+
+
 	// Setters
 	protected void setGraphicsManager(GraphicsManager graphicsManager) { this.graphicsManager = graphicsManager; }	
 	protected void setInputHandler(PlayingPanelInputHandler inputHandler) { this.inputHandler = inputHandler; }
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 	public static void setBuildingKey(int buildingKey) { PlayingPanel.buildingKey = buildingKey;	}
-	
-	
-	
+
+
+
 	/*Author: Valerie Otero | Date: April 11 2020
 	 */
 	//Constructor
@@ -99,7 +102,10 @@ public class PlayingPanel extends JPanel {
 		drawAvatar();		
 		checkWallCollision();				
 		drawWalls();	
-	    drawTrees();	   
+		drawTrees();	   
+		//System.out.println(getBuildingKey());
+		checkForCorrectAnswers();
+		//drawBuildingPicture();
 	}
 
 	@Override
@@ -114,7 +120,7 @@ public class PlayingPanel extends JPanel {
 		super.paintComponent(g2d);	    	
 		g2d.drawImage(background, 0, (681-background.getHeight()), this);				
 	}
-	
+
 
 	public void buildingAmountLabel() {
 		//LABEL - BUILDING COUNT
@@ -124,18 +130,18 @@ public class PlayingPanel extends JPanel {
 		lblBuildingCount.setBounds(1030,10,200,20);
 		this.add(lblBuildingCount);	
 	}
-	
+
 
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * This method draws one of two possible avatar poses according to direction.  */
 	protected void drawAvatar() {
 
 		Graphics2D g2d = getGraphics2D();
-		
+
 		switch(chosenAvatar) {
-		
+
 		case 0:
-			
+
 			if (avatar.getDirection() > 0) {					
 				getGraphicsManager().drawAvatar(avatar, g2d, this);					
 			}
@@ -143,9 +149,9 @@ public class PlayingPanel extends JPanel {
 				getGraphicsManager().drawLeftAvatar(avatar, g2d, this);	
 			}			
 			break;
-			
+
 		case 1: 
-			
+
 			if (avatar.getDirection() > 0) {					
 				getGraphicsManager().drawMario(avatar, g2d, this);					
 			}
@@ -220,8 +226,8 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-		
-	
+
+
 	public void drawTrees() {				
 
 		for(HashMap.Entry<Integer,LinkedList<treeLocation>> treeLocation : Reader.getTreeLocation().entrySet()) {
@@ -232,12 +238,12 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	
+
 	public void getTrees(int x, int y, int key) {
 
 		Graphics2D g2d = getGraphics2D();
 		String imageType = getKeyValuesForTrees(key);
-		
+
 		switch(imageType) {
 
 		case "TreeImage1":
@@ -253,8 +259,8 @@ public class PlayingPanel extends JPanel {
 			break;
 		}
 	}
-	
-	
+
+
 	//get key values
 	public String getKeyValuesForTrees (int key) {
 
@@ -272,20 +278,20 @@ public class PlayingPanel extends JPanel {
 	/* Author: Valerie Otero | Date: April 21 2020
 	 * Checks collision of the avatar with building walls */ 
 	protected void checkWallCollision() {
-		
+
 		Graphics2D g2d = getGraphics2D();
-		
+
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		 					
-						
+
 			for(Walls wall : buildings.getValue()) {			
 
 				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {	
-					
+
 					g2d.drawString("Press E to take test, if not, continue search ", wall.getX1(), wall.getY1());				
 					g2d.setColor(Color.BLACK);	
-					
+
 					setBuildingKey(buildings.getKey());
-					
+
 					addWallsToList(buildings.getKey());						
 					drawTestFrame();
 				}
@@ -294,26 +300,26 @@ public class PlayingPanel extends JPanel {
 	}
 
 	public void addWallsToList(int key) {
-				
+
 		LinkedList<Walls> wall = getKeyValuesForBuilding(key);
-			
+
 		for (Walls w : wall) {
-			
+
 			wallsDrawn.add(w);					
 		}
 	}
-	
-	
+
+
 	/* Author: Valerie Otero | Date: April 21 2020
 	 * When called, it will draw on the screen the building walls that the avatar has collided with */	
 	public void drawWalls() {
-		
+
 		Graphics2D g2d = getGraphics2D();
-		
+
 		if(!wallsDrawn.isEmpty()) {
-			
+
 			for (Walls w :wallsDrawn ) {
-				
+
 				g2d.drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());			
 				g2d.setStroke(new BasicStroke(3)); //Line width
 				g2d.setColor(Color.black);			
@@ -332,16 +338,55 @@ public class PlayingPanel extends JPanel {
 		}
 		return null;
 	}
-	
-	
+
+
 	public void drawTestFrame() {	
 
 		if(getInputHandler().isEKeyPressed()) {
-			
+
 			new TakeTestFrame();
-			
+
 			getInputHandler().seteKeyIsPressed(false);
 
 		}    
+	}
+
+	public void checkForCorrectAnswers() {	
+			
+				
+
+		for (HashMap.Entry<Integer, Integer> i : p.buildingCorrectAnswers.entrySet()) {
+
+			if(i.getKey() == getBuildingKey()) { //check for the collided building only
+
+			//	if (i.getValue() >=3) {
+
+					System.out.println("BuildingKey : " + i.getKey() + " CORRECTANSWERS: "+ i.getValue());
+
+//					BufferedImage buildingPicture = null;
+//					try {
+//						buildingPicture = ImageIO.read(new File(Reader.getBuildingPictures().get(getBuildingKey()-1)));
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					buildingImages.add(buildingPicture);
+
+			//	}
+
+			}
+		}
+	}
+
+	public void drawBuildingPicture() {
+
+		Graphics2D g2d = getGraphics2D();
+
+		if(!buildingImages.isEmpty()) {
+			for(BufferedImage image : buildingImages) {
+				g2d.drawImage(image, 0, 0, this);	
+			}	
+
+		}
 	}
 }

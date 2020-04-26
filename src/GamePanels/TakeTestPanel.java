@@ -34,7 +34,7 @@ public class TakeTestPanel {
 	boolean firstRun = true;  //because this class calls him self a control variable is needed, for values not to be replaced.
 	private String correct;
 	private static int count = 0;
-	private static HashMap<Integer,Integer> buildingCorrectAnswers = new HashMap<>();
+	public static HashMap<Integer,Integer> buildingCorrectAnswers = new HashMap<>();
 
 	public TakeTestPanel() {
 
@@ -90,15 +90,15 @@ public class TakeTestPanel {
 
 				panel.setVisible(false);
 
-				if(questionCount < 4) {
+				if(questionCount < 3) {
+					questionCount++;
 					checkAnswer(1);
-					new TakeTestPanel();
-					questionCount++;	
+					new TakeTestPanel();						
 					System.out.println("QuestionCount: " + questionCount);
 				}
 				else {
-					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
 					questionCount = 0;
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));					
 				}
 			}
 		});
@@ -114,15 +114,15 @@ public class TakeTestPanel {
 
 				panel.setVisible(false);
 
-				if(questionCount < 4) {
+				if(questionCount < 3) {
+					questionCount++;
 					checkAnswer(2);
-					new TakeTestPanel();
-					questionCount++;	
+					new TakeTestPanel();						
 					System.out.println("QuestionCount: " + questionCount);
 				}
 				else {
-					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
 					questionCount = 0;
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));					
 				}
 
 			}
@@ -139,15 +139,16 @@ public class TakeTestPanel {
 
 				panel.setVisible(false);
 
-				if(questionCount < 4) {	
+				if(questionCount < 3) {	
+					questionCount++;
 					checkAnswer(3);
 					new TakeTestPanel();
-					questionCount++;	
+						
 					System.out.println("QuestionCount: " + questionCount);
 				}
 				else {
-					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
 					questionCount = 0;
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));					
 				}
 
 			}
@@ -164,16 +165,17 @@ public class TakeTestPanel {
 
 				panel.setVisible(false);
 
-				if(questionCount < 4) {	
-					checkAnswer(4);
-					buildingCorrectAnswers.replace(pp.getBuildingKey(), count);
-					new TakeTestPanel();
+				if(questionCount < 3) {
 					questionCount++;
+					checkAnswer(4);
+				//	buildingCorrectAnswers.replace(pp.getBuildingKey(), count);
+					new TakeTestPanel();					
 					System.out.println("QuestionCount: " + questionCount);	
 				}
 				else {
-					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
 					questionCount = 0;
+					TakeTestFrame.frame.dispatchEvent(new WindowEvent(TakeTestFrame.frame, WindowEvent.WINDOW_CLOSING));
+					
 				}				
 			}
 		});		
