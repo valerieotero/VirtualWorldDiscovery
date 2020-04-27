@@ -26,16 +26,22 @@ public class TakeTestPanel {
 	private JLabel label_4;
 
 	static int questionCount = 0;	
-
+	private int buildingKey;
+	
 	QuestionsAndAnswers qAndA;
+	
+	int a = 0;
+	int b = 0;	
+	int c = 0;
+	int d = 0;
 
-	//Yamil added
-	PlayingPanel pp;
+	//Yamil added	
 	boolean firstRun = true;  //because this class calls him self a control variable is needed, for values not to be replaced.
-	private String correct;
-	private static int count = 0;
+	private String correct;	
 	public static HashMap<Integer,Integer> buildingCorrectAnswers = new HashMap<>();
 
+	
+	
 	public TakeTestPanel() {
 
 		panel = new JPanel();
@@ -44,19 +50,20 @@ public class TakeTestPanel {
 		panel.setVisible(true);		
 		panel.setLayout(null);
 
+		this.buildingKey = PlayingPanel.getBuildingKey();
+		
 		qAndA = new QuestionsAndAnswers();
 
 		if(firstRun) {
-			correct = qAndA.answers.get(0);
-			//	buildingCorrectAnswers.put(pp.getBuildingKey(), count);
+			correct = qAndA.answers.get(0);			
 			firstRun = false;
 		}
+		
 		initialize();
 	}	
 
 
-	public void initialize() {				
-
+	public void initialize() {			
 
 		//QUESTION
 		question = new JLabel(qAndA.randomQuestion);	
@@ -186,62 +193,53 @@ public class TakeTestPanel {
 		
 		case 1:
 			
-			if(label_1.getText().equals(correct)) {
-				
-				int a = 0;
+			if(label_1.getText().equals(correct)) {			
 
-				if(buildingCorrectAnswers.containsKey(PlayingPanel.getBuildingKey())) {
+				if(buildingCorrectAnswers.containsKey(buildingKey)) {
 
-					a = buildingCorrectAnswers.get(PlayingPanel.getBuildingKey());				
+					a = buildingCorrectAnswers.get(buildingKey);				
 				}
 
-				buildingCorrectAnswers.put(PlayingPanel.getBuildingKey(), (a+1));
+				buildingCorrectAnswers.put(buildingKey, (a+1));
 			}			
 			break;
 			
-		case 2:
+		case 2:			
 			
-			
-			if(label_2.getText().equals(correct)) {		
+			if(label_2.getText().equals(correct)) {						
 				
-				int b = 0;
-				
-				if(buildingCorrectAnswers.containsKey(PlayingPanel.getBuildingKey())) {
+				if(buildingCorrectAnswers.containsKey(buildingKey)) {
 
-					b = buildingCorrectAnswers.get(PlayingPanel.getBuildingKey());
+					b = buildingCorrectAnswers.get(buildingKey);
 				}
 
-				buildingCorrectAnswers.put(PlayingPanel.getBuildingKey(), (b+1));
+				buildingCorrectAnswers.put(buildingKey, (b+1));
 			}			
 			break;
 			
 		case 3:
 			
-			if(label_3.getText().equals(correct)) {	
+			if(label_3.getText().equals(correct)) {				
 				
-				int c = 0;
-				
-				if(buildingCorrectAnswers.containsKey(PlayingPanel.getBuildingKey())) {
+				if(buildingCorrectAnswers.containsKey(buildingKey)) {
 
-					c = buildingCorrectAnswers.get(PlayingPanel.getBuildingKey());
+					c = buildingCorrectAnswers.get(buildingKey);
 
 				}
-				buildingCorrectAnswers.put(PlayingPanel.getBuildingKey(), (c+1));
+				buildingCorrectAnswers.put(buildingKey, (c+1));
 			}			
 			break;
 						
 		case 4:			
 			
-			if(label_4.getText().equals(correct)) {	
+			if(label_4.getText().equals(correct)) {				
 				
-				int d = 0;
-				
-				if(buildingCorrectAnswers.containsKey(PlayingPanel.getBuildingKey())) {
+				if(buildingCorrectAnswers.containsKey(buildingKey)) {
 
-					d = buildingCorrectAnswers.get(PlayingPanel.getBuildingKey());
+					d = buildingCorrectAnswers.get(buildingKey);
 				}
 				
-				buildingCorrectAnswers.put(PlayingPanel.getBuildingKey(), (d+1));
+				buildingCorrectAnswers.put(buildingKey, (d+1));
 			}			
 			break;
 		}

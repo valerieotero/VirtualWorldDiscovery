@@ -40,14 +40,14 @@ public class PlayingPanel extends JPanel {
 	protected BufferedImage backBuffer;	
 
 	BufferedImage background;
-	
+
 	//BUILDING VARIABLES		
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
 	public static int buildingKey;
 	ArrayList<BufferedImage> buildingImages = new ArrayList<BufferedImage>();
-	
-	
+
+
 	// Getters
 	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
 	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
@@ -101,7 +101,7 @@ public class PlayingPanel extends JPanel {
 		checkWallCollision();				
 		drawWalls();	
 		drawTrees();		
-		//drawBuildingPicture();
+		drawBuildingPicture();
 	}
 
 	@Override
@@ -111,10 +111,9 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	public void drawBackground(){
-		Graphics2D g2d = getGraphics2D();
-		super.paintComponent(g2d);	    	
-		g2d.drawImage(background, 0, (681-background.getHeight()), this);				
+	public void drawBackground(){	
+		super.paintComponent(getGraphics2D());	    	
+		getGraphics2D().drawImage(background, 0, (681-background.getHeight()), this);				
 	}
 
 
@@ -236,22 +235,21 @@ public class PlayingPanel extends JPanel {
 
 
 	public void getTrees(int x, int y, int key) {
-
-		Graphics2D g2d = getGraphics2D();
+		
 		String imageType = getKeyValuesForTrees(key);
 
 		switch(imageType) {
 
 		case "TreeImage1":
-			getGraphicsManager().drawTree1(x,y,g2d,this);
+			getGraphicsManager().drawTree1(x,y,getGraphics2D(),this);
 			break;
 
 		case "TreeImage2":
-			getGraphicsManager().drawTree2(x,y,g2d,this);
+			getGraphicsManager().drawTree2(x,y,getGraphics2D(),this);
 			break;
 
 		case "TreeImage3":
-			getGraphicsManager().drawTree3(x,y,g2d,this);
+			getGraphicsManager().drawTree3(x,y,getGraphics2D(),this);
 			break;
 		}
 	}
@@ -275,20 +273,18 @@ public class PlayingPanel extends JPanel {
 	 * Checks collision of the avatar with building walls */ 
 	protected void checkWallCollision() {
 
-		Graphics2D g2d = getGraphics2D();
-
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		 					
 
 			for(Walls wall : buildings.getValue()) {			
 
 				if(avatar.intersectsLine(wall.getX1(), wall.getY1(), wall.getX2(), wall.getY2())) {	
 
-					g2d.drawString("Press E to take test, if not, continue search ", wall.getX1(), wall.getY1());				
-					g2d.setColor(Color.BLACK);	
+					getGraphics2D().drawString("Press E to take test, if not, continue search ", wall.getX1(), wall.getY1());				
+					getGraphics2D().setColor(Color.BLACK);	
 
 					setBuildingKey(buildings.getKey());
 
-					addWallsToList(buildings.getKey());										
+					addWallsToList();										
 					drawTestFrame();
 					checkForCorrectAnswers();
 				}
@@ -296,11 +292,9 @@ public class PlayingPanel extends JPanel {
 		}	
 	}
 
-	public void addWallsToList(int key) {
+	public void addWallsToList() {		
 
-		LinkedList<Walls> wall = getKeyValuesForBuilding(key);
-
-		for (Walls w : wall) {
+		for (Walls w : getKeyValuesForBuilding(getBuildingKey())) {
 
 			wallsDrawn.add(w);					
 		}
@@ -309,23 +303,21 @@ public class PlayingPanel extends JPanel {
 
 	/* Author: Valerie Otero | Date: April 21 2020
 	 * When called, it will draw on the screen the building walls that the avatar has collided with */	
-	public void drawWalls() {
-
-		Graphics2D g2d = getGraphics2D();
+	public void drawWalls() {		
 
 		if(!wallsDrawn.isEmpty()) {
 
 			for (Walls w :wallsDrawn ) {
 
-				g2d.drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());			
-				g2d.setStroke(new BasicStroke(3)); //Line width
-				g2d.setColor(Color.black);			
+				getGraphics2D().drawLine(w.getX1(), w.getY1(), w.getX2(), w.getY2());			
+				getGraphics2D().setStroke(new BasicStroke(3)); //Line width
+				getGraphics2D().setColor(Color.black);			
 			}
 		}
 	}
 
 	//get key value
-	public LinkedList<Walls> getKeyValuesForBuilding (Integer key) {
+	public LinkedList<Walls> getKeyValuesForBuilding (int key) {
 
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		
 
@@ -360,10 +352,11 @@ public class PlayingPanel extends JPanel {
 
 					BufferedImage buildingPicture = null;
 					try {
-						buildingPicture = ImageIO.read(new File(Reader.getBuildingPictures().get(getBuildingKey()-1)));
+						buildingPicture = ImageIO.read(new File(Reader.getBuildingPictures().get(getBuildingKey()-1)));						
 					} catch (IOException e) {						
 						e.printStackTrace();
 					}
+
 					buildingImages.add(buildingPicture);
 
 				}
@@ -372,15 +365,14 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	public void drawBuildingPicture() {
+	public void drawBuildingPicture() {		
 
-		Graphics2D g2d = getGraphics2D();
+			if(!buildingImages.isEmpty()) {
+				for(BufferedImage image : buildingImages) {
+					getGraphics2D().drawImage(image, 0,0, this);	
+				}	
 
-		if(!buildingImages.isEmpty()) {
-			for(BufferedImage image : buildingImages) {
-				g2d.drawImage(image, 0, 0, this);	
-			}	
-
+			}
 		}
 	}
-}
+

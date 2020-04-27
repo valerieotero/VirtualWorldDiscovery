@@ -8,7 +8,7 @@ import Avatar.GameLoop;
 import Avatar.GraphicsManager;
 import Classes.Reader;
 import Input.PlayingPanelInputHandler;
-import javax.swing.JLabel;
+
 
 
 
@@ -27,8 +27,7 @@ public class PlayingFrame extends JFrame {
 			System.out.println("File not found");			
 		}
 		
-		this.chosenAvatar = chosenAvatar;
-		System.out.print(this.chosenAvatar);
+		this.chosenAvatar = chosenAvatar;		
 		initialize();		
 	}
 
