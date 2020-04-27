@@ -40,16 +40,14 @@ public class PlayingPanel extends JPanel {
 	protected BufferedImage backBuffer;	
 
 	BufferedImage background;
-	ArrayList<BufferedImage> buildingImages = new ArrayList();;
-
-
+	
 	//BUILDING VARIABLES		
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
 	public static int buildingKey;
-
-	TakeTestPanel p;
-
+	ArrayList<BufferedImage> buildingImages = new ArrayList<BufferedImage>();
+	
+	
 	// Getters
 	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
 	public PlayingPanelInputHandler getInputHandler() { return inputHandler; }
@@ -102,9 +100,7 @@ public class PlayingPanel extends JPanel {
 		drawAvatar();		
 		checkWallCollision();				
 		drawWalls();	
-		drawTrees();	   
-		//System.out.println(getBuildingKey());
-		checkForCorrectAnswers();
+		drawTrees();		
 		//drawBuildingPicture();
 	}
 
@@ -292,8 +288,9 @@ public class PlayingPanel extends JPanel {
 
 					setBuildingKey(buildings.getKey());
 
-					addWallsToList(buildings.getKey());						
+					addWallsToList(buildings.getKey());										
 					drawTestFrame();
+					checkForCorrectAnswers();
 				}
 			}			
 		}	
@@ -351,28 +348,25 @@ public class PlayingPanel extends JPanel {
 		}    
 	}
 
-	public void checkForCorrectAnswers() {	
-			
-				
+	public void checkForCorrectAnswers() {					
 
-		for (HashMap.Entry<Integer, Integer> i : p.buildingCorrectAnswers.entrySet()) {
+		for (HashMap.Entry<Integer, Integer> i : TakeTestPanel.buildingCorrectAnswers.entrySet()) {
 
 			if(i.getKey() == getBuildingKey()) { //check for the collided building only
 
-			//	if (i.getValue() >=3) {
+				if (i.getValue() >=3) {
 
-					System.out.println("BuildingKey : " + i.getKey() + " CORRECTANSWERS: "+ i.getValue());
+					//System.out.println("BuildingKey : " + i.getKey() + " CORRECTANSWERS: "+ i.getValue());
 
-//					BufferedImage buildingPicture = null;
-//					try {
-//						buildingPicture = ImageIO.read(new File(Reader.getBuildingPictures().get(getBuildingKey()-1)));
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//					buildingImages.add(buildingPicture);
+					BufferedImage buildingPicture = null;
+					try {
+						buildingPicture = ImageIO.read(new File(Reader.getBuildingPictures().get(getBuildingKey()-1)));
+					} catch (IOException e) {						
+						e.printStackTrace();
+					}
+					buildingImages.add(buildingPicture);
 
-			//	}
+				}
 
 			}
 		}
