@@ -186,7 +186,7 @@ public class PlayingPanel extends JPanel {
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the up direction of the screen */ 
 	public void moveAvatarUp(){
-		if(avatar.getY() - avatar.getSpeed() >= 0){
+		if(avatar.getY() - avatar.getSpeed() >= 80){			
 			avatar.translate(0, -avatar.getSpeed()*2);
 		}
 	}
@@ -216,7 +216,7 @@ public class PlayingPanel extends JPanel {
 	 * Moves the avatar in the right direction of the screen */ 
 	public void moveAvatarRight(){
 		avatar.setDirection(1);
-		if(avatar.getX() + avatar.getSpeed() + avatar.width < getWidth()){
+		if(avatar.getX() + avatar.getSpeed() + avatar.width < background.getWidth()){
 			avatar.translate(avatar.getSpeed(), 0);
 		}
 	}
