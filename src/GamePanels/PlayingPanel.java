@@ -101,7 +101,7 @@ public class PlayingPanel extends JPanel {
 		checkWallCollision();				
 		drawWalls();	
 		drawTrees();		
-		drawBuildingPicture();
+	//	drawBuildingPicture();
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class PlayingPanel extends JPanel {
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the up direction of the screen */ 
 	public void moveAvatarUp(){
-		if(avatar.getY() - avatar.getSpeed() >= 80){			
+		if(avatar.getY() - avatar.getSpeed() >= (getHeight() - background.getHeight())){				
 			avatar.translate(0, -avatar.getSpeed()*2);
 		}
 	}
