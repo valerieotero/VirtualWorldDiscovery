@@ -2,6 +2,7 @@ package Classes;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -42,7 +43,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Reader {
 
 	//General variables
-	private static String name, question, background;
+	private static String name, question, background, backW, backH;
 	private static String[] tokens = null;
 	private static ArrayList<String> str = new ArrayList<String>();
 	private static int amount = 0;
@@ -65,6 +66,8 @@ public class Reader {
 	private static HashMap<Integer,LinkedList<treeLocation>> treeLocation = new HashMap<>();
 
 	//GETTERS
+	public static String getBackW() { return backW;	}
+	public static String getBackH() { return backH; }
 	public static ArrayList<String> getBuildingPictures() {	return buildingPictures; }	
 	public static HashMap<Integer, LinkedList<Walls>> getBuildings() { return buildings; }
 	public static String getBackground() { return background; }
@@ -76,6 +79,8 @@ public class Reader {
 	public static ArrayList<HashMap<Integer, String>> getQuestionList() { return questionList; }	
 
 	//SETTERS
+	public static void setBackW(String backW) { Reader.backW = backW; }
+	public static void setBackH(String backH) {	Reader.backH = backH; }
 	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) { Reader.buildings = buildings;	}	
 	public static void setBuildingPictures(ArrayList<String> buildingPictures) { Reader.buildingPictures = buildingPictures; }	
 	public static void setBackground(String background) { Reader.background = background; }
@@ -108,9 +113,11 @@ public class Reader {
 		String[] arr = data.split(",|\\]");
 		str.clear();
 		int i = 0, count = 0, buildingNumnber = 0;
-		if(i+7 < arr.length) {
+		if(i+9 < arr.length) {
 			setAmount(Integer.parseInt(arr[i+6].trim()));
 			setBackground(arr[i+7].trim());
+			setBackW(arr[i+8].trim());
+			setBackH(arr[i+9].trim());
 		}
 		while(i < arr.length) {
 			if(arr[i].equals(" Building")){

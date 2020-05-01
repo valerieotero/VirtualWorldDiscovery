@@ -87,6 +87,8 @@ public class CreatedMapPanel extends JPanel {
 	private int height = 0;
 	private int wight = 10;
 	private int wallsNeeded = 4;
+	private String backgroundWidth;
+	private String backgroundHeight;
 	//John - for testing purposes
 	private int count = 0;
 
@@ -98,6 +100,23 @@ public class CreatedMapPanel extends JPanel {
 	JComboBox<?> treeComboBox;
 	private Tree tree;
 	private boolean treeSelected = true;
+
+	//GETTERs & SETTERs
+	public String getBackgroundWidth() {
+		return backgroundWidth;
+	}
+
+	public String getBackgroundHeight() {
+		return backgroundHeight;
+	}
+
+	public void setBackgroundWidth(String width) {
+		backgroundWidth = width;
+	}
+
+	public void setBackgroundHeight(String  height) {
+		backgroundHeight = height;
+	}
 
 	//CONSTRUCTOR
 	public CreatedMapPanel(JFrame frame, Writer writer){
@@ -180,31 +199,35 @@ public class CreatedMapPanel extends JPanel {
 
 		JFileChooser chooser = new JFileChooser();
 		BufferedImage img;	   				   
-		File file ; 				  
+		File file = null ; 
+		ImageIcon icon = null;
 
 		if (e.getSource()==btnUploadBackgroundImage) {
 			chooser.showOpenDialog(null);
 			file = chooser.getSelectedFile();
 
 			try {
-				backgorundWriter(file);
 				img=ImageIO.read(file);
-				ImageIcon icon=new ImageIcon(img);
+				icon = new ImageIcon(img);
 				lblBackGroundLabel.setIcon(icon); 			
 
 				lblBackGroundLabel.revalidate(); 
-				lblBackGroundLabel.repaint();		
+				lblBackGroundLabel.repaint();	
 
 			}
 			catch(IOException e1) {
 				System.out.println("Must select an image");
 			}
 		}
+		this.setBackgroundWidth(Integer.toString(icon.getIconWidth()));
+		this.setBackgroundHeight(Integer.toString(icon.getIconHeight()));
+		backgorundWriter(file);
 	}
-
+	//Author: Yamil Gonzalez
+	//Last edited: 4/30/2020
 	public void backgorundWriter(File file) {
 		Writer.open(locations.load(0));
-		Writer.writeSpace(file.getPath());
+		Writer.writeSpace(file.getPath()+" "+this.getBackgroundWidth()+" "+this.getBackgroundHeight());
 		Writer.close();
 	}
 
