@@ -235,7 +235,7 @@ public class PlayingPanel extends JPanel {
 
 
 	public void getTrees(int x, int y, int key) {
-		
+
 		String imageType = getKeyValuesForTrees(key);
 
 		switch(imageType) {
@@ -367,11 +367,11 @@ public class PlayingPanel extends JPanel {
 
 	public void drawBuildingPicture() {		
 
-			if(!buildingImages.isEmpty()) {
-				for(BufferedImage image : buildingImages) {
-					getGraphics2D().drawImage(image, 0,0, this);	
-				}	
+		if(!buildingImages.isEmpty()) {
+			for(BufferedImage image : buildingImages) {
+				getGraphics2D().drawImage(image, 0,0, this);	
+			}	
 
-			}
 		}
 	}
+}
