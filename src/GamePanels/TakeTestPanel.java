@@ -59,7 +59,8 @@ public class TakeTestPanel {
 		initialize();
 	}	
 
-
+	/* Author: Valerie Otero | Date: April 29 2020
+	 * This methods initializes buttons and labels for the questions and answers according to the collided building. */
 	public void initialize() {			
 
 		//QUESTION

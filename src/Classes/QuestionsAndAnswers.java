@@ -55,7 +55,9 @@ public class QuestionsAndAnswers {
 		getBuildingAnswers(randomQuestoinNum);		
 	}
 
-
+	/* Author: Valerie Otero | Date: April 25 2020
+	 * This methods gets the questions regarding the collided building. 
+	 * It then adds them to a local list to be selected randomly. */
 	public void getBuildingQuestions() {
 
 		questionsByKey = Reader.getQuestionList().get(getBuildingKey()-1);			
@@ -66,7 +68,10 @@ public class QuestionsAndAnswers {
 		}
 	}
 
-
+	
+	/* Author: Valerie Otero | Date: April 25 2020
+	 * This methods gets the answers regarding the collided building and the random question number. 
+	 * It then adds them to a local list to be matched with the question. */
 	public void getBuildingAnswers(int randomQuestoinNum) {	
 
 		//answers regarding a specific building
