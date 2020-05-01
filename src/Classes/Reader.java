@@ -8,14 +8,10 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 /*
  * Created by: Yamil J. Gonzalez
- * Still going
- * 
- * It has two main methods, a helper and a main
- * Main: testing
- * readerController: when called it will call the other two methods
- * tokenizer: takes the input file and split it into tokens, that holds the necessary data.
- * reader: takes the token data, split it into necessary values to later store them in the necessary data structures 
  *
+ * basic file format......
+ * 
+ * map
  * Basic inputs:
  * String = String
  * 
@@ -26,6 +22,21 @@ import java.util.concurrent.ThreadLocalRandom;
  * String integer = (#,#)(#,#)(#,#)String.png
  * String integer = (#,#)(#,#)(#,#)String.png
  * ....
+ * 
+ * question
+ * Basic inputs
+ * Building = String
+ * Questions = String
+ * Answer
+ * .....
+ * 
+ * tree
+ * basic input
+ * Treetype = coordinates
+ * ....
+ * 
+ * All methods worked by: Yamil Gonzalez
+ * Last worked: 4/30/2020
  */
 
 public class Reader {
@@ -52,7 +63,7 @@ public class Reader {
 	private static ArrayList<Integer> trees = new ArrayList<Integer>();
 	private static HashMap<Integer,String> treeType = new HashMap<>();
 	private static HashMap<Integer,LinkedList<treeLocation>> treeLocation = new HashMap<>();
-		
+
 	//GETTERS
 	public static ArrayList<String> getBuildingPictures() {	return buildingPictures; }	
 	public static HashMap<Integer, LinkedList<Walls>> getBuildings() { return buildings; }
@@ -63,7 +74,7 @@ public class Reader {
 	public static HashMap<Integer, LinkedList<Integer>> getBuildingQuestions() { return buildingQuestions;	}
 	public static ArrayList<HashMap<Integer, LinkedList<String>>> getQuestionAnswersList() { return questionAnswersList; }
 	public static ArrayList<HashMap<Integer, String>> getQuestionList() { return questionList; }	
-	
+
 	//SETTERS
 	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) { Reader.buildings = buildings;	}	
 	public static void setBuildingPictures(ArrayList<String> buildingPictures) { Reader.buildingPictures = buildingPictures; }	
@@ -83,13 +94,13 @@ public class Reader {
 	public static void questionReaderController(String s) throws FileNotFoundException {
 		questionReader(s);
 	}
-	
+
 	public static void treeReaderController(String s) throws FileNotFoundException{
 		treeReader(s);
 	}
 
 	//Uses the data in the tokens to subtract the necessary values
-	//Of each wall
+	//Of each wall inside the map file
 	private static void mapReader(String s) throws FileNotFoundException {
 		mapTokenizer(s);
 		String data = null;
@@ -138,6 +149,9 @@ public class Reader {
 		}
 	}
 
+	//Uses the data in the tokens to subtract the necessary values
+	//Of each question, each question has 4 answers
+	//those answers also are store in a map
 	private static void questionReader(String s) throws FileNotFoundException {
 		questionTokenizer(s);		
 		String data = null;
@@ -145,10 +159,6 @@ public class Reader {
 		data = str.toString();		
 		arr = data.split(",|\\]");
 		str.clear();
-		//Testing purposes
-		//		for(int i = 0; i <arr.length; i++) {
-		//			System.out.println("location "+i+ " = "+arr[i]);
-		//		}
 		int i = 0, count = 0, questionNumber = 0, buildingNumber = 0;;
 		while(i < arr.length) {
 			if(arr[i].trim().equals("Building")){
@@ -188,6 +198,8 @@ public class Reader {
 		}
 	}
 
+	//Uses the data in the tokens to subtract the necessary values
+	//Of each tree getting the tree type and coordinates.
 	private static void treeReader(String s) throws FileNotFoundException{
 		treeTokenizer(s);
 		String data = null;
@@ -219,7 +231,7 @@ public class Reader {
 			trees.clear();
 		}
 	}
-	
+
 	//Create tokens usinga a splitting function for trees
 	private static void treeTokenizer(String file) throws FileNotFoundException {
 		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Trees\\"+file));

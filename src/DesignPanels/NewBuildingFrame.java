@@ -369,6 +369,9 @@ public class NewBuildingFrame {
 		}
 	}
 
+	//Author: Yamil Gonzalez 
+	//Last Edited: 4/15/2020
+	//Writes opens, write the building information and closes the file
 	public void buildingInfo() {
 		Writer.open(locations.load(0));
 		Writer.buildingInfo(this.getBuildingName(), count, file);

@@ -417,6 +417,12 @@ public class CreatedMapPanel extends JPanel {
 		}
 	};
 
+	//Author: Yamil Gonzalez 
+	//Last edited: 4/13/2020
+	//This method opens and closes the file to prevent other writer methods 
+	//To write on the correct file, here also is controlled the amount of times
+	//it enters to this method, to prevent the repaint method for damaging the
+	//file
 	private void buildingInformation() {
 		//calls writing functions
 		if(entered) {
@@ -439,12 +445,16 @@ public class CreatedMapPanel extends JPanel {
 			}
 		}
 	}
-
+	
+	//Author: Yamil Gonzalez 
+	//Last edited: 4/13/2020
 	//Writes the wall, wall number and wall coordinates
 	private void writingCoordinates(int w,String p) {
 		writer.writeSpace("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+newBuildingFrame.getBuildingWidth()+","+newBuildingFrame.getBuildingHeight()+")"+p);
 	}
-
+	//Author: Yamil Gonzalez 
+	//Last edited: 4/13/2020
+	//Closes the file
 	private void closing() {
 		writer.close();
 	}

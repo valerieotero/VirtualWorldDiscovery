@@ -180,7 +180,7 @@ public class TakeTestPanel {
 	}
 
 	//Created by Yamil Gonzalez
-	//April 4/25/2020
+	//April 4/28/2020
 	//check if the answer is correct
 	//the method takes an ID, this ID is the number of the selected answer (1 to 4)
 	//then verified with the correct answer, if correct add to the count if not just 

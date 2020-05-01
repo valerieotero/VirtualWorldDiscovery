@@ -1,7 +1,7 @@
 package Classes;
 /*
  * Created by: Yamil J. Gonzalez
- * Still going
+ * Last edited: 4/15/2020
  * 
  * This Wall class helps to create wall objects that can be store in another data structure for easy repainting
  * 

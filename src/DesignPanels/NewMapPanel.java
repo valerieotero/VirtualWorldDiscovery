@@ -113,18 +113,20 @@ public class NewMapPanel extends JPanel{
 		this.setBuildingAmount(buildingAmount);
 	}
 	
+	/*Author: Yamil Gonzalez | Last edited: March 28 2020
+	 * Helper method to create necessary files into the array
+	 */
 	private void createFileNames(String s, String q, String t) {
 		locations.save(s);
 		locations.save(q);
 		locations.save(t);
 		writingHeader(locations.load(0));
-		tester(locations.load(1), locations.load(2));
+		treeQuestionFiles(locations.load(1), locations.load(2));
 	}
 	
 	
-	/*Author: Yamil Gonzalez | Date: March 28 2020 
->>>>>>> branch 'master' of https://github.com/yamilgonzalez/VirtualWorldDiscovery.git
-	//Helper method to write the name of the map and header of the file
+	/*Author: Yamil Gonzalez | Last edited: March 28 2020 
+	//Helper method to write the name of the map, question, tree and header of each file
 	//header -> Map name */
 	private void writingHeader(String s) {
 		writer.open(s);
@@ -133,7 +135,7 @@ public class NewMapPanel extends JPanel{
 		writer.writeSpace("Amount = "+Integer.toString(this.getBuildingAmount()));
 		writer.close();
 	}
-	private void tester(String s, String q) {
+	private void treeQuestionFiles(String s, String q) {
 		writer.open(s);
 		writer.write("Questions File = ");
 		writer.writeSpace(s);

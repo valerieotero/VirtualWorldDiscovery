@@ -201,17 +201,8 @@ public class TestCreatorFrame {
 		btnEnter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				comboQandA = NewBuildingFrame.getBuildingName() + "," 
-//						+ textFieldQuestion1.getText() + "," + textFieldAnswer1.getText() + ","
-//						+ textFieldQuestion2.getText() + "," + textFieldAnswer2.getText() + "," 
-//						+ textFieldQuestion3.getText() + "," + textFieldAnswer3.getText() + ","
-//						+ textFieldQuestion4.getText() + "," + textFieldAnswer4.getText() + ","
-//						+ textFieldQuestion5.getText() + "," + textFieldAnswer5.getText() + "," 
-//						+ textFieldQuestion6.getText() + "," + textFieldAnswer6.getText();
-//				mapQuestions.put(buildingNumber, comboQandA);
 				questionWriter();
 				System.out.println("Added questions to file "+locations.load(1));
-				//System.out.println(mapQuestions.toString());
 			}
 		});
 		this.setComboQAndA(comboQandA);
@@ -220,6 +211,9 @@ public class TestCreatorFrame {
 		testFrame.setVisible(true);
 	}
 	
+	//Author: Yamil Gonzalez
+	//Last edited: 4/15/2020
+	//Takes the questions and answers and write them to the correct file
 	public void questionWriter() {
 		Writer.open(locations.load(1));
 		Writer.writeSpace("Building = "+NewBuildingFrame.getBuildingName());
@@ -238,6 +232,10 @@ public class TestCreatorFrame {
 		Writer.close();
 	}
 	
+	//Author: Yamil Gonzalez
+	//Last edited: 4/15/2020
+	//Helper method to split the main array by the , to write the answers in the correct
+	//spaces
 	public void answerSpliter(String s) {
 		String[] arr = s.split(",");
 		for(int i = 0; i < arr.length; i++) {

@@ -9,13 +9,15 @@ import javax.swing.ImageIcon;
 
 /*
  * Created by: Yamil J. Gonzalez
- * End:March 5/2020
+ * Last edited: 4/30/2020
  * 
  * Writer class has 4 methods:
  * open: tries to open the file that is sent to the method
  * close: will close the opened file
  * write: Will try to write the String that is being pass
+ * writeSpace: works by combining write and newLine
  * newLine: it moves the cursor to a new line.
+ * trees: write the tree information to the file.
  * buildingInfo: it add the building name, number and picture path to the file.
  */
 
