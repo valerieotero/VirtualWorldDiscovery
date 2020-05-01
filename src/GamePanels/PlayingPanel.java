@@ -2,6 +2,7 @@ package GamePanels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -92,7 +93,7 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	/* Author: Valerie Otero | Date: April 11 2020
+	/* Author: Valerie Otero | Date: April 27 2020
 	 * Method that constantly checks the screen for any changes and if so updates it with those changes or new objects */ 
 	public void updateScreen() {	
 		clearScreen();		
@@ -102,6 +103,7 @@ public class PlayingPanel extends JPanel {
 		drawWalls();	
 		drawTrees();		
 		drawBuildingPicture();
+		open3DModel();
 	}
 
 	@Override
@@ -110,13 +112,17 @@ public class PlayingPanel extends JPanel {
 		g.drawImage(backBuffer, 0, 0, this);
 	}
 
-
+	
+	/* Author: Valerie Otero | Date: April 18 2020
+	 * Method draws the background image in the panel. */
 	public void drawBackground(){	
 		super.paintComponent(getGraphics2D());	    	
 		getGraphics2D().drawImage(background, 0, (681-background.getHeight()), this);				
 	}
 
 
+	/* Author: Valerie Otero | Date: April 20 2020
+	 * Method that sets the label with the building amounts that are in each map */
 	public void buildingAmountLabel() {
 		//LABEL - BUILDING COUNT
 		buildingAmount = Reader.getAmount();
@@ -174,15 +180,7 @@ public class PlayingPanel extends JPanel {
 		return avatar;
 	}
 
-
-	public boolean avatarStatic(){
-		if(avatar.getSpeed() == 0) {
-			return true;
-		}
-		return false;
-	}
-
-
+	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the up direction of the screen */ 
 	public void moveAvatarUp(){
@@ -222,7 +220,9 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Method reads from the tree file and gets their coordinates. 
+	 * Has helper method that determines which type, from the 3 trees, to draw in the panel. */
 	public void drawTrees() {				
 
 		for(HashMap.Entry<Integer,LinkedList<treeLocation>> treeLocation : Reader.getTreeLocation().entrySet()) {
@@ -233,7 +233,8 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Helper method that determines which type of tree to draw on the specific coordinates. */
 	public void getTrees(int x, int y, int key) {
 
 		String imageType = getKeyValuesForTrees(key);
@@ -255,7 +256,8 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	//get key values
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Helper method that gets the value(the type of tree), according to the key */	
 	public String getKeyValuesForTrees (int key) {
 
 		for(HashMap.Entry<Integer,String> treeType : Reader.getTreeType().entrySet()) {
@@ -291,7 +293,9 @@ public class PlayingPanel extends JPanel {
 			}			
 		}	
 	}
-
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Adds walls that have been collided to a list that draws everything in it. */
 	public void addWallsToList() {		
 
 		for (Walls w : getKeyValuesForBuilding(getBuildingKey())) {
@@ -316,7 +320,9 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	//get key value
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Helper method that gets the value(the walls), according to the key of the collided building*/
 	public LinkedList<Walls> getKeyValuesForBuilding (int key) {
 
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		
@@ -328,7 +334,8 @@ public class PlayingPanel extends JPanel {
 		return null;
 	}
 
-
+	/* Author: Valerie Otero | Date: April 23 2020
+	 * Method initializes the frame where the question and answers appear if the user chooses this option*/
 	public void drawTestFrame() {	
 
 		if(getInputHandler().isEKeyPressed()) {
@@ -340,6 +347,8 @@ public class PlayingPanel extends JPanel {
 		}    
 	}
 
+	/* Author: Valerie Otero | Date: April 30 2020
+	 * Methods constantly checks for at least 3 correct answers from each building in the panel. */
 	public void checkForCorrectAnswers() {					
 
 		for (HashMap.Entry<Integer, Integer> i : TakeTestPanel.buildingCorrectAnswers.entrySet()) {
@@ -374,4 +383,25 @@ public class PlayingPanel extends JPanel {
 
 		}
 	}
+	
+	/* Author: Juan Davila | Date: April 25 2020
+	 * Opens VRML model of map while playing the game */ 
+	public void open3DModel(){
+		if(getInputHandler().isEKeyPressed()) {
+			File file = new File("C:\\Users\\juang\\Documents\\Universidad\\Quinto Año\\Segundo Semestre\\ICOM4009 Software Engineer\\test.wrl");
+			
+			Desktop desktop = Desktop.getDesktop();
+			if(file.exists()) {
+				try {
+					desktop.open(file);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+	}
+	
 }

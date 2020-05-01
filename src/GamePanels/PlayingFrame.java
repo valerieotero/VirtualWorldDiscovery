@@ -32,6 +32,8 @@ public class PlayingFrame extends JFrame {
 	}
 
 	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Method initializes the Panel to be used in the frame. */
 	private void initialize() {
 		
 		this.setBounds(10, 10, 1220, 720); //Same as the original frame
@@ -42,6 +44,9 @@ public class PlayingFrame extends JFrame {
 	
 	}
 	
+	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Method sets the components and classes that will be used in the PlayingPanel. */
 	public void playingPanelComponents() {
 				
 		PlayingPanelInputHandler inputHandler = new PlayingPanelInputHandler(); 

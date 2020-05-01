@@ -22,12 +22,15 @@ public class PlayingPanelInputHandler implements KeyListener{
 
 	public void setPlayingPanel(PlayingPanel playingPanel) { this.playingPanel = playingPanel; }
 	
-
-	//Creates a new input handler	
+	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Creates a new input handler. */
 	public PlayingPanelInputHandler(){
 		reset();
 	}
 
+	/* Author: Valerie Otero | Date: April 25 2020
+	 * Resets the keys as if they haven't been pressed. */
 	public void reset() {
 		leftIsPressed = false;
 		rightIsPressed = false;
@@ -36,31 +39,23 @@ public class PlayingPanelInputHandler implements KeyListener{
 		eKeyIsPressed = false;
 	}
 
-	public boolean isLeftPressed() {
-		return leftIsPressed;
-	}	
+	//GETTERS
+	public boolean isLeftPressed() { return leftIsPressed;	}	
 
-	public boolean isRightPressed() {
-		return rightIsPressed;
-	}
+	public boolean isRightPressed() { return rightIsPressed; }
 
-	public boolean isDownPressed() {
-		return downIsPressed;
-	}
+	public boolean isDownPressed() { return downIsPressed;	}
 
-	public boolean isUpPressed() {
-		return upIsPressed;
-	}
+	public boolean isUpPressed() { return upIsPressed; }
 	
-	public boolean isEKeyPressed() {
-		return eKeyIsPressed;
-	}
+	public boolean isEKeyPressed() { return eKeyIsPressed;	}
 
-	public void seteKeyIsPressed(boolean eKeyIsPressed) {
-		this.eKeyIsPressed = eKeyIsPressed;
-	}
+	//SETTER
+	public void seteKeyIsPressed(boolean eKeyIsPressed) { this.eKeyIsPressed = eKeyIsPressed; }
 	
-	//Handle a key input event	
+	
+	/* Author: Valerie Otero | Date: April 25 2020
+	 * Handle a key input event	. */		
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_UP:			
@@ -155,7 +150,8 @@ public class PlayingPanelInputHandler implements KeyListener{
 		}
 	}
 
-	
+	/* Author: Valerie Otero | Date: April 11 2020
+	 * Method sets a specific time for the PlayingPanel class to repaint. */
 	public static void delay(long millis) {
 		try{
 			Thread.sleep(millis);

@@ -17,6 +17,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
+import Classes.Writer3D;
+
 import java.awt.Color;
 import java.awt.Component;
 
@@ -86,12 +88,17 @@ public class PlayPanel {
 				PlayingFrame gameFrame = new PlayingFrame(mapName, chosenAvatar); 
 				gameFrame.setTitle(mapName);			
 
+				//Create 3D map before entering level
+				Writer3D.mapVRML(mapName);
+				//writer method that makes everything work
 			}
 		});
 		btnLoad.setBounds(687, 275, 107, 23);
 		playPanel.add(btnLoad);	
 	}
 	
+	/* Author: Valerie Otero | Date: April 23 2020
+	 * Initializes a tree drop down for the choosing of an avatar with a small icon picture of each. */
 	public void initializeTreeDropDown() {
 
 		images = new ImageIcon[avatarStrings.length];
@@ -118,6 +125,8 @@ public class PlayPanel {
 		});
 	}
 	
+	/* Author: Valerie Otero | Date: April 23 2020
+	 * Helper method that verifies if an image for the drop down exists. */
 	protected ImageIcon createImageIcon(String path) {
 
 		URL imgURL = getClass().getClassLoader().getResource(path);
@@ -130,7 +139,8 @@ public class PlayPanel {
 		}
 	}
 
-	
+	/* Implemented by: Valerie Otero | Date: April 23 2020
+	 * This nested class is a default class of Java Swing for rendering the tree option with the associated image. */	
 	class TreeDropDownRenderer extends JLabel implements ListCellRenderer {
 
 		public TreeDropDownRenderer() {

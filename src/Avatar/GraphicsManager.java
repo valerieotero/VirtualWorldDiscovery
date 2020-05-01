@@ -22,7 +22,7 @@ public class GraphicsManager {
 	private BufferedImage tree3;
 
 	
-	/* Author: Valerie Otero | Date: April 12 2020
+	/* Author: Valerie Otero | Date: April 23 2020
  	 * Creates a new graphics manager and loads the game images. */ 
 	public GraphicsManager(){
 		// load images
@@ -42,7 +42,8 @@ public class GraphicsManager {
 		}
 	}
 	
-
+	//AVATARS
+	
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Draws a avatar image to the specified graphics canvas. */		
 	public void drawAvatar (Avatar avatar, Graphics2D g2d, ImageObserver observer){
@@ -54,23 +55,38 @@ public class GraphicsManager {
 	public void drawLeftAvatar (Avatar avatar, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(leftAvatarImg, avatar.x, avatar.y, observer);	
 	}	
-
 	
+	/* Author: Valerie Otero | Date: April 23 2020
+	 * Draws a avatar image to the specified graphics canvas. */
 	public void drawMario(Avatar avatar, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(marioImg, avatar.x, avatar.y, observer);	
-	}			
+	}	
+	
+	/* Author: Valerie Otero | Date: April 23 2020
+	 * Draws a avatar image to the specified graphics canvas. */
 	public void drawLeftMario (Avatar avatar, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(leftMarioImg, avatar.x, avatar.y, observer);	
 	}	
-		
 	
+	
+	
+	//TREES	
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Draws a #1 tree image to the specified graphics canvas. */
 	public void drawTree1 (int x, int y, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(tree1 , x, y, observer);
 	}
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Draws a #2 tree image to the specified graphics canvas. */
 	public void drawTree2 (int x, int y, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(tree2 , x, y, observer);
 	}
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Draws a #3 tree image to the specified graphics canvas. */
 	public void drawTree3 (int x, int y, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(tree3 , x, y, observer);
-	}
+	}	
 }
