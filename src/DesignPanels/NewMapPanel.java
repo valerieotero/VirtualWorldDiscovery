@@ -129,24 +129,24 @@ public class NewMapPanel extends JPanel{
 	//Helper method to write the name of the map, question, tree and header of each file
 	//header -> Map name */
 	private void writingHeader(String s) {
-		writer.open(s);
-		writer.write("Map name = ");
-		writer.writeSpace(s);
-		writer.writeSpace("Amount = "+Integer.toString(this.getBuildingAmount()));
-		writer.close();
+		Writer.open(s);
+		Writer.write("Map name = ");
+		Writer.writeSpace(s);
+		Writer.writeSpace("Amount = "+Integer.toString(this.getBuildingAmount()));
+		Writer.close();
 	}
 	private void treeQuestionFiles(String s, String q) {
-		writer.open(s);
-		writer.write("Questions File = ");
-		writer.writeSpace(s);
-		writer.newLine();
-		writer.newLine();
-		writer.close();
+		Writer.open(s);
+		Writer.write("Questions File = ");
+		Writer.writeSpace(s);
+		Writer.newLine();
+		Writer.newLine();
+		Writer.close();
 		
-		writer.open(q);
-		writer.write("Trees File = ");
-		writer.writeSpace(s);
-		writer.newLine();
-		writer.close();
+		Writer.open(q);
+		Writer.write("Trees File = ");
+		Writer.writeSpace(s);
+		Writer.newLine();
+		Writer.close();
 	}
 }

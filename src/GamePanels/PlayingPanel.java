@@ -2,7 +2,6 @@ package GamePanels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -42,11 +41,15 @@ public class PlayingPanel extends JPanel {
 
 	BufferedImage background;
 
+	Reader reader = new Reader();
+	
 	//BUILDING VARIABLES		
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
 	public static int buildingKey;
-	ArrayList<BufferedImage> buildingImages = new ArrayList<BufferedImage>();
+	
+
+	HashMap<Integer, ArrayList<Integer>> buildingPictures = new HashMap<>();
 
 
 	// Getters
@@ -86,14 +89,16 @@ public class PlayingPanel extends JPanel {
 
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Sets avatar at the bottom left corner. */
-	public void initialize() {				
+	public void initialize() {			
 		newAvatar();		
 		avatar.setDirection(1);	//start with the image looking to the right
 		buildingAmountLabel();			
+		createArrayLists();
+
 	}
 
 
-	/* Author: Valerie Otero | Date: April 27 2020
+	/* Author: Valerie Otero | Date: April 11 2020
 	 * Method that constantly checks the screen for any changes and if so updates it with those changes or new objects */ 
 	public void updateScreen() {	
 		clearScreen();		
@@ -102,8 +107,8 @@ public class PlayingPanel extends JPanel {
 		checkWallCollision();				
 		drawWalls();	
 		drawTrees();		
+		checkForCorrectAnswers();
 		drawBuildingPicture();
-		open3DModel();
 	}
 
 	@Override
@@ -112,24 +117,20 @@ public class PlayingPanel extends JPanel {
 		g.drawImage(backBuffer, 0, 0, this);
 	}
 
-	
-	/* Author: Valerie Otero | Date: April 18 2020
-	 * Method draws the background image in the panel. */
+
 	public void drawBackground(){	
 		super.paintComponent(getGraphics2D());	    	
 		getGraphics2D().drawImage(background, 0, (681-background.getHeight()), this);				
 	}
 
 
-	/* Author: Valerie Otero | Date: April 20 2020
-	 * Method that sets the label with the building amounts that are in each map */
 	public void buildingAmountLabel() {
 		//LABEL - BUILDING COUNT
 		buildingAmount = Reader.getAmount();
 		JLabel lblBuildingCount = new JLabel("Building(s) remaining: " + buildingAmount);
 		lblBuildingCount.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblBuildingCount.setBounds(1030,10,200,20);
-		this.add(lblBuildingCount);	
+		this.add(lblBuildingCount);				
 	}
 
 
@@ -180,11 +181,19 @@ public class PlayingPanel extends JPanel {
 		return avatar;
 	}
 
-	
+
+	public boolean avatarStatic(){
+		if(avatar.getSpeed() == 0) {
+			return true;
+		}
+		return false;
+	}
+
+
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the up direction of the screen */ 
 	public void moveAvatarUp(){
-		if(avatar.getY() - avatar.getSpeed() >= 80){			
+		if(avatar.getY() - avatar.getSpeed() >= (getHeight() - background.getHeight())){				
 			avatar.translate(0, -avatar.getSpeed()*2);
 		}
 	}
@@ -220,9 +229,7 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	/* Author: Valerie Otero | Date: April 21 2020
-	 * Method reads from the tree file and gets their coordinates. 
-	 * Has helper method that determines which type, from the 3 trees, to draw in the panel. */
+
 	public void drawTrees() {				
 
 		for(HashMap.Entry<Integer,LinkedList<treeLocation>> treeLocation : Reader.getTreeLocation().entrySet()) {
@@ -233,8 +240,7 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	/* Author: Valerie Otero | Date: April 21 2020
-	 * Helper method that determines which type of tree to draw on the specific coordinates. */
+
 	public void getTrees(int x, int y, int key) {
 
 		String imageType = getKeyValuesForTrees(key);
@@ -256,8 +262,7 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	/* Author: Valerie Otero | Date: April 21 2020
-	 * Helper method that gets the value(the type of tree), according to the key */	
+	//get key values
 	public String getKeyValuesForTrees (int key) {
 
 		for(HashMap.Entry<Integer,String> treeType : Reader.getTreeType().entrySet()) {
@@ -285,17 +290,18 @@ public class PlayingPanel extends JPanel {
 					getGraphics2D().setColor(Color.BLACK);	
 
 					setBuildingKey(buildings.getKey());
+				
 
 					addWallsToList();										
-					drawTestFrame();
-					checkForCorrectAnswers();
-				}
+					drawTestFrame();					
+					//checkForCorrectAnswers();
+
+				}				
 			}			
-		}	
+		}
+
 	}
-	
-	/* Author: Valerie Otero | Date: April 21 2020
-	 * Adds walls that have been collided to a list that draws everything in it. */
+
 	public void addWallsToList() {		
 
 		for (Walls w : getKeyValuesForBuilding(getBuildingKey())) {
@@ -320,9 +326,7 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	
-	/* Author: Valerie Otero | Date: April 21 2020
-	 * Helper method that gets the value(the walls), according to the key of the collided building*/
+	//get key value
 	public LinkedList<Walls> getKeyValuesForBuilding (int key) {
 
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		
@@ -334,8 +338,7 @@ public class PlayingPanel extends JPanel {
 		return null;
 	}
 
-	/* Author: Valerie Otero | Date: April 23 2020
-	 * Method initializes the frame where the question and answers appear if the user chooses this option*/
+
 	public void drawTestFrame() {	
 
 		if(getInputHandler().isEKeyPressed()) {
@@ -347,61 +350,85 @@ public class PlayingPanel extends JPanel {
 		}    
 	}
 
-	/* Author: Valerie Otero | Date: April 30 2020
-	 * Methods constantly checks for at least 3 correct answers from each building in the panel. */
-	public void checkForCorrectAnswers() {					
+	public void checkForCorrectAnswers() {			
+
 
 		for (HashMap.Entry<Integer, Integer> i : TakeTestPanel.buildingCorrectAnswers.entrySet()) {
 
-			if(i.getKey() == getBuildingKey()) { //check for the collided building only
+			if(i.getKey() == getBuildingKey() ) {//check for the collided building only
+
 
 				if (i.getValue() >=3) {
 
-					//System.out.println("BuildingKey : " + i.getKey() + " CORRECTANSWERS: "+ i.getValue());
-
-					BufferedImage buildingPicture = null;
-					try {
-						buildingPicture = ImageIO.read(new File(Reader.getBuildingPictures().get(getBuildingKey()-1)));						
-					} catch (IOException e) {						
-						e.printStackTrace();
-					}
-
-					buildingImages.add(buildingPicture);
-
+					ArrayList<Integer> coords = buildingPictures.get(getBuildingKey());
+					coords.add(avatar.x);
+					coords.add(avatar.y);
 				}
-
 			}
 		}
 	}
 
 	public void drawBuildingPicture() {		
 
-		if(!buildingImages.isEmpty()) {
-			for(BufferedImage image : buildingImages) {
-				getGraphics2D().drawImage(image, 0,0, this);	
-			}	
-
-		}
-	}
-	
-	/* Author: Juan Davila | Date: April 25 2020
-	 * Opens VRML model of map while playing the game */ 
-	public void open3DModel(){
-		if(getInputHandler().isEKeyPressed()) {
-			File file = new File("C:\\Users\\juang\\Documents\\Universidad\\Quinto Año\\Segundo Semestre\\ICOM4009 Software Engineer\\test.wrl");
+		BufferedImage buildingPicture = null;
+		
+		if(getBuildingKey()!=0) {
 			
-			Desktop desktop = Desktop.getDesktop();
-			if(file.exists()) {
-				try {
-					desktop.open(file);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			try {
+				buildingPicture = ImageIO.read(new File(Reader.getBuildingPictures().get(getBuildingKey()-1)));						
+			} catch (IOException e) {						
+				e.printStackTrace();
+			}
+
+			
+			for (HashMap.Entry<Integer, ArrayList<Integer>> l : buildingPictures.entrySet()) {
+
+				if(!l.getValue().isEmpty() && l.getKey() == getBuildingKey()) {
+					System.out.println(coordinateXFinder(getBuildingKey()));
+					System.out.println(coordinateYFinder(getBuildingKey()));
+					getGraphics2D().drawImage(buildingPicture, coordinateXFinder(getBuildingKey()), coordinateYFinder(getBuildingKey()), this);	
 				}
 			}
-			
-			
 		}
 	}
+
+	public void createArrayLists() {
+
+		for(int i=1; i<=buildingAmount; i++) {
+
+			ArrayList<Integer> list = new ArrayList<>();
+			buildingPictures.put(i,list);
+
+		}		
+	}
 	
+	//Author: Yamil Gonzalez
+	//Last Edited: 5/1/2020
+	//Looks for the smallest of the X positions inside the building walls
+	public int coordinateXFinder(int i) {
+		int x = 0;
+		LinkedList<Walls> temp = new LinkedList<Walls>();
+		temp = reader.getBuildings().get(i);
+		x = temp.element().getX1();
+		for(Walls w: temp) {
+			if(x > w.getX1()) x = w.getX1();
+			else if (x > w.getX2()) x = w.getX2();
+		}
+		return x;
+	}
+	
+	//Author: Yamil Gonzalez
+	//Last Edited: 5/1/2020
+	//Looks for the smallest of the Y positions inside the building walls
+	public int coordinateYFinder(int i) {
+		int y = 0;
+		LinkedList<Walls> temp = new LinkedList<Walls>();
+		temp = reader.getBuildings().get(i);
+		y = temp.element().getY1();
+		for(Walls w: temp) {
+			if(y > w.getY1()) y = w.getY1();
+			else if (y > w.getY2()) y = w.getY2();
+		}
+		return y;
+	}
 }

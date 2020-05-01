@@ -70,8 +70,6 @@ public class CreatedMapPanel extends JPanel {
 	//John - for testing purposes
 	private static ArrayList<Line> linesList = new ArrayList<Line>();
 	private static ArrayList<Line> linesListFinal = new ArrayList<Line>();
-	private JComboBox<String> comboBoxCoordinates = new JComboBox<String>();
-	private String Coordinates = "Cartesian";
 
 	//Line variables 
 	private Line line;
@@ -84,13 +82,8 @@ public class CreatedMapPanel extends JPanel {
 	private int xend = 0; 
 	private int yend = 0; 
 	private int walls = 0;
-	private int height = 0;
-	private int wight = 10;
-	private int wallsNeeded = 4;
 	private String backgroundWidth;
 	private String backgroundHeight;
-	//John - for testing purposes
-	private int count = 0;
 
 
 	//Tree variables
@@ -451,9 +444,9 @@ public class CreatedMapPanel extends JPanel {
 		if(entered) {
 			entered = false;
 			if(walls == newBuildingFrame.getAmountOfWalls()-1) {
-				writer.open(locations.load(0));
+				Writer.open(locations.load(0));
 				writingCoordinates(walls, newBuildingFrame.getWallFile().getPath());
-				writer.newLine();
+				Writer.newLine();
 				closing();
 				walls = 0;
 				System.out.println("number of walls completed "+walls);
@@ -461,7 +454,7 @@ public class CreatedMapPanel extends JPanel {
 			}
 			else {
 				System.out.println("number of on-going walls "+walls);
-				writer.open(locations.load(0));
+				Writer.open(locations.load(0));
 				writingCoordinates(walls, newBuildingFrame.getWallFile().getPath());
 				closing();
 				walls++;
@@ -473,13 +466,13 @@ public class CreatedMapPanel extends JPanel {
 	//Last edited: 4/13/2020
 	//Writes the wall, wall number and wall coordinates
 	private void writingCoordinates(int w,String p) {
-		writer.writeSpace("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+newBuildingFrame.getBuildingWidth()+","+newBuildingFrame.getBuildingHeight()+")"+p);
+		Writer.writeSpace("Wall "+w+" = ("+xbegin+","+ybegin+")("+xend+","+yend+")("+newBuildingFrame.getBuildingWidth()+","+newBuildingFrame.getBuildingHeight()+")"+p);
 	}
 	//Author: Yamil Gonzalez 
 	//Last edited: 4/13/2020
 	//Closes the file
 	private void closing() {
-		writer.close();
+		Writer.close();
 	}
 
 	public MouseMotionListener mouseMotionHandler = new MouseMotionAdapter() {
