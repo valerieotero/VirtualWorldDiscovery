@@ -1,0 +1,11 @@
+Map name = C:\Users\juang\git\VirtualWorldDiscovery\maps\b
+Amount = 1
+C:\Users\juang\Desktop\images\test2\test2.png 740 640
+Building 0 = Square
+C:\Users\juang\Desktop\images\test2\BuildingA.png
+
+Wall 0 = (166,172)(355,172)(2,20)C:\Users\juang\Desktop\images\test2\wood.png
+Wall 1 = (356,170)(356,367)(2,20)C:\Users\juang\Desktop\images\test2\wood.png
+Wall 2 = (356,367)(178,373)(2,20)C:\Users\juang\Desktop\images\test2\wood.png
+Wall 3 = (178,374)(166,172)(2,20)C:\Users\juang\Desktop\images\test2\wood.png
+

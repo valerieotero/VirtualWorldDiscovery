@@ -13,4 +13,8 @@ public class fileNames {
 	public String load(int i) {
 		return fileNames.get(i);
 	}
+	
+	public static ArrayList<String> getFileName() {
+		return fileNames;
+	}
 }

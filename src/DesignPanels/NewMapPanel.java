@@ -30,6 +30,7 @@ public class NewMapPanel extends JPanel{
 	private String path;
 	private String pathQuestions;
 	private String pathTrees;
+	//private String pathVRML;
 	private Writer writer;
 	private JTextField textFieldBuildingAmount;
 	//public static ArrayList<String> fileNames = new ArrayList<String>();	
@@ -85,6 +86,7 @@ public class NewMapPanel extends JPanel{
 				path = System.getProperty("user.dir")+File.separator+"maps"+File.separator+configFile;
 				pathQuestions = System.getProperty("user.dir")+File.separator+"questions"+File.separator+configFile;
 				pathTrees = System.getProperty("user.dir")+File.separator+"trees"+File.separator+configFile;
+				//pathVRML = System.getProperty("user.dir")+File.separator+"vrmlmap"+File.separator+configFile;
 				
 				//Validates that the name is not an empty string or empty value 
 				if(!(configFile.isEmpty() && buildingAmount==0 ) )  {

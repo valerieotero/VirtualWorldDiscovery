@@ -40,6 +40,7 @@ public class Writer3D {
 	public static int treeWidth = 40;
 	public static int treeHeight = 60;
 	public static int treeImg = 0;
+
 	
 	
 //	public static void main(String[] args) {
@@ -74,18 +75,35 @@ public class Writer3D {
 		}
 	}
 	
-	public static void startVRMLCode() {
+	public static void startVRMLCode(int bgHeight) {
 		try {
 			base = "#VRML V2.0 utf8\r\n" + 
 					"\r\n" + 
 					"NavigationInfo {\r\n" + 
-					"	avatarSize [0.25, 1.6, 0.75]\r\n" + 
+					"	set_bind\r\n" +
+					"	avatarSize        [0.25, 1.6, 0.75]\r\n" +
+					"	headlight         TRUE\r\n" +
+					"	speed             1.0\r\n" +
+					"	type              \"WALK\"\r\n" +
+					"	visibilityLimit   0.0\r\n" +
+					"	isBound\r\n" +
+					"	\r\n" + 
 					"}\r\n" + 
 					"\r\n" + 
+					"Group {\r\n" + 
+					"	children[\r\n" + 
+					"		DEF headcam Viewpoint {\r\n" + 
+					"         position 0 0 " + bgHeight + "\r\n" +
+					"         fieldOfView 0.50\r\n" + 
+					"		 orientation 0 1 0 -.5\r\n" + 
+					"         description \"HeadCam\"\r\n" + 
+					"      }\r\n" + 
+					"	]\r\n" + 
+					"}\r\n" +
 					"Transform{\r\n" + 
 					"	translation 0 -1 0\r\n" + 
 					"	children [\r\n" + 
-					"		";
+					"			";
 			vrmlFile.write(base);
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
@@ -152,6 +170,17 @@ public class Writer3D {
 				"				}\r\n" + 
 				"			]\r\n" + 
 				"		}\r\n";
+//			System.out.println(Integer.toString(x1) +" " + Integer.toString(y1) +" "
+//								+ Integer.toString(x2) +" " + Integer.toString(y2) +" " + Integer.toString(height) +" "
+//								+ Integer.toString(depth));
+//			System.out.println(mediumPointX(x1,x2));
+//			System.out.println(mediumPointY(y1, y2));
+			//System.out.println(angle(x1, y1, x2, y2));
+//			System.out.println(distance(x1, y1, x2, y2));
+//			System.out.println(imagePath);
+//			System.out.println(height);
+//			System.out.println(depth);
+			
 			vrmlFile.write(walls);
 		}catch (IOException e) {
 			System.out.println("An error occurred.");
@@ -170,7 +199,7 @@ public class Writer3D {
 				"						Shape {\r\n" + 
 				"							appearance Appearance {\r\n" + 
 				"								texture ImageTexture{\r\n" + 
-				"									url " + "\"TreeImage" + treeImg + "\"" + "\r\n" +
+				"									url " + "\"TreeImage" + treeImg + ".png\"" + "\r\n" +
 				"								}\r\n" + 
 				"							}\r\n" + 
 				"							geometry Box {\r\n" + 
@@ -201,12 +230,9 @@ public class Writer3D {
 	}
 	
 	public static double angle(int x1, int y1, int x2, int y2) {
-//		this.x1 = x1;
-//		this.y1 = y1;
-//		this.x2 = x2;
-//		this.y2 = y2;
-		
-		angle = Math.atan((y2 - y1)/(x2 - x1));
+		angle = (y2 - y1);
+		angle = angle/(x2-x1);
+		angle = Math.atan(angle);
 		
 		return -angle;
 	}
@@ -239,9 +265,9 @@ public class Writer3D {
 	}
 	
 	public static void mapVRML(String mapName) {
-		open(mapName + ".wrl");
+		open(System.getProperty("user.dir") + "\\vrmlmap\\" + mapName + ".wrl");
 		setHeightCorrection(Integer.parseInt(Reader.getBackH()));
-		startVRMLCode();
+		startVRMLCode(Integer.parseInt(Reader.getBackH()));
 		prepBackground(Integer.parseInt(Reader.getBackW()), Integer.parseInt(Reader.getBackH()), Reader.getBackground());
 		
 		for(int i = 0 ; i < Reader.getLocations().size() ; i = i + 7) {
@@ -251,7 +277,12 @@ public class Writer3D {
 		}
 		
 		for(int i = 0; i < Reader.getTreeInfo().size(); i = i + 5) {
-			buildTreesVRML(i+1, i+2, i+3, i+4, i);
+			buildTreesVRML(Reader.getTreeInfo().get(i+1), Reader.getTreeInfo().get(i+2), Reader.getTreeInfo().get(i+3), 
+					Reader.getTreeInfo().get(i+4), Reader.getTreeInfo().get(i));
+			
+//			System.out.println(Reader.getTreeInfo().get(i + 1) + " " + Reader.getTreeInfo().get(i+2) + " " +
+//					Reader.getTreeInfo().get(i+3) + " " + Reader.getTreeInfo().get(i + 4) + " "
+//					+ Reader.getTreeInfo().get(i));
 		}
 		endVRMLCode();
 		close();

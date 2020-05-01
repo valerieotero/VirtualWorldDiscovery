@@ -2,6 +2,7 @@ package GamePanels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -42,6 +43,9 @@ public class PlayingPanel extends JPanel {
 	BufferedImage background;
 
 	Reader reader = new Reader();
+	private boolean ePressed = false;
+	private static String mapName;
+	private static String path = System.getProperty("user.dir");
 	
 	//BUILDING VARIABLES		
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
@@ -109,6 +113,7 @@ public class PlayingPanel extends JPanel {
 		drawTrees();		
 		checkForCorrectAnswers();
 		drawBuildingPicture();
+		open3DModel(getMapName());
 	}
 
 	@Override
@@ -386,7 +391,28 @@ public class PlayingPanel extends JPanel {
 				if(!l.getValue().isEmpty() && l.getKey() == getBuildingKey()) {
 					System.out.println(coordinateXFinder(getBuildingKey()));
 					System.out.println(coordinateYFinder(getBuildingKey()));
-					getGraphics2D().drawImage(buildingPicture, coordinateXFinder(getBuildingKey()), coordinateYFinder(getBuildingKey()), this);	
+					getGraphics2D().drawImage(buildingPicture, coordinateXFinder(getBuildingKey()), coordinateYFinder(getBuildingKey()), this);
+				}
+			}
+		}
+	}
+	
+	/* Author: Juan Davila | Date: April 25 2020
+	 * Opens VRML model of map while playing the game */ 
+	public void open3DModel(String fileName){
+		if(ePressed == false) {
+			if(getInputHandler().isEKeyPressed()) {
+				File file = new File(path + "\\vrmlmap\\" + fileName + ".wrl");
+									//"C:\\Users\\juang\\git\\VirtualWorldDiscovery\\a.wrl"
+				Desktop desktop = Desktop.getDesktop();
+				System.out.println(file.toString());
+				ePressed = true;
+				if(file.exists()) {
+					try {
+						desktop.open(file);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -431,4 +457,13 @@ public class PlayingPanel extends JPanel {
 		}
 		return y;
 	}
+	
+	public static void setMapName(String name) {
+		mapName = name;
+	}
+	
+	public static String getMapName() {
+		return mapName;
+	}
+	
 }
