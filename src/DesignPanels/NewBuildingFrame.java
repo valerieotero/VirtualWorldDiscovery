@@ -62,8 +62,9 @@ public class NewBuildingFrame {
 	private int buildingHeight;		
 
 	public HashMap<Integer, String> mapQuestions = new HashMap<Integer, String>();
-	Writer writer;
-	File file;	 
+	Writer writer;	
+	File wallFile;
+	File buildingFile;
 	fileNames locations = new fileNames();
 
 
@@ -107,20 +108,23 @@ public class NewBuildingFrame {
 		this.buildingHeight = buildingHeight;
 	}
 
-	public ImageIcon getBuildingImageIcon() {
-		return buildingImageIcon;
+	public File getWallFile() {
+		return wallFile;
 	}
 
-	public void setBuildingImageIcon(ImageIcon imageIcon) {
-		this.buildingImageIcon = imageIcon;
-	}	
 
-	public ImageIcon getWallImageIcon() {
-		return wallImageIcon;
+	public void setWallFile(File wallFile) {
+		this.wallFile = wallFile;
 	}
 
-	public void setWallImageIcon(ImageIcon wallImageIcon) {
-		this.wallImageIcon = wallImageIcon;
+
+	public File getBuildingFile() {
+		return buildingFile;
+	}
+
+
+	public void setBuildingFile(File buildingFile) {
+		this.buildingFile = buildingFile;
 	}
 
 
@@ -273,10 +277,9 @@ public class NewBuildingFrame {
 		});
 		btnSaveImage.setBounds(100, 331, 114, 23);
 		NewBuildingFrame.getContentPane().add(btnSaveImage);	
-
-		this.setBuildingImageIcon(buildingImageIcon);
-		this.setWallImageIcon(wallImageIcon);
-		//Writer.write(this.getImageIcon());
+		
+		this.setBuildingFile(buildingFile);
+		this.setWallFile(wallFile);
 
 		NewBuildingFrame.addWindowListener(new WindowAdapter() {			
 
@@ -314,10 +317,10 @@ public class NewBuildingFrame {
 
 		if (e.getSource()==btnUploadBuildingImage) {
 			chooser.showOpenDialog(null);
-			file = chooser.getSelectedFile();
+			buildingFile = chooser.getSelectedFile();
 
 			try {
-				img=ImageIO.read(file);
+				img=ImageIO.read(buildingFile);
 				buildingIcon=new ImageIcon(img);										
 			}
 
@@ -325,7 +328,7 @@ public class NewBuildingFrame {
 				System.out.println("Must select an image");
 			}
 
-			textFieldBuildingImage.setText(file.getName());			
+			textFieldBuildingImage.setText(buildingFile.getName());			
 		}
 	}
 
@@ -339,10 +342,10 @@ public class NewBuildingFrame {
 
 		if (e.getSource()==btnUploadWallImage) {
 			chooser.showOpenDialog(null);
-			file = chooser.getSelectedFile();
+			wallFile = chooser.getSelectedFile();
 
 			try {
-				img=ImageIO.read(file);
+				img=ImageIO.read(wallFile);
 				wallIcon=new ImageIcon(img);										
 			}
 
@@ -350,7 +353,7 @@ public class NewBuildingFrame {
 				System.out.println("Must select an image");
 			}
 
-			textFieldWallImage.setText(file.getName());			
+			textFieldWallImage.setText(wallFile.getName());			
 		}
 	}
 
@@ -374,7 +377,7 @@ public class NewBuildingFrame {
 	//Writes opens, write the building information and closes the file
 	public void buildingInfo() {
 		Writer.open(locations.load(0));
-		Writer.buildingInfo(this.getBuildingName(), count, file);
+		Writer.buildingInfo(this.getBuildingName(), count, buildingFile);
 		Writer.newLine();
 		Writer.close();
 	}

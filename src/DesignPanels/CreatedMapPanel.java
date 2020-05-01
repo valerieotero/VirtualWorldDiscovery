@@ -207,7 +207,7 @@ public class CreatedMapPanel extends JPanel {
 			file = chooser.getSelectedFile();
 
 			try {
-				img=ImageIO.read(file);
+				img = ImageIO.read(file);
 				icon = new ImageIcon(img);
 				lblBackGroundLabel.setIcon(icon); 			
 
@@ -452,7 +452,7 @@ public class CreatedMapPanel extends JPanel {
 			entered = false;
 			if(walls == newBuildingFrame.getAmountOfWalls()-1) {
 				writer.open(locations.load(0));
-				writingCoordinates(walls, "wall.png");
+				writingCoordinates(walls, newBuildingFrame.getWallFile().getPath());
 				writer.newLine();
 				closing();
 				walls = 0;
@@ -462,7 +462,7 @@ public class CreatedMapPanel extends JPanel {
 			else {
 				System.out.println("number of on-going walls "+walls);
 				writer.open(locations.load(0));
-				writingCoordinates(walls, "wall.png");
+				writingCoordinates(walls, newBuildingFrame.getWallFile().getPath());
 				closing();
 				walls++;
 			}
