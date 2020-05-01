@@ -393,7 +393,7 @@ public class PlayingPanel extends JPanel {
 	public void open3DModel(String fileName){
 		if(ePressed == false) {
 			if(getInputHandler().isEKeyPressed()) {
-				File file = new File(path+ "\\" + fileName + ".wrl");
+				File file = new File(path + "\\vrmlmap\\" + fileName + ".wrl");
 									//"C:\\Users\\juang\\git\\VirtualWorldDiscovery\\a.wrl"
 				Desktop desktop = Desktop.getDesktop();
 				System.out.println(file.toString());
