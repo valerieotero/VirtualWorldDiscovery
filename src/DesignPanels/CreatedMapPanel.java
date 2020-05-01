@@ -97,7 +97,7 @@ public class CreatedMapPanel extends JPanel {
 	String[] treeStrings = {"tree1icon", "tree2icon", "tree3icon"};
 	JComboBox<?> treeComboBox;
 	private Tree tree;
-	
+	private boolean treeSelected = true;
 
 	//CONSTRUCTOR
 	public CreatedMapPanel(JFrame frame, Writer writer){
@@ -194,7 +194,7 @@ public class CreatedMapPanel extends JPanel {
 
 				lblBackGroundLabel.revalidate(); 
 				lblBackGroundLabel.repaint();		
-				
+
 			}
 			catch(IOException e1) {
 				System.out.println("Must select an image");
@@ -207,7 +207,7 @@ public class CreatedMapPanel extends JPanel {
 		Writer.writeSpace(file.getPath());
 		Writer.close();
 	}
-	
+
 
 	/* Author: Valerie Otero | Date: March 9 2020
 	 * Method initializes several labels and text fields associated with the panel
@@ -445,7 +445,7 @@ public class CreatedMapPanel extends JPanel {
 			}
 		}
 	}
-	
+
 	//Author: Yamil Gonzalez 
 	//Last edited: 4/13/2020
 	//Writes the wall, wall number and wall coordinates
@@ -550,7 +550,7 @@ public class CreatedMapPanel extends JPanel {
 
 			public void actionPerformed(ActionEvent arg0) {	
 				selectedTree = (int)treeComboBox.getSelectedItem();				
-
+				treeSelected = true;
 			}
 		});
 
@@ -565,7 +565,7 @@ public class CreatedMapPanel extends JPanel {
 				else {
 					tree = new Tree((selectedTree+1), e.getX(), e.getY() ,60, 87);
 					treeWriter((selectedTree+1), e.getX(), e.getY() ,60, 87);				
-					
+
 					newCreatedMapPanel.add(tree);
 					tree.revalidate();
 					tree.repaint();
@@ -575,10 +575,18 @@ public class CreatedMapPanel extends JPanel {
 		});
 	}
 
+	//Author: Yamil J. Gonzalez
+	//Last edited: 4/30/2020
+	//Method writes the tree type and coordinates 
+	//uses a control variable to prevent repetitions form the repaint method.
 	public void treeWriter(int image, int X, int Y, int W, int H) {
-		Writer.open(locations.load(2));
-		Writer.writeSpace("TreeImage"+Integer.toString(image)+" = "+"("+X+","+Y+")("+W+","+H+")");
-		Writer.close();
+		System.out.println("Tree selected "+treeSelected);
+		if(treeSelected) {
+			treeSelected = false;
+			Writer.open(locations.load(2));
+			Writer.writeSpace("TreeImage"+Integer.toString(image)+" = "+"("+X+","+Y+")("+W+","+H+")");
+			Writer.close();
+		}
 	}
 
 	/*Author: Valerie Otero | Date: March 22 2020
