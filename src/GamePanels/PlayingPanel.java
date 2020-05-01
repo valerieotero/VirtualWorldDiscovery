@@ -42,6 +42,10 @@ public class PlayingPanel extends JPanel {
 
 	BufferedImage background;
 
+	private boolean ePressed = false;
+	private static String mapName;
+	private static String path = System.getProperty("user.dir");
+	
 	//BUILDING VARIABLES		
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
@@ -103,7 +107,7 @@ public class PlayingPanel extends JPanel {
 		drawWalls();	
 		drawTrees();		
 		drawBuildingPicture();
-		open3DModel();
+		open3DModel(getMapName());
 	}
 
 	@Override
@@ -386,22 +390,31 @@ public class PlayingPanel extends JPanel {
 	
 	/* Author: Juan Davila | Date: April 25 2020
 	 * Opens VRML model of map while playing the game */ 
-	public void open3DModel(){
-		if(getInputHandler().isEKeyPressed()) {
-			File file = new File("C:\\Users\\juang\\Documents\\Universidad\\Quinto Año\\Segundo Semestre\\ICOM4009 Software Engineer\\test.wrl");
-			
-			Desktop desktop = Desktop.getDesktop();
-			if(file.exists()) {
-				try {
-					desktop.open(file);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+	public void open3DModel(String fileName){
+		if(ePressed == false) {
+			if(getInputHandler().isEKeyPressed()) {
+				File file = new File(path+ "\\" + fileName + ".wrl");
+									//"C:\\Users\\juang\\git\\VirtualWorldDiscovery\\a.wrl"
+				Desktop desktop = Desktop.getDesktop();
+				System.out.println(file.toString());
+				ePressed = true;
+				if(file.exists()) {
+					try {
+						desktop.open(file);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-			
-			
 		}
+	}
+	
+	public static void setMapName(String name) {
+		mapName = name;
+	}
+	
+	public static String getMapName() {
+		return mapName;
 	}
 	
 }

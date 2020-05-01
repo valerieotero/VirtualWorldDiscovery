@@ -1,0 +1,10 @@
+Map name = C:\Users\juang\git\VirtualWorldDiscovery\maps\a
+Amount = 1
+C:\Users\juang\Pictures\grassfield.png 652 654
+Building 0 = Casa
+C:\Users\juang\Desktop\images\textureA1.png
+
+Wall 0 = (255,249)(370,177)(1,10)wall.png
+Wall 1 = (253,248)(376,283)(1,10)wall.png
+Wall 2 = (378,284)(371,176)(1,10)wall.png
+

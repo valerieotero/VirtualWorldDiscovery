@@ -1,0 +1,121 @@
+#VRML V2.0 utf8
+
+NavigationInfo {
+	avatarSize [0.25, 1.6, 0.75]
+}
+
+Transform{
+	translation 0 -1 0
+	children [
+				Transform {
+			translation 326 0 354.0
+			children [
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "C:\Users\juang\Pictures\grassfield.png"
+						}
+					}
+					geometry Box {
+						size 652 0.1 654
+					}
+				}
+			]
+		}
+		Transform {
+			translation 312.0 5 213.0
+			rotation 0 1 0 0.5593805651846169
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "wall.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 135.67977004697494 10 1
+					}
+				}
+			]
+		}
+		Transform {
+			translation 314.0 5 265.0
+			rotation 0 1 0 -0.2772255455621181
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "wall.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 127.88275880665071 10 1
+					}
+				}
+			]
+		}
+		Transform {
+			translation 374.0 5 230.0
+			rotation 0 1 0 -1.5060720453793046
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "wall.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 108.2266141020775 10 1
+					}
+				}
+			]
+		}
+		Transform{
+			translation 536 43 266
+			children[
+				Billboard {
+					children[
+						Shape {
+							appearance Appearance {
+								texture ImageTexture{
+									url "TreeImage1.png"
+								}
+							}
+							geometry Box {
+								size 60 87 0.0001
+							}
+						}
+					]
+				}
+			]
+		}
+		Transform{
+			translation 206 43 493
+			children[
+				Billboard {
+					children[
+						Shape {
+							appearance Appearance {
+								texture ImageTexture{
+									url "TreeImage2.png"
+								}
+							}
+							geometry Box {
+								size 60 87 0.0001
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

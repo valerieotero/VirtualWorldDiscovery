@@ -90,6 +90,7 @@ public class PlayPanel {
 
 				//Create 3D map before entering level
 				Writer3D.mapVRML(mapName);
+				PlayingPanel.setMapName(mapName);
 				//writer method that makes everything work
 			}
 		});
