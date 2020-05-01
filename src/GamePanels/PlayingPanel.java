@@ -375,4 +375,3 @@ public class PlayingPanel extends JPanel {
 			}
 		}
 	}
-

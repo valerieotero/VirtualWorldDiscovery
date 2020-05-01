@@ -34,8 +34,7 @@ public class TakeTestPanel {
 	int b = 0;	
 	int c = 0;
 	int d = 0;
-
-	//Yamil added	
+	
 	boolean firstRun = true;  //because this class calls him self a control variable is needed, for values not to be replaced.
 	private String correct;	
 	public static HashMap<Integer,Integer> buildingCorrectAnswers = new HashMap<>();
@@ -53,12 +52,10 @@ public class TakeTestPanel {
 		this.buildingKey = PlayingPanel.getBuildingKey();
 		
 		qAndA = new QuestionsAndAnswers();
-
 		if(firstRun) {
 			correct = qAndA.answers.get(0);			
 			firstRun = false;
 		}
-		
 		initialize();
 	}	
 

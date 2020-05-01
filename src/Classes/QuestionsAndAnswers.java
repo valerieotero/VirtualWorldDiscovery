@@ -16,7 +16,8 @@ public class QuestionsAndAnswers {
 	
 	private ArrayList<String> questions = new ArrayList<String>();
 	public ArrayList<String> answers = new ArrayList<String>();	
-
+	private static ArrayList<Integer> randQuestionList = new ArrayList<Integer>();
+	
 	//To be able to iterate and add each question regarding a building to an array list
 	private HashMap<Integer, String> questionsByKey= new HashMap<Integer, String>(); 
 	private HashMap<Integer,LinkedList<String>> answersByKey = new HashMap<Integer,LinkedList<String>>();
@@ -28,14 +29,24 @@ public class QuestionsAndAnswers {
 	//SETTER
 	public void setBuildingKey(int buildingKey) { this.buildingKey = buildingKey; }
 
-
-
 	public QuestionsAndAnswers() {
 		
 		this.setBuildingKey(PlayingPanel.getBuildingKey());
 
 		//Para que random number pueda match con los keys, since empiezan en 1
 		randomQuestoinNum = ThreadLocalRandom.current().nextInt(1, 7); //Inclusive, exclusive 
+		System.out.println("Random number before adding to list "+randomQuestoinNum);
+		if(!(randQuestionList.contains(randomQuestoinNum))) {
+			System.out.println("After entry "+randomQuestoinNum);
+			randQuestionList.add(randomQuestoinNum);
+			System.out.println("List size "+randQuestionList);
+		}else {
+			System.out.println("Is inside the list "+randomQuestoinNum);
+			new QuestionsAndAnswers();
+		}
+		if(randQuestionList.size() == 4) {
+			randQuestionList.clear();
+		}
 		
 		getBuildingQuestions();
 		

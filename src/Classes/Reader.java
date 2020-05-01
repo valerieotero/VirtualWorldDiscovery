@@ -52,7 +52,6 @@ public class Reader {
 	private static ArrayList<Integer> trees = new ArrayList<Integer>();
 	private static HashMap<Integer,String> treeType = new HashMap<>();
 	private static HashMap<Integer,LinkedList<treeLocation>> treeLocation = new HashMap<>();
-	
 		
 	//GETTERS
 	public static ArrayList<String> getBuildingPictures() {	return buildingPictures; }	
@@ -65,7 +64,6 @@ public class Reader {
 	public static ArrayList<HashMap<Integer, LinkedList<String>>> getQuestionAnswersList() { return questionAnswersList; }
 	public static ArrayList<HashMap<Integer, String>> getQuestionList() { return questionList; }	
 	
-	
 	//SETTERS
 	public static void setBuildings(HashMap<Integer, LinkedList<Walls>> buildings) { Reader.buildings = buildings;	}	
 	public static void setBuildingPictures(ArrayList<String> buildingPictures) { Reader.buildingPictures = buildingPictures; }	
@@ -76,59 +74,6 @@ public class Reader {
 	public static void setBuildingQuestions(HashMap<Integer, LinkedList<Integer>> buildingQuestions) { Reader.buildingQuestions = buildingQuestions; }
 	public static void setQuestionAnswersList(ArrayList<HashMap<Integer, LinkedList<String>>> questionAnswersList) { Reader.questionAnswersList = questionAnswersList; }
 	public static void setQuestionList(ArrayList<HashMap<Integer, String>> questionList) { Reader.questionList = questionList; }
-	
-	/*Testing*/
-	public static void main(String[] args) throws Exception {
-				
-		mapReaderController("Test");
-		questionReaderController("Test");
-		treeReaderController("Test");
-		
-//		for(String s : getBuildingPictures()) {
-//			System.out.println("Building picture " + s);
-//		}				
-		System.out.println("Background: "+ getBackground());
-//		System.out.println("Amount of building in the file = "+getAmount());
-//		System.out.println("Walls of each building "+Collections.singletonList(getBuildings()));
-//		System.out.println("Building Names "+Collections.singletonList(buildingNames));		
-//		System.out.println("Treetype "+Collections.singletonList(treeType));
-//		System.out.println("Tree location "+Collections.singletonList(treeLocation));	
-		
-	    
-			
-		
-//		for(HashMap.Entry<Integer,LinkedList<Integer>> z : getBuildingQuestions().entrySet()) {
-//			System.out.println("Building question numbers"+z);
-//		}
-//				
-		
-		//QUESTIONS	
-		
-		int randomNum = ThreadLocalRandom.current().nextInt(1, 7); //Inclusive, exclusive			
-		System.out.println("Building Question: " + randomNum);
-		
-		
-        //questionList
-		for(HashMap.Entry<Integer,String> s : getQuestionList().get(0).entrySet()) {			
-	
-			if(s.getKey().equals(randomNum)) { //gives me a random question associated to a specific building
-				  System.out.println(s.getValue());
-			}
-		}
-			
-		
-		
-		for(HashMap.Entry<Integer,LinkedList<String>> s : getQuestionAnswersList().get(0).entrySet()) {
-			
-			if(s.getKey() == randomNum) {
-				
-				for(String r : s.getValue()) {				
-
-				System.out.println(r);
-				}	
-			}
-		}
-	}
 
 	//Call this method of called form other classes
 	public static void mapReaderController(String s) throws FileNotFoundException {
