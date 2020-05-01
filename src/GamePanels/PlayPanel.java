@@ -17,6 +17,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
+import Classes.Writer3D;
+
 import java.awt.Color;
 import java.awt.Component;
 
@@ -84,7 +86,11 @@ public class PlayPanel {
 				mapName = (String) comboBoxLoadMap.getSelectedItem();
 								
 				PlayingFrame gameFrame = new PlayingFrame(mapName, chosenAvatar); 
-				gameFrame.setTitle(mapName);			
+				gameFrame.setTitle(mapName);
+				
+				//Create 3D map before entering level
+				Writer3D.mapVRML(mapName);
+				//writer method that makes everything work
 
 			}
 		});

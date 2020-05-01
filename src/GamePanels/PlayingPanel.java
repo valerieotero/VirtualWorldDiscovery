@@ -2,6 +2,7 @@ package GamePanels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -374,4 +375,25 @@ public class PlayingPanel extends JPanel {
 
 		}
 	}
+	
+	/* Author: Juan Davila | Date: April 25 2020
+	 * Opens VRML model of map while playing the game */ 
+	public void open3DModel(){
+		if(getInputHandler().isEKeyPressed()) {
+			File file = new File("C:\\Users\\juang\\Documents\\Universidad\\Quinto Año\\Segundo Semestre\\ICOM4009 Software Engineer\\test.wrl");
+			
+			Desktop desktop = Desktop.getDesktop();
+			if(file.exists()) {
+				try {
+					desktop.open(file);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+	}
+	
 }

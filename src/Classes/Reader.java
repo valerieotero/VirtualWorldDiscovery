@@ -54,7 +54,9 @@ public class Reader {
 	private static ArrayList<String> buildingPictures = new ArrayList<String>();
 	private static HashMap<Integer, LinkedList<Walls>> buildings = new HashMap<>();
 	private static HashMap<Integer, String> buildingNames = new HashMap<>();		
-
+	private static ArrayList<String> locations = new ArrayList<String>();
+	private static ArrayList<String> imageSize = new ArrayList<String>();
+	
 	//question variables	
 	private static ArrayList<HashMap<Integer, String>> questionList = new ArrayList<HashMap<Integer, String>>();
 	private static ArrayList<HashMap<Integer,LinkedList<String>>> questionAnswersList = new ArrayList<HashMap<Integer,LinkedList<String>>>();
@@ -64,7 +66,8 @@ public class Reader {
 	private static ArrayList<Integer> trees = new ArrayList<Integer>();
 	private static HashMap<Integer,String> treeType = new HashMap<>();
 	private static HashMap<Integer,LinkedList<treeLocation>> treeLocation = new HashMap<>();
-
+	private static ArrayList<Integer> treeInfo = new ArrayList<Integer>();
+	
 	//GETTERS
 	public static String getBackW() { return backW;	}
 	public static String getBackH() { return backH; }
@@ -77,7 +80,10 @@ public class Reader {
 	public static HashMap<Integer, LinkedList<Integer>> getBuildingQuestions() { return buildingQuestions;	}
 	public static ArrayList<HashMap<Integer, LinkedList<String>>> getQuestionAnswersList() { return questionAnswersList; }
 	public static ArrayList<HashMap<Integer, String>> getQuestionList() { return questionList; }	
-
+	public static ArrayList<String> getLocations() {return locations;}
+	public static ArrayList<Integer> getTreeInfo() {return treeInfo;}
+	public static ArrayList<String> getImageSize() {return imageSize;}
+	
 	//SETTERS
 	public static void setBackW(String backW) { Reader.backW = backW; }
 	public static void setBackH(String backH) {	Reader.backH = backH; }
@@ -91,6 +97,16 @@ public class Reader {
 	public static void setQuestionAnswersList(ArrayList<HashMap<Integer, LinkedList<String>>> questionAnswersList) { Reader.questionAnswersList = questionAnswersList; }
 	public static void setQuestionList(ArrayList<HashMap<Integer, String>> questionList) { Reader.questionList = questionList; }
 
+	
+	/*Testing*/
+	public static void main(String[] args) throws Exception {
+				
+		mapReaderController("Test");
+		questionReaderController("Test");
+		treeReaderController("Test");
+		showMeInfo();
+	}
+	
 	//Call this method of called form other classes
 	public static void mapReaderController(String s) throws FileNotFoundException {
 		mapReader(s);
@@ -133,6 +149,7 @@ public class Reader {
 					while(count != 8) {
 						try {
 							walls.add(Integer.parseInt(arr[i].trim()));
+							locations.add(arr[i].trim());
 						}catch(NumberFormatException ex){
 						}
 						i++;
@@ -143,6 +160,7 @@ public class Reader {
 					i++;
 					for(int a = 0, b = 0; a < walls.size() && b < pictures.size(); a+=6, b++) {
 						lines.add(new Walls(walls.get(a),walls.get(a+1),walls.get(a+2),walls.get(a+3),walls.get(a+4), walls.get(a+5), pictures.get(b)));
+						locations.add(pictures.get(b));
 					}
 					buildings.put(buildingNumnber, lines);
 					buildingNames.put(buildingNumnber, name);
@@ -218,11 +236,13 @@ public class Reader {
 		for(int i = 5; i < arr.length; i++) {
 			LinkedList<treeLocation> treeCoords = new LinkedList<treeLocation>();
 			getTreeType().put(treeID, arr[i].trim());
+			treeInfo.add(treeID);
 			if(i+3 < arr.length) i=i+3;
 			else break;
 			while(count != 5) {
 				try {
 					trees.add(Integer.parseInt(arr[i].trim()));
+					treeInfo.add(Integer.parseInt(arr[i].trim()));
 				}catch(NumberFormatException ex){
 				}
 				i++;
@@ -241,7 +261,7 @@ public class Reader {
 
 	//Create tokens usinga a splitting function for trees
 	private static void treeTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Trees\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\juang\\git\\VirtualWorldDiscovery\\Trees\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -252,7 +272,7 @@ public class Reader {
 
 	//Create tokens using a splitting function for map
 	private static void mapTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Maps\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\juang\\git\\VirtualWorldDiscovery\\Maps\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,| ]");
 			for(int i = 0; i < tokens.length; i++) {
@@ -263,12 +283,43 @@ public class Reader {
 
 	//Create tokens using a splitting function for questions
 	private static void questionTokenizer(String file) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File("C:\\Users\\yamil\\git\\VirtualWorldDiscovery\\Questions\\"+file));
+		Scanner scanner = new Scanner(new File("C:\\Users\\juang\\git\\VirtualWorldDiscovery\\Questions\\"+file));
 		while(scanner.hasNext()){
 			tokens = scanner.nextLine().split("[(|)|,|=]");
 			for(int i = 0; i < tokens.length; i++) {
 				str.add(tokens[i]);
 			}
 		}
+	}
+	
+	public static void showMeInfo() {
+		String [] list = new String[getLocations().size()];
+		Integer[] imglist = new Integer[getTreeInfo().size()];
+		String[] treelist = new String[getTreeLocation().size()];
+		//String[] imageSize = new String[getImageSize().size()];
+		
+		getImageSize().add(getBackW());
+		getImageSize().add(getBackH());
+		
+		for(int i = 0; i < list.length ; i ++) {
+			list[i] = getLocations().get(i);
+				System.out.println(list[i]);
+		}
+//		for(int i = 0; i < imglist.length ; i ++) {
+//			imglist[i] = getTreeInfo().get(i);
+//				System.out.println(imglist[i]);
+//		}
+		
+//		for(int i = 0; i < imageSize.size() ; i ++) {
+//				System.out.println(getImageSize().get(i));
+//		}
+		
+//		for(int i = 0; i < treelist.length ; i ++) {
+//			//imglist[i] = getTreeLocation().get(i).toString();
+//			treelist[i] = getTreeLocation().toString();
+//				System.out.println(treelist[i]);
+//		}
+
+		
 	}
 }
