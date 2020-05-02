@@ -1,0 +1,176 @@
+#VRML V2.0 utf8
+
+NavigationInfo {
+	set_bind
+	avatarSize        [0.25, 1.6, 0.75]
+	headlight         TRUE
+	speed             1.0
+	type              "WALK"
+	visibilityLimit   0.0
+	isBound
+	
+}
+
+Group {
+	children[
+		DEF headcam Viewpoint {
+         position 0 0 681
+         fieldOfView 0.50
+		 orientation 0 1 0 -.5
+         description "HeadCam"
+      }
+	]
+}
+Transform{
+	translation 0 -1 0
+	children [
+					Transform {
+			translation 610 0 340.0
+			children [
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "C:\Users\Val\Desktop\Green.png"
+						}
+					}
+					geometry Box {
+						size 1220 0.1 681
+					}
+				}
+			]
+		}
+		Transform {
+			translation 210.0 1 243.0
+			rotation 0 1 0 1.3643218983692065
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "C:\Users\Val\Desktop\images\textureA1.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 151.21177202850313 3 3
+					}
+				}
+			]
+		}
+		Transform {
+			translation 261.0 1 240.0
+			rotation 0 1 0 -1.0704420487806505
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "C:\Users\Val\Desktop\images\textureA1.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 158.42032697857937 3 3
+					}
+				}
+			]
+		}
+		Transform {
+			translation 679.0 1 189.0
+			rotation 0 1 0 0.15882409554626944
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "C:\Users\Val\Desktop\images\textureA1.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 233.94443784796422 3 4
+					}
+				}
+			]
+		}
+		Transform {
+			translation 575.0 1 321.0
+			rotation 0 1 0 -1.5073223866180898
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "C:\Users\Val\Desktop\images\textureA1.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 236.47621444872632 3 4
+					}
+				}
+			]
+		}
+		Transform {
+			translation 690.0 1 305.0
+			rotation 0 1 0 0.9033511967517622
+			children[
+				Shape {
+					appearance Appearance {
+						texture ImageTexture {
+							url "C:\Users\Val\Desktop\images\textureA1.png"
+						}
+						textureTransform TextureTransform {
+							scale 10 2
+						}
+					}
+					geometry Box {
+						size 342.49817517762045 3 4
+					}
+				}
+			]
+		}
+		Transform{
+			translation 1015 43 158
+			children[
+				Billboard {
+					children[
+						Shape {
+							appearance Appearance {
+								texture ImageTexture{
+									url "TreeImage1.png"
+								}
+							}
+							geometry Box {
+								size 60 87 0.0001
+							}
+						}
+					]
+				}
+			]
+		}
+		Transform{
+			translation 1044 43 520
+			children[
+				Billboard {
+					children[
+						Shape {
+							appearance Appearance {
+								texture ImageTexture{
+									url "TreeImage2.png"
+								}
+							}
+							geometry Box {
+								size 60 87 0.0001
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

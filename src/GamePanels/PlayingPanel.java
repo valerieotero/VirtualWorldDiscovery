@@ -51,10 +51,9 @@ public class PlayingPanel extends JPanel {
 	public LinkedList<Walls> wallsDrawn = new LinkedList<>();;
 	int buildingAmount;
 	public static int buildingKey;
-	
-
 	HashMap<Integer, ArrayList<Integer>> buildingPictures = new HashMap<>();
-
+	
+	ArrayList<Integer> discoveredBuildings = new ArrayList<Integer>();
 
 	// Getters
 	public GraphicsManager getGraphicsManager() { return graphicsManager; }	
@@ -71,9 +70,7 @@ public class PlayingPanel extends JPanel {
 	public static void setBuildingKey(int buildingKey) { PlayingPanel.buildingKey = buildingKey;	}
 
 
-
-	/*Author: Valerie Otero | Date: April 11 2020
-	 */
+	
 	//Constructor
 	public PlayingPanel(PlayingPanelInputHandler inputHandler, GraphicsManager graphicsMan, int chosenAvatar) {		
 		this.setPreferredSize(new Dimension(1220, 681));			
@@ -122,13 +119,16 @@ public class PlayingPanel extends JPanel {
 		g.drawImage(backBuffer, 0, 0, this);
 	}
 
-
+	/* Author: Valerie Otero | Date: April 18 2020
+	 * Method draws the background image in the panel. */
 	public void drawBackground(){	
 		super.paintComponent(getGraphics2D());	    	
 		getGraphics2D().drawImage(background, 0, (681-background.getHeight()), this);				
 	}
+	
 
-
+	/* Author: Valerie Otero | Date: April 20 2020
+	 * Method that sets the label with the building amounts that are in each map */
 	public void buildingAmountLabel() {
 		//LABEL - BUILDING COUNT
 		buildingAmount = Reader.getAmount();
@@ -187,14 +187,6 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	public boolean avatarStatic(){
-		if(avatar.getSpeed() == 0) {
-			return true;
-		}
-		return false;
-	}
-
-
 	/* Author: Valerie Otero | Date: April 11 2020
 	 * Moves the avatar in the up direction of the screen */ 
 	public void moveAvatarUp(){
@@ -234,7 +226,9 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Method reads from the tree file and gets their coordinates. 
+	 * Has helper method that determines which type, from the 3 trees, to draw in the panel. */
 	public void drawTrees() {				
 
 		for(HashMap.Entry<Integer,LinkedList<treeLocation>> treeLocation : Reader.getTreeLocation().entrySet()) {
@@ -245,7 +239,8 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Helper method that determines which type of tree to draw on the specific coordinates. */
 	public void getTrees(int x, int y, int key) {
 
 		String imageType = getKeyValuesForTrees(key);
@@ -267,7 +262,8 @@ public class PlayingPanel extends JPanel {
 	}
 
 
-	//get key values
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Helper method that gets the value(the type of tree), according to the key */	
 	public String getKeyValuesForTrees (int key) {
 
 		for(HashMap.Entry<Integer,String> treeType : Reader.getTreeType().entrySet()) {
@@ -294,8 +290,7 @@ public class PlayingPanel extends JPanel {
 					getGraphics2D().drawString("Press E to take test, if not, continue search ", wall.getX1(), wall.getY1());				
 					getGraphics2D().setColor(Color.BLACK);	
 
-					setBuildingKey(buildings.getKey());
-				
+					setBuildingKey(buildings.getKey());				
 
 					addWallsToList();										
 					drawTestFrame();					
@@ -306,7 +301,9 @@ public class PlayingPanel extends JPanel {
 		}
 
 	}
-
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Adds walls that have been collided to a list that draws everything in it. */
 	public void addWallsToList() {		
 
 		for (Walls w : getKeyValuesForBuilding(getBuildingKey())) {
@@ -331,7 +328,9 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
-	//get key value
+	
+	/* Author: Valerie Otero | Date: April 21 2020
+	 * Helper method that gets the value(the walls), according to the key of the collided building*/
 	public LinkedList<Walls> getKeyValuesForBuilding (int key) {
 
 		for(HashMap.Entry<Integer,LinkedList<Walls>> buildings : Reader.getBuildings().entrySet()) {		
@@ -343,7 +342,9 @@ public class PlayingPanel extends JPanel {
 		return null;
 	}
 
-
+	
+	/* Author: Valerie Otero | Date: April 23 2020
+	 * Method initializes the frame where the question and answers appear if the user chooses this option*/
 	public void drawTestFrame() {	
 
 		if(getInputHandler().isEKeyPressed()) {
@@ -355,13 +356,15 @@ public class PlayingPanel extends JPanel {
 		}    
 	}
 
+	
+	/* Author: Valerie Otero | Date: April 30 2020
+	 * Methods constantly checks for at least 3 correct answers from each building in the panel. */
 	public void checkForCorrectAnswers() {			
 
 
 		for (HashMap.Entry<Integer, Integer> i : TakeTestPanel.buildingCorrectAnswers.entrySet()) {
 
 			if(i.getKey() == getBuildingKey() ) {//check for the collided building only
-
 
 				if (i.getValue() >=3) {
 
@@ -418,6 +421,8 @@ public class PlayingPanel extends JPanel {
 		}
 	}
 
+	/* Author Valerie Otero | Date: April 30 2020
+	 * Helper method that helps initialize the array lists. */	 
 	public void createArrayLists() {
 
 		for(int i=1; i<=buildingAmount; i++) {

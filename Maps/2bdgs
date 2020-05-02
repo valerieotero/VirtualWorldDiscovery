@@ -1,0 +1,17 @@
+Map name = C:\Users\Val\git\VirtualWorldDiscovery\maps\2bdgs
+Amount = 2
+C:\Users\Val\Desktop\Green.png 1220 681
+Building 0 = first
+C:\Users\Val\Desktop\images\BuildingA.png
+
+Wall 0 = (195,317)(226,169)(3,3)C:\Users\Val\Desktop\images\textureA1.png
+Wall 1 = (223,171)(299,310)(3,3)C:\Users\Val\Desktop\images\textureA1.png
+
+Building 0 = second
+C:\Users\Val\Desktop\images\BuildingB.png
+
+Wall 0 = (564,208)(795,171)(4,3)C:\Users\Val\Desktop\images\TextureB1.png
+Wall 1 = (568,203)(583,439)(4,3)C:\Users\Val\Desktop\images\TextureB1.png
+Wall 2 = (584,440)(796,171)(4,3)C:\Users\Val\Desktop\images\TextureB1.png
+
+Wall 0 = (1015,158)(1015,158)(4,3)C:\Users\Val\Desktop\images\TextureB1.png
